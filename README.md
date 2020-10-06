@@ -16,3 +16,7 @@ Could you please help me understand why is the program taking so long? Is there 
 Sets by how much to scale down images. 
 When you pass `true` as a program argument, then `scale = true (1f)`.
 When you pass `false` as a program argument, then `scale = false (3f)`.
+
+## Global performance-influence model (in seconds)
+
+`T = 18.21 + 118.13 x SCALE`
