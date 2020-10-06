@@ -1,25 +1,34 @@
 # Density Converter
-Program to convert images to specific formats and density versions.
+Program to convert images to specific formats and sizes.
 
 **Input:** Image file.
 
-**Output:** Converted image file to specific format and density.
+**Output:** Converted image file to specific format and size.
 
-## Bug report
+## Performance Bug Report
 
-I am using your program to convert an image (found in `./pictures`), but the program is taking too long to execute (about 49 seconds).
-This is the configuration that I used: `scale = true`.
-Could you please help me understand why is the program taking so long? Is there anything that I can do on my end to speed up the program?
+I am using your program to convert an image (found in `./pictures`), but the program is taking too long to execute (about 156 seconds).
+This is the configuration that I used: 
 
-## Scale option
+* `scale = true`
 
-Sets by how much to scale down images. 
-When you pass `true` as a program argument, then `scale = true (1f)`.
-When you pass `false` as a program argument, then `scale = false (3f)`.
+### Scale option
+
+Whether to scale the output image to a larger size.
+
+## Task
+Determine why the program is taking too long based on the configuration indicated in the bug report.  
+
+## Assumptions
+
+* The input image is valid.
+* You have successfully reproduced the bug report and confirmed the performance behavior.
+* The program runs in fixed hardware. 
+That is, the developer replying to the bug report cannot suggest the user to run the program on faster hardware.
 
 ## Global performance-influence model (in seconds)
 
-`T = 18.21 + 118.13 x SCALE`
+`T = 22.73 + 134.09 x SCALE`
 
 ## Local performance-influence models (in seconds)
 
