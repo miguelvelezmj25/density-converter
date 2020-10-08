@@ -57,28 +57,28 @@ public final class Convert {
     }
 
     public static void main(String[] rawArgs) {
-        SCALE = scale(Boolean.parseBoolean(rawArgs[0]));
-        SCALE_IS_HEIGHT_DP = false; //Boolean.parseBoolean(rawArgs[1]);
-        COMPRESSION_QUALITY = compressionQuality(false); //compressionQuality(Boolean.parseBoolean(rawArgs[2]));
-        OUT_COMPRESSION = outCompression(false); //outCompression(Boolean.parseBoolean(rawArgs[3]));
-        PLATFORM = platform(false); //platform(Boolean.parseBoolean(rawArgs[4]));
-        UPSCALING_ALGO = upScalingAlgo(false); //upScalingAlgo(Boolean.parseBoolean(rawArgs[5]));
-        DOWNSCALING_ALGO = downScalingAlgo(false); //downScalingAlgo(Boolean.parseBoolean(rawArgs[6]));
-        ROUNDING_MODE = roundingMode(false); //roundingMode(Boolean.parseBoolean(rawArgs[7]));
-        SKIP_UPSCALING = false; //Boolean.parseBoolean(rawArgs[8]);
-        SKIP_EXISTING = false; //Boolean.parseBoolean(rawArgs[9]);
-        ANDROID_INCLUDE_LDPI_TVDPI = false;  //Boolean.parseBoolean(rawArgs[10]);
-        VERBOSE = false;  //Boolean.parseBoolean(rawArgs[11]);
-        ANDROID_MIPMAP_INSTEAD_OF_DRAWABLE = false;  //Boolean.parseBoolean(rawArgs[12]);
-        ANTI_ALIASING = false;  //Boolean.parseBoolean(rawArgs[13]);
-        POST_PROCESSOR_PNG_CRUSH = false;  //Boolean.parseBoolean(rawArgs[14]);
-        POST_PROCESSOR_WEBP = false;  //Boolean.parseBoolean(rawArgs[15]);
-        DRY_RUN = false;  //Boolean.parseBoolean(rawArgs[16]);
-        POST_PROCESSOR_MOZ_JPEG = false;  //Boolean.parseBoolean(rawArgs[17]);
-        KEEP_ORIGINAL_POST_PROCESSED_FILES = false;  //Boolean.parseBoolean(rawArgs[18]);
-        IOS_CREATE_IMAGESET_FOLDERS = false;  //Boolean.parseBoolean(rawArgs[19]);
-        CLEAN = false;  //Boolean.parseBoolean(rawArgs[20]);
-        HALT_ON_ERROR = false;  //Boolean.parseBoolean(rawArgs[21]);
+        SCALE = scale(true);
+        SCALE_IS_HEIGHT_DP = false;
+        COMPRESSION_QUALITY = compressionQuality(false);
+        OUT_COMPRESSION = outCompression(false);
+        PLATFORM = platform(false);
+        UPSCALING_ALGO = upScalingAlgo(false);
+        DOWNSCALING_ALGO = downScalingAlgo(false);
+        ROUNDING_MODE = roundingMode(false);
+        SKIP_UPSCALING = false;
+        SKIP_EXISTING = false;
+        ANDROID_INCLUDE_LDPI_TVDPI = false;
+        VERBOSE = true;
+        ANDROID_MIPMAP_INSTEAD_OF_DRAWABLE = false;
+        ANTI_ALIASING = false;
+        POST_PROCESSOR_PNG_CRUSH = false;
+        POST_PROCESSOR_WEBP = false;
+        DRY_RUN = false;
+        POST_PROCESSOR_MOZ_JPEG = false;
+        KEEP_ORIGINAL_POST_PROCESSED_FILES = false;
+        IOS_CREATE_IMAGESET_FOLDERS = false;
+        CLEAN = true;
+        HALT_ON_ERROR = false;
 
         File src = new File("./pictures/person.jpg");
         File dst = new File("./output");
