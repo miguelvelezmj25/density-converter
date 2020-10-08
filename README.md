@@ -25,11 +25,15 @@ Could you please take a look at why it is taking so long to convert images?
 ### SCALE option
 Whether to scale the output image to a larger size.
 
+## Global performance-influence model (in seconds)
+`T = 22.73 + 134.09 x SCALE`
+
 ## Task
 **Debug the bug report**. Determine why the program is taking too long to execute based on the configuration indicated in the bug report.
 
-## Global performance-influence model (in seconds)
-`T = 22.73 + 134.09 x SCALE`
+*The program is taking too long to execute because of the option* `SCALE`. 
+When `SCALE = true`, as indicated in the bug report, the program takes 156.82 seconds to execute.
+When `SCALE = false`, the program takes 22.73 seconds to execute.
 
 ## Assumptions
 
