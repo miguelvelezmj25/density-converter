@@ -28,12 +28,15 @@ Whether to scale the output image to a larger size.
 ## Global performance-influence model (in seconds)
 `T = 22.73 + 134.09 x SCALE`
 
-## Task
+## Task 1
 **Debug the bug report**. Determine why the program is taking too long to execute based on the configuration indicated in the bug report.
 
 *The program is taking too long to execute because of the option* `SCALE`. 
 When `SCALE = true`, as indicated in the bug report, the program takes 156.82 seconds to execute.
 When `SCALE = false`, the program takes 22.73 seconds to execute.
+
+## Task 2
+**Continue debugging the bug report**. Determine why the program is taking too long to execute based on the option `SCALE`.
 
 ## Assumptions
 
