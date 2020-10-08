@@ -39,6 +39,10 @@ This is the configuration that I used:
 * `CLEAN = true`  
 * `HALT_ON_ERROR = false`  
 
+I tried converting the same image multiple times with the same configuration, and the program always took too long to execute.
+I even tried converting other images with the same configuration, executing the program multiple times, and the program still took a really long time.
+Could you please take a look at why it is taking so long to convert images?
+
 ### SCALE option
 Whether to scale the output image to a larger size.
 
@@ -130,5 +134,6 @@ Whether to stop the process if an error occurred during conversion.
 
 * The input image is valid.
 * You have successfully reproduced the bug report and confirmed the performance behavior.
+Executing the program multiple times with different images, but with the same configuration, takes a long time.
 * The program runs in fixed hardware. 
 That is, the developer replying to the bug report cannot suggest the user to run the program on faster hardware.
