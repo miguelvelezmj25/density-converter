@@ -54,6 +54,9 @@ When `SCALE = false`, the program takes 22.73 seconds to execute.
 
 *Setting* `SCALE = true` *significantly increases the performance of four methods in the program*.
 
+## Task 3
+**Continue debugging the bug report**. Determine why the four methods are taking too long to execute based on the option `SCALE`.
+
 ## Assumptions
 
 * The input image is valid.
