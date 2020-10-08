@@ -28,6 +28,20 @@ Whether to scale the output image to a larger size.
 ## Global performance-influence model (in seconds)
 `T = 22.73 + 134.09 x SCALE`
 
+## Local performance-influence models (in seconds)
+    
+* com.mortennobel.imagescaling.ResampleOp.verticalFromWorkToDst([[B[BII)
+    * `T = 9.46 + 95.3 x SCALE`
+    
+* at.favre.tools.dconvert.converters.scaling.ImageHandler.compressJpeg(Ljava/awt/image/BufferedImage;Lcom/twelvemonkeys/imageio/metadata/CompoundDirectory;FLjava/io/File;)V
+    * `T = 3.36 + 22.07 x SCALE`
+    
+* com.mortennobel.imagescaling.ResampleOp.horizontallyFromSrcToWork(Ljava/awt/image/BufferedImage;[[BII)V
+    * `T = 7.38 + 11.04 x SCALE`
+    
+* at.favre.tools.dconvert.converters.scaling.ImageHandler.scale(Lat/favre/tools/dconvert/converters/scaling/ScaleAlgorithm;Ljava/awt/image/BufferedImage;IILat/favre/tools/dconvert/arg/ImageType$ECompression;Ljava/awt/Color;)Ljava/awt/image/BufferedImage;
+    * `T = 0.31 + 4.08 x SCALE`
+
 ## Task 1
 **Debug the bug report**. Determine why the program is taking too long to execute based on the configuration indicated in the bug report.
 
@@ -38,37 +52,7 @@ When `SCALE = false`, the program takes 22.73 seconds to execute.
 ## Task 2
 **Continue debugging the bug report**. Determine why the program is taking too long to execute based on the option `SCALE`.
 
-## Local performance-influence models (in seconds)
-
-* com.mortennobel.imagescaling.ImageUtils.setBGRPixels([BLjava/awt/image/BufferedImage;IIII)V
-    * `T = 0.18 x SCALE`
-
-* com.mortennobel.imagescaling.AdvancedResizeOp.fireProgressChanged(F)V
-    * `T = 0.83 + 1.77 x SCALE`
-
-* at.favre.tools.dconvert.util.ImageUtil.read(Ljavax/imageio/stream/ImageInputStream;Lat/favre/tools/dconvert/arg/ImageType;)Lat/favre/tools/dconvert/util/LoadedImage;
-    * `T = 0.43`
-    
-* com.mortennobel.imagescaling.ResampleOp.verticalFromWorkToDst([[B[BII)
-    * `T = 9.46 + 95.3 x SCALE`
-    
-* at.favre.tools.dconvert.DConvert.execute(Lat/favre/tools/dconvert/arg/Arguments;ZLat/favre/tools/dconvert/DConvert$HandlerCallback;)V
-    * `T = 0.11`
-    
-* at.favre.tools.dconvert.converters.scaling.ImageHandler.compressJpeg(Ljava/awt/image/BufferedImage;Lcom/twelvemonkeys/imageio/metadata/CompoundDirectory;FLjava/io/File;)V
-    * `T = 3.36 + 22.07 x SCALE`
-    
-* at.favre.tools.dconvert.converters.scaling.ImageHandler.scale(Lat/favre/tools/dconvert/converters/scaling/ScaleAlgorithm;Ljava/awt/image/BufferedImage;IILat/favre/tools/dconvert/arg/ImageType$ECompression;Ljava/awt/Color;)Ljava/awt/image/BufferedImage;
-    * `T = 0.31 + 4.08 x SCALE`
-    
-* com.mortennobel.imagescaling.ResampleOp.horizontallyFromSrcToWork(Ljava/awt/image/BufferedImage;[[BII)V
-    * `T = 7.38 + 11.04 x SCALE`
-    
-* com.mortennobel.imagescaling.ImageUtils.getPixelsBGR(Ljava/awt/image/BufferedImage;II[B[I)[B
-    * `T = 0.85 - 0.55 x SCALE`
-    
-* com.mortennobel.imagescaling.ResampleOp.doFilter(Ljava/awt/image/BufferedImage;Ljava/awt/image/BufferedImage;II)Ljava/awt/image/BufferedImage;
-    * `T = 0.20 x SCALE`
+*Setting* `SCALE = true` *significantly increases the performance of four methods in the program*.
 
 ## Assumptions
 
