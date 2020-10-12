@@ -13,8 +13,8 @@ Program to convert images to specific formats, dimensions, and sizes.
     * You can change the configuration options in the main method.
 
 ## Performance bug report
-I am using your program to convert an image (found in `./pictures`), but the program is taking too long to execute (about 156 seconds).
-This is the configuration that I used: 
+I am using your program to convert an image (found in ./pictures), but it is taking quite some time to execute (about 156 seconds). 
+This is the configuration that I used:
 
 * `SCALE = true`
 * `SCALE_IS_HEIGHT_DP = false` 
@@ -39,96 +39,96 @@ This is the configuration that I used:
 * `CLEAN = true`  
 * `HALT_ON_ERROR = false`  
 
-I tried converting the same image multiple times with the same configuration, and the program always took too long to execute.
-I even tried converting other images with the same configuration, executing the program multiple times, and the program still took a really long time.
-Could you please take a look at why it is taking so long to convert images?
+I tried converting the same image multiple times with the same configuration, and I observed the same execution time. 
+I even tried converting other images with the same configuration, executing the program multiple times, and the program still took quite some time. 
+Could you please take a look at why the program is taking so long to convert images?
 
-### SCALE option
+### SCALE
 Whether to scale the output image to a larger size.
 
-### SCALE_IS_HEIGHT_DP option
+### SCALE_IS_HEIGHT_DP
 Whether to interpret the scale as fixed height and not as width, if the scale is in dp.
  
-### COMPRESSION_QUALITY option
+### COMPRESSION_QUALITY
 Only used with compression "jpg". Sets the quality [0-1.0] of the output image, where 1.0 is the highest quality. 
 Default is 0.9.
  
-### OUT_COMPRESSION option
+### OUT_COMPRESSION
 Sets the compression of the converted image. 
 Can be "png", "jpg", "gif", "bmp", "png+jpg", or "strict".
 The latter tries to use same compression as source. 
 By default, it will convert to png except if the source compression is jpeg.
  
-### PLATFORM option
+### PLATFORM
 Can be "all", "android", "ios", "win" or "web". 
 Sets the formats of the converted images.
 E.g., set "android" if you only want to convert to android format. 
 Default is [IOS, ANDROID].
  
-### UPSCALING_ALGO option
+### UPSCALING_ALGO
 Algorithm to scale up the image.
  
-### DOWNSCALING_ALGO option
+### DOWNSCALING_ALGO
 Algorithm to scale down the image.
  
-### ROUNDING_MODE option
+### ROUNDING_MODE
 Defines the rounding mode when scaling the dimensions. 
-Possible options are "round" (rounds up of >= 0.5), "floor" (rounds down), and "ceil" (rounds up). 
+Possibles are "round" (rounds up of >= 0.5), "floor" (rounds down), and "ceil" (rounds up). 
 Default is "round".
  
-### SKIP_UPSCALING option
+### SKIP_UPSCALING
 Whether to only scale down, but not up to prevent image quality loss.
  
-### SKIP_EXISTING option
+### SKIP_EXISTING
 Whether to overwrite an already existing file.
  
-### ANDROID_INCLUDE_LDPI_TVDPI option
+### ANDROID_INCLUDE_LDPI_TVDPI
 Android only.
 Whether to create mipmap sub-folders instead of drawable.
   
-### VERBOSE option
+### VERBOSE
 Whether to log more verbosely to the console.
   
-### ANDROID_MIPMAP_INSTEAD_OF_DRAWABLE option
+### ANDROID_MIPMAP_INSTEAD_OF_DRAWABLE
 Android only.
 Whether to include additional densities (ldpi and tvdpi).
   
-### ANTI_ALIASING option
+### ANTI_ALIASING
 Whether to create anti-aliases images with a little more blurred result.
 A light 3x3 convolve matrix is used.
 Useful for very small images.
   
-### POST_PROCESSOR_PNG_CRUSH option
+### POST_PROCESSOR_PNG_CRUSH
 Whether to post-process all pngs with pngcrush, a lossless compressor. 
   
-### POST_PROCESSOR_WEBP option
+### POST_PROCESSOR_WEBP
 Whether to additionally convert all png/gif to lossless wepb and all jpg to lossy webp with cwebp. 
 Does not delete source files.
   
-### DRY_RUN option
+### DRY_RUN
 Whether to not create any images or folders. 
 Useful as a fast preview in a log of what images and in what resolutions would be created.
   
-### POST_PROCESSOR_MOZ_JPEG option
+### POST_PROCESSOR_MOZ_JPEG
 Whether to post-process all jpegs with mozJpegs lossless compressor.
   
-### KEEP_ORIGINAL_POST_PROCESSED_FILES option
+### KEEP_ORIGINAL_POST_PROCESSED_FILES
 If a post-processor is run on an image, determine whether the original will be kept (renamed _orig).
 Otherwise only the optimized image will be kept.
   
-### IOS_CREATE_IMAGESET_FOLDERS option
+### IOS_CREATE_IMAGESET_FOLDERS
 iOS only.
 Whether to create .imageset folders and Content.json for every source image.
 Default is to put all images in the root folder.
   
-### CLEAN option
+### CLEAN
 Whether to delete all file and folders in the output directory that would be used in the current configuration before converting.
   
-### HALT_ON_ERROR option
+### HALT_ON_ERROR
 Whether to stop the process if an error occurred during conversion.
 
 ## Task
-**Debug the bug report**. Determine why the program is taking too long to execute based on the configuration indicated in the bug report.
+**Address the bug report**. Specifically, **how would you answer the question** in the bug report **"why is the system taking so long to execute?"**?.
 
 ## Assumptions
 
