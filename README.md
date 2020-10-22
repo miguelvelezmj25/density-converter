@@ -43,6 +43,19 @@ I tried converting the same image multiple times with the same configuration, an
 I even tried converting other images with the same configuration, executing the program multiple times, and the program still took quite some time. 
 Could you please take a look at why the program is taking so long to convert images?
 
+## Task
+**How do approach this task?** Specifically, **how would you answer the question** in the bug report **"why is the system taking so long to execute?"**?.
+
+## Assumptions
+
+* The input image is valid.
+* You have successfully reproduced the bug report and confirmed the performance behavior.
+That is, executing the program multiple times with different images, but with the same configuration, takes a long time.
+* The program runs in fixed hardware. 
+That is, you cannot suggest running the program on faster hardware.
+
+## Docs
+
 ### SCALE
 Whether to scale the output image to a larger size.
 
@@ -126,14 +139,3 @@ Whether to delete all file and folders in the output directory that would be use
   
 ### HALT_ON_ERROR
 Whether to stop the process if an error occurred during conversion.
-
-## Task
-**Address the bug report**. Specifically, **how would you answer the question** in the bug report **"why is the system taking so long to execute?"**?.
-
-## Assumptions
-
-* The input image is valid.
-* You have successfully reproduced the bug report and confirmed the performance behavior.
-Executing the program multiple times with different images, but with the same configuration, takes a long time.
-* The program runs in fixed hardware. 
-That is, the developer replying to the bug report cannot suggest the user to run the program on faster hardware.
