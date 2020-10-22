@@ -38,6 +38,11 @@ public class AndroidConverter extends APlatformConverter<AndroidDensityDescripto
         return getAndroidDensityDescriptors(arguments);
     }
 
+    @Override
+    public AndroidDensityDescriptor specialOutputDensities() {
+        return new AndroidDensityDescriptor(4, "xxxxhdpi", "drawable-xxxxhdpi");
+    }
+
     public static List<AndroidDensityDescriptor> getAndroidDensityDescriptors(Arguments arguments) {
         List<AndroidDensityDescriptor> list = new ArrayList<>();
         String dirPrefix = arguments.createMipMapInsteadOfDrawableDir ? "mipmap" : "drawable";

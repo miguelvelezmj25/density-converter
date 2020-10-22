@@ -38,6 +38,11 @@ public class WebConverter extends APlatformConverter<PostfixDescriptor> {
         return getWebDescriptors();
     }
 
+    @Override
+    public PostfixDescriptor specialOutputDensities() {
+        return new PostfixDescriptor(1, "1x", "-1x");
+    }
+
     public static List<PostfixDescriptor> getWebDescriptors() {
         List<PostfixDescriptor> list = new ArrayList<>();
         list.add(new PostfixDescriptor(1, "1x", "-1x"));

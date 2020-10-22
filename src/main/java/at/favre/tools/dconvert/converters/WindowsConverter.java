@@ -38,6 +38,11 @@ public class WindowsConverter extends APlatformConverter<PostfixDescriptor> {
         return getWindowsDescriptors();
     }
 
+    @Override
+    public PostfixDescriptor specialOutputDensities() {
+        return new PostfixDescriptor(1, "100%", ".scale-100");
+    }
+
     public static List<PostfixDescriptor> getWindowsDescriptors() {
         List<PostfixDescriptor> list = new ArrayList<>();
         list.add(new PostfixDescriptor(1, "100%", ".scale-100"));

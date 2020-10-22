@@ -40,6 +40,11 @@ public class IOSConverter extends APlatformConverter<PostfixDescriptor> {
         return getIosDescriptors();
     }
 
+    @Override
+    public PostfixDescriptor specialOutputDensities() {
+        return new PostfixDescriptor(1, "1x", "");
+    }
+
     public static List<PostfixDescriptor> getIosDescriptors() {
         List<PostfixDescriptor> list = new ArrayList<>();
         list.add(new PostfixDescriptor(1, "1x", ""));
