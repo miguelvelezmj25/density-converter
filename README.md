@@ -16,7 +16,7 @@ Program to convert images to specific formats, dimensions, and sizes.
 I am using your program to convert an image (found in ./pictures), but it is taking quite some time to execute (about 156 seconds). 
 This is the configuration that I used:
 
-* `SCALE = true`
+* `KEEP_SCALE = true`
 * `SCALE_IS_HEIGHT_DP = false` 
 * `COMPRESSION_QUALITY = 0.9` 
 * `OUT_COMPRESSION = "jpg"` 
@@ -33,8 +33,8 @@ This is the configuration that I used:
 * `POST_PROCESSOR_PNG_CRUSH = false`  
 * `POST_PROCESSOR_WEBP = false`  
 * `DRY_RUN = false`  
-* `POST_PROCESSOR_MOZ_JPEG = false`  
-* `KEEP_ORIGINAL_POST_PROCESSED_FILES = false`  
+* `POST_PROCESSOR_MOZ_JPEG = true`  
+* `KEEP_ORIGINAL_POST_PROCESSED_FILES = true`  
 * `IOS_CREATE_IMAGESET_FOLDERS = false`  
 * `CLEAN = true`  
 * `HALT_ON_ERROR = false`  
@@ -56,8 +56,8 @@ That is, you cannot suggest running the program on faster hardware.
 
 ## Docs
 
-### SCALE
-Whether to scale the output image to a larger size.
+### KEEP_SCALE
+Whether to keep the original scale or reduce in the output image.
 
 ### SCALE_IS_HEIGHT_DP
 Whether to interpret the scale as fixed height and not as width, if the scale is in dp.
