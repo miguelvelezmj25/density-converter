@@ -30,7 +30,7 @@ import java.util.Set;
  */
 public final class Convert {
 
-    private static float SCALE;
+    private static float KEEP_SCALE;
     private static boolean SCALE_IS_HEIGHT_DP;
     private static float COMPRESSION_QUALITY;
     private static String OUT_COMPRESSION;
@@ -57,7 +57,7 @@ public final class Convert {
     }
 
     public static void main(String[] rawArgs) {
-        SCALE = scale(true);
+        KEEP_SCALE = keep_scale(true);
         SCALE_IS_HEIGHT_DP = false;
         COMPRESSION_QUALITY = compressionQuality(false);
         OUT_COMPRESSION = outCompression(false);
@@ -74,15 +74,15 @@ public final class Convert {
         POST_PROCESSOR_PNG_CRUSH = false;
         POST_PROCESSOR_WEBP = false;
         DRY_RUN = false;
-        POST_PROCESSOR_MOZ_JPEG = false;
-        KEEP_ORIGINAL_POST_PROCESSED_FILES = false;
+        POST_PROCESSOR_MOZ_JPEG = true;
+        KEEP_ORIGINAL_POST_PROCESSED_FILES = true;
         IOS_CREATE_IMAGESET_FOLDERS = false;
         CLEAN = true;
         HALT_ON_ERROR = false;
 
         File src = new File("./pictures/person.jpg");
         File dst = new File("./output");
-        float scale = SCALE;
+        float scale = KEEP_SCALE;
         Set<EPlatform> platform = getPlatform(PLATFORM);
         EOutputCompressionMode outputCompressionMode = getOutCompression(OUT_COMPRESSION);
         EScaleMode scaleMode = scaleMode(false, SCALE_IS_HEIGHT_DP);
@@ -304,7 +304,7 @@ public final class Convert {
         return Arguments.DEFAULT_COMPRESSION_QUALITY;
     }
 
-    private static float scale(boolean option) {
+    private static float keep_scale(boolean option) {
         if (option) {
             return 1f;
         }
