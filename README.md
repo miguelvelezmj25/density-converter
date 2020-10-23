@@ -3,7 +3,7 @@ Program to convert images to specific formats and sizes.
 
 **Input:** Image file.
 
-**Output:** Converted image file to specific format and size.
+**Output:** Converted image files in specific formats and sizes.
 
 ## Run
 
