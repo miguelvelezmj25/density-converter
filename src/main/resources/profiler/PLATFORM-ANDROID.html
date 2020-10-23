@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link href="tabulator/dist/css/tabulator_site.min.css" rel="stylesheet">
+    </head>
+    <body>
+        <div id="example-table"></div>
+        <script type="text/javascript" src="tabulator/dist/js/tabulator.min.js"></script>
+        <script type="text/javascript">
+
+        var tableDataNested = [
+            {hotspot:"com.mortennobel.imagescaling.ResampleOp.verticalFromWorkToDst([[B[BII)V",selfTimeVisual:"7.063156",selfTime:"7.06", _children:[
+                {hotspot:"6.11 secs. - com.mortennobel.imagescaling.ResampleOp$2.run()V"
+                },
+                {hotspot:"0.95 secs. - com.mortennobel.imagescaling.ResampleOp.doFilter(Ljava/awt/image/BufferedImage;Ljava/awt/image/BufferedImage;II)Ljava/awt/image/BufferedImage;", _children:[
+                    {hotspot:"0.95 secs. - com.mortennobel.imagescaling.AdvancedResizeOp.filter(Ljava/awt/image/BufferedImage;Ljava/awt/image/BufferedImage;)Ljava/awt/image/BufferedImage;", _children:[
+                        {hotspot:"0.95 secs. - at.favre.tools.dconvert.converters.scaling.ResampleAlgorithm.scale(Ljava/awt/image/BufferedImage;II)Ljava/awt/image/BufferedImage;", _children:[
+                            {hotspot:"0.95 secs. - at.favre.tools.dconvert.converters.scaling.ImageHandler.scale(Lat/favre/tools/dconvert/converters/scaling/ScaleAlgorithm;Ljava/awt/image/BufferedImage;IILat/favre/tools/dconvert/arg/ImageType$ECompression;Ljava/awt/Color;)Ljava/awt/image/BufferedImage;", _children:[
+                                {hotspot:"0.95 secs. - at.favre.tools.dconvert.converters.scaling.ImageHandler.saveToFile(Ljava/io/File;Lat/favre/tools/dconvert/util/LoadedImage;Ljava/awt/Dimension;Z)Ljava/util/List;", _children:[
+                                    {hotspot:"0.95 secs. - at.favre.tools.dconvert.converters.APlatformConverter.convert(Lat/favre/tools/dconvert/arg/Arguments;Lat/favre/tools/dconvert/util/LoadedImage;ZLjava/lang/StringBuilder;Ljava/util/List;Ljava/awt/Dimension;Ljava/io/File;)V", _children:[
+                                        {hotspot:"0.95 secs. - at.favre.tools.dconvert.converters.APlatformConverter.convert(Ljava/io/File;Lat/favre/tools/dconvert/arg/Arguments;)Lat/favre/tools/dconvert/converters/Result;", _children:[
+                                            {hotspot:"0.95 secs. - at.favre.tools.dconvert.WorkerHandler$Worker.run()V"
+                                            },
+
+                                        ]},
+
+                                    ]},
+
+                                ]},
+
+                            ]},
+
+                        ]},
+
+                    ]},
+
+                ]},
+
+            ]},
+            {hotspot:"com.mortennobel.imagescaling.ResampleOp.horizontallyFromSrcToWork(Ljava/awt/image/BufferedImage;[[BII)V",selfTimeVisual:"5.576209",selfTime:"5.58", _children:[
+                {hotspot:"4.94 secs. - com.mortennobel.imagescaling.ResampleOp$1.run()V"
+                },
+                {hotspot:"0.64 secs. - com.mortennobel.imagescaling.ResampleOp.doFilter(Ljava/awt/image/BufferedImage;Ljava/awt/image/BufferedImage;II)Ljava/awt/image/BufferedImage;", _children:[
+                    {hotspot:"0.64 secs. - com.mortennobel.imagescaling.AdvancedResizeOp.filter(Ljava/awt/image/BufferedImage;Ljava/awt/image/BufferedImage;)Ljava/awt/image/BufferedImage;", _children:[
+                        {hotspot:"0.64 secs. - at.favre.tools.dconvert.converters.scaling.ResampleAlgorithm.scale(Ljava/awt/image/BufferedImage;II)Ljava/awt/image/BufferedImage;", _children:[
+                            {hotspot:"0.64 secs. - at.favre.tools.dconvert.converters.scaling.ImageHandler.scale(Lat/favre/tools/dconvert/converters/scaling/ScaleAlgorithm;Ljava/awt/image/BufferedImage;IILat/favre/tools/dconvert/arg/ImageType$ECompression;Ljava/awt/Color;)Ljava/awt/image/BufferedImage;", _children:[
+                                {hotspot:"0.64 secs. - at.favre.tools.dconvert.converters.scaling.ImageHandler.saveToFile(Ljava/io/File;Lat/favre/tools/dconvert/util/LoadedImage;Ljava/awt/Dimension;Z)Ljava/util/List;", _children:[
+                                    {hotspot:"0.64 secs. - at.favre.tools.dconvert.converters.APlatformConverter.convert(Lat/favre/tools/dconvert/arg/Arguments;Lat/favre/tools/dconvert/util/LoadedImage;ZLjava/lang/StringBuilder;Ljava/util/List;Ljava/awt/Dimension;Ljava/io/File;)V", _children:[
+                                        {hotspot:"0.64 secs. - at.favre.tools.dconvert.converters.APlatformConverter.convert(Ljava/io/File;Lat/favre/tools/dconvert/arg/Arguments;)Lat/favre/tools/dconvert/converters/Result;", _children:[
+                                            {hotspot:"0.64 secs. - at.favre.tools.dconvert.WorkerHandler$Worker.run()V"
+                                            },
+
+                                        ]},
+
+                                    ]},
+
+                                ]},
+
+                            ]},
+
+                        ]},
+
+                    ]},
+
+                ]},
+
+            ]},
+            {hotspot:"at.favre.tools.dconvert.converters.scaling.ImageHandler.compressJpeg(Ljava/awt/image/BufferedImage;Lcom/twelvemonkeys/imageio/metadata/CompoundDirectory;FLjava/io/File;)V",selfTimeVisual:"3.200046",selfTime:"3.20", _children:[
+                {hotspot:"3.20 secs. - at.favre.tools.dconvert.converters.scaling.ImageHandler.saveToFile(Ljava/io/File;Lat/favre/tools/dconvert/util/LoadedImage;Ljava/awt/Dimension;Z)Ljava/util/List;", _children:[
+                    {hotspot:"3.20 secs. - at.favre.tools.dconvert.converters.APlatformConverter.convert(Lat/favre/tools/dconvert/arg/Arguments;Lat/favre/tools/dconvert/util/LoadedImage;ZLjava/lang/StringBuilder;Ljava/util/List;Ljava/awt/Dimension;Ljava/io/File;)V", _children:[
+                        {hotspot:"3.20 secs. - at.favre.tools.dconvert.converters.APlatformConverter.convert(Ljava/io/File;Lat/favre/tools/dconvert/arg/Arguments;)Lat/favre/tools/dconvert/converters/Result;", _children:[
+                            {hotspot:"3.20 secs. - at.favre.tools.dconvert.WorkerHandler$Worker.run()V"
+                            },
+
+                        ]},
+
+                    ]},
+
+                ]},
+
+            ]},
+            {hotspot:"com.mortennobel.imagescaling.ImageUtils.getPixelsBGR(Ljava/awt/image/BufferedImage;II[B[I)[B",selfTimeVisual:"0.579845",selfTime:"0.58", _children:[
+                {hotspot:"0.58 secs. - com.mortennobel.imagescaling.ResampleOp.horizontallyFromSrcToWork(Ljava/awt/image/BufferedImage;[[BII)V", _children:[
+                    {hotspot:"0.52 secs. - com.mortennobel.imagescaling.ResampleOp$1.run()V"
+                    },
+                    {hotspot:"0.06 secs. - com.mortennobel.imagescaling.ResampleOp.doFilter(Ljava/awt/image/BufferedImage;Ljava/awt/image/BufferedImage;II)Ljava/awt/image/BufferedImage;", _children:[
+                        {hotspot:"0.06 secs. - com.mortennobel.imagescaling.AdvancedResizeOp.filter(Ljava/awt/image/BufferedImage;Ljava/awt/image/BufferedImage;)Ljava/awt/image/BufferedImage;", _children:[
+                            {hotspot:"0.06 secs. - at.favre.tools.dconvert.converters.scaling.ResampleAlgorithm.scale(Ljava/awt/image/BufferedImage;II)Ljava/awt/image/BufferedImage;", _children:[
+                                {hotspot:"0.06 secs. - at.favre.tools.dconvert.converters.scaling.ImageHandler.scale(Lat/favre/tools/dconvert/converters/scaling/ScaleAlgorithm;Ljava/awt/image/BufferedImage;IILat/favre/tools/dconvert/arg/ImageType$ECompression;Ljava/awt/Color;)Ljava/awt/image/BufferedImage;", _children:[
+                                    {hotspot:"0.06 secs. - at.favre.tools.dconvert.converters.scaling.ImageHandler.saveToFile(Ljava/io/File;Lat/favre/tools/dconvert/util/LoadedImage;Ljava/awt/Dimension;Z)Ljava/util/List;", _children:[
+                                        {hotspot:"0.06 secs. - at.favre.tools.dconvert.converters.APlatformConverter.convert(Lat/favre/tools/dconvert/arg/Arguments;Lat/favre/tools/dconvert/util/LoadedImage;ZLjava/lang/StringBuilder;Ljava/util/List;Ljava/awt/Dimension;Ljava/io/File;)V", _children:[
+                                            {hotspot:"0.06 secs. - at.favre.tools.dconvert.converters.APlatformConverter.convert(Ljava/io/File;Lat/favre/tools/dconvert/arg/Arguments;)Lat/favre/tools/dconvert/converters/Result;", _children:[
+                                                {hotspot:"0.06 secs. - at.favre.tools.dconvert.WorkerHandler$Worker.run()V"
+                                                },
+
+                                            ]},
+
+                                        ]},
+
+                                    ]},
+
+                                ]},
+
+                            ]},
+
+                        ]},
+
+                    ]},
+
+                ]},
+
+            ]},
+            {hotspot:"at.favre.tools.dconvert.util.ImageUtil.read(Ljavax/imageio/stream/ImageInputStream;Lat/favre/tools/dconvert/arg/ImageType;)Lat/favre/tools/dconvert/util/LoadedImage;",selfTimeVisual:"0.445236",selfTime:"0.45", _children:[
+                {hotspot:"0.45 secs. - at.favre.tools.dconvert.util.ImageUtil.loadImage(Ljava/io/File;)Lat/favre/tools/dconvert/util/LoadedImage;", _children:[
+                    {hotspot:"0.45 secs. - at.favre.tools.dconvert.converters.APlatformConverter.convert(Ljava/io/File;Lat/favre/tools/dconvert/arg/Arguments;)Lat/favre/tools/dconvert/converters/Result;", _children:[
+                        {hotspot:"0.45 secs. - at.favre.tools.dconvert.WorkerHandler$Worker.run()V"
+                        },
+
+                    ]},
+
+                ]},
+
+            ]},
+            {hotspot:"at.favre.tools.dconvert.converters.scaling.ImageHandler.scale(Lat/favre/tools/dconvert/converters/scaling/ScaleAlgorithm;Ljava/awt/image/BufferedImage;IILat/favre/tools/dconvert/arg/ImageType$ECompression;Ljava/awt/Color;)Ljava/awt/image/BufferedImage;",selfTimeVisual:"0.354638",selfTime:"0.35", _children:[
+                {hotspot:"0.35 secs. - at.favre.tools.dconvert.converters.scaling.ImageHandler.saveToFile(Ljava/io/File;Lat/favre/tools/dconvert/util/LoadedImage;Ljava/awt/Dimension;Z)Ljava/util/List;", _children:[
+                    {hotspot:"0.35 secs. - at.favre.tools.dconvert.converters.APlatformConverter.convert(Lat/favre/tools/dconvert/arg/Arguments;Lat/favre/tools/dconvert/util/LoadedImage;ZLjava/lang/StringBuilder;Ljava/util/List;Ljava/awt/Dimension;Ljava/io/File;)V", _children:[
+                        {hotspot:"0.35 secs. - at.favre.tools.dconvert.converters.APlatformConverter.convert(Ljava/io/File;Lat/favre/tools/dconvert/arg/Arguments;)Lat/favre/tools/dconvert/converters/Result;", _children:[
+                            {hotspot:"0.35 secs. - at.favre.tools.dconvert.WorkerHandler$Worker.run()V"
+                            },
+
+                        ]},
+
+                    ]},
+
+                ]},
+
+            ]},
+            {hotspot:"at.favre.tools.dconvert.DConvert.getRegisteredImageReadersAndWriters()Ljava/lang/String;",selfTimeVisual:"0.298392",selfTime:"0.30", _children:[
+                {hotspot:"0.30 secs. - at.favre.tools.dconvert.DConvert.execute(Lat/favre/tools/dconvert/arg/Arguments;ZLat/favre/tools/dconvert/DConvert$HandlerCallback;)V", _children:[
+                    {hotspot:"0.30 secs. - at.favre.tools.dconvert.Convert.main([Ljava/lang/String;)V"
+                    },
+
+                ]},
+
+            ]},
+            {hotspot:"com.mortennobel.imagescaling.ResampleOp.doFilter(Ljava/awt/image/BufferedImage;Ljava/awt/image/BufferedImage;II)Ljava/awt/image/BufferedImage;",selfTimeVisual:"0.112301",selfTime:"0.11", _children:[
+                {hotspot:"0.11 secs. - com.mortennobel.imagescaling.AdvancedResizeOp.filter(Ljava/awt/image/BufferedImage;Ljava/awt/image/BufferedImage;)Ljava/awt/image/BufferedImage;", _children:[
+                    {hotspot:"0.11 secs. - at.favre.tools.dconvert.converters.scaling.ResampleAlgorithm.scale(Ljava/awt/image/BufferedImage;II)Ljava/awt/image/BufferedImage;", _children:[
+                        {hotspot:"0.11 secs. - at.favre.tools.dconvert.converters.scaling.ImageHandler.scale(Lat/favre/tools/dconvert/converters/scaling/ScaleAlgorithm;Ljava/awt/image/BufferedImage;IILat/favre/tools/dconvert/arg/ImageType$ECompression;Ljava/awt/Color;)Ljava/awt/image/BufferedImage;", _children:[
+                            {hotspot:"0.11 secs. - at.favre.tools.dconvert.converters.scaling.ImageHandler.saveToFile(Ljava/io/File;Lat/favre/tools/dconvert/util/LoadedImage;Ljava/awt/Dimension;Z)Ljava/util/List;", _children:[
+                                {hotspot:"0.11 secs. - at.favre.tools.dconvert.converters.APlatformConverter.convert(Lat/favre/tools/dconvert/arg/Arguments;Lat/favre/tools/dconvert/util/LoadedImage;ZLjava/lang/StringBuilder;Ljava/util/List;Ljava/awt/Dimension;Ljava/io/File;)V", _children:[
+                                    {hotspot:"0.11 secs. - at.favre.tools.dconvert.converters.APlatformConverter.convert(Ljava/io/File;Lat/favre/tools/dconvert/arg/Arguments;)Lat/favre/tools/dconvert/converters/Result;", _children:[
+                                        {hotspot:"0.11 secs. - at.favre.tools.dconvert.WorkerHandler$Worker.run()V"
+                                        },
+
+                                    ]},
+
+                                ]},
+
+                            ]},
+
+                        ]},
+
+                    ]},
+
+                ]},
+
+            ]},
+            {hotspot:"com.mortennobel.imagescaling.AdvancedResizeOp.fireProgressChanged(F)V",selfTimeVisual:"0.109889",selfTime:"0.11", _children:[
+                {hotspot:"0.11 secs. - com.mortennobel.imagescaling.ResampleOp.setProgress()V", _children:[
+                    {hotspot:"0.11 secs. - com.mortennobel.imagescaling.ResampleOp.horizontallyFromSrcToWork(Ljava/awt/image/BufferedImage;[[BII)V", _children:[
+                        {hotspot:"0.11 secs. - com.mortennobel.imagescaling.ResampleOp.doFilter(Ljava/awt/image/BufferedImage;Ljava/awt/image/BufferedImage;II)Ljava/awt/image/BufferedImage;", _children:[
+                            {hotspot:"0.11 secs. - com.mortennobel.imagescaling.AdvancedResizeOp.filter(Ljava/awt/image/BufferedImage;Ljava/awt/image/BufferedImage;)Ljava/awt/image/BufferedImage;", _children:[
+                                {hotspot:"0.11 secs. - at.favre.tools.dconvert.converters.scaling.ResampleAlgorithm.scale(Ljava/awt/image/BufferedImage;II)Ljava/awt/image/BufferedImage;", _children:[
+                                    {hotspot:"0.11 secs. - at.favre.tools.dconvert.converters.scaling.ImageHandler.scale(Lat/favre/tools/dconvert/converters/scaling/ScaleAlgorithm;Ljava/awt/image/BufferedImage;IILat/favre/tools/dconvert/arg/ImageType$ECompression;Ljava/awt/Color;)Ljava/awt/image/BufferedImage;", _children:[
+                                        {hotspot:"0.11 secs. - at.favre.tools.dconvert.converters.scaling.ImageHandler.saveToFile(Ljava/io/File;Lat/favre/tools/dconvert/util/LoadedImage;Ljava/awt/Dimension;Z)Ljava/util/List;", _children:[
+                                            {hotspot:"0.11 secs. - at.favre.tools.dconvert.converters.APlatformConverter.convert(Lat/favre/tools/dconvert/arg/Arguments;Lat/favre/tools/dconvert/util/LoadedImage;ZLjava/lang/StringBuilder;Ljava/util/List;Ljava/awt/Dimension;Ljava/io/File;)V", _children:[
+                                                {hotspot:"0.11 secs. - at.favre.tools.dconvert.converters.APlatformConverter.convert(Ljava/io/File;Lat/favre/tools/dconvert/arg/Arguments;)Lat/favre/tools/dconvert/converters/Result;", _children:[
+                                                    {hotspot:"0.11 secs. - at.favre.tools.dconvert.WorkerHandler$Worker.run()V"
+                                                    },
+
+                                                ]},
+
+                                            ]},
+
+                                        ]},
+
+                                    ]},
+
+                                ]},
+
+                            ]},
+
+                        ]},
+
+                    ]},
+
+                ]},
+
+            ]},
+            {hotspot:"com.mortennobel.imagescaling.ResampleOp.createSubSampling(Lcom/mortennobel/imagescaling/ResampleFilter;II)Lcom/mortennobel/imagescaling/ResampleOp$SubSamplingData;",selfTimeVisual:"0.092894",selfTime:"0.09", _children:[
+                {hotspot:"0.09 secs. - com.mortennobel.imagescaling.ResampleOp.doFilter(Ljava/awt/image/BufferedImage;Ljava/awt/image/BufferedImage;II)Ljava/awt/image/BufferedImage;", _children:[
+                    {hotspot:"0.09 secs. - com.mortennobel.imagescaling.AdvancedResizeOp.filter(Ljava/awt/image/BufferedImage;Ljava/awt/image/BufferedImage;)Ljava/awt/image/BufferedImage;", _children:[
+                        {hotspot:"0.09 secs. - at.favre.tools.dconvert.converters.scaling.ResampleAlgorithm.scale(Ljava/awt/image/BufferedImage;II)Ljava/awt/image/BufferedImage;", _children:[
+                            {hotspot:"0.09 secs. - at.favre.tools.dconvert.converters.scaling.ImageHandler.scale(Lat/favre/tools/dconvert/converters/scaling/ScaleAlgorithm;Ljava/awt/image/BufferedImage;IILat/favre/tools/dconvert/arg/ImageType$ECompression;Ljava/awt/Color;)Ljava/awt/image/BufferedImage;", _children:[
+                                {hotspot:"0.09 secs. - at.favre.tools.dconvert.converters.scaling.ImageHandler.saveToFile(Ljava/io/File;Lat/favre/tools/dconvert/util/LoadedImage;Ljava/awt/Dimension;Z)Ljava/util/List;", _children:[
+                                    {hotspot:"0.09 secs. - at.favre.tools.dconvert.converters.APlatformConverter.convert(Lat/favre/tools/dconvert/arg/Arguments;Lat/favre/tools/dconvert/util/LoadedImage;ZLjava/lang/StringBuilder;Ljava/util/List;Ljava/awt/Dimension;Ljava/io/File;)V", _children:[
+                                        {hotspot:"0.09 secs. - at.favre.tools.dconvert.converters.APlatformConverter.convert(Ljava/io/File;Lat/favre/tools/dconvert/arg/Arguments;)Lat/favre/tools/dconvert/converters/Result;", _children:[
+                                            {hotspot:"0.09 secs. - at.favre.tools.dconvert.WorkerHandler$Worker.run()V"
+                                            },
+
+                                        ]},
+
+                                    ]},
+
+                                ]},
+
+                            ]},
+
+                        ]},
+
+                    ]},
+
+                ]},
+
+            ]},
+            {hotspot:"com.mortennobel.imagescaling.ImageUtils.setBGRPixels([BLjava/awt/image/BufferedImage;IIII)V",selfTimeVisual:"0.073668",selfTime:"0.07", _children:[
+                {hotspot:"0.07 secs. - com.mortennobel.imagescaling.ResampleOp.doFilter(Ljava/awt/image/BufferedImage;Ljava/awt/image/BufferedImage;II)Ljava/awt/image/BufferedImage;", _children:[
+                    {hotspot:"0.07 secs. - com.mortennobel.imagescaling.AdvancedResizeOp.filter(Ljava/awt/image/BufferedImage;Ljava/awt/image/BufferedImage;)Ljava/awt/image/BufferedImage;", _children:[
+                        {hotspot:"0.07 secs. - at.favre.tools.dconvert.converters.scaling.ResampleAlgorithm.scale(Ljava/awt/image/BufferedImage;II)Ljava/awt/image/BufferedImage;", _children:[
+                            {hotspot:"0.07 secs. - at.favre.tools.dconvert.converters.scaling.ImageHandler.scale(Lat/favre/tools/dconvert/converters/scaling/ScaleAlgorithm;Ljava/awt/image/BufferedImage;IILat/favre/tools/dconvert/arg/ImageType$ECompression;Ljava/awt/Color;)Ljava/awt/image/BufferedImage;", _children:[
+                                {hotspot:"0.07 secs. - at.favre.tools.dconvert.converters.scaling.ImageHandler.saveToFile(Ljava/io/File;Lat/favre/tools/dconvert/util/LoadedImage;Ljava/awt/Dimension;Z)Ljava/util/List;", _children:[
+                                    {hotspot:"0.07 secs. - at.favre.tools.dconvert.converters.APlatformConverter.convert(Lat/favre/tools/dconvert/arg/Arguments;Lat/favre/tools/dconvert/util/LoadedImage;ZLjava/lang/StringBuilder;Ljava/util/List;Ljava/awt/Dimension;Ljava/io/File;)V", _children:[
+                                        {hotspot:"0.07 secs. - at.favre.tools.dconvert.converters.APlatformConverter.convert(Ljava/io/File;Lat/favre/tools/dconvert/arg/Arguments;)Lat/favre/tools/dconvert/converters/Result;", _children:[
+                                            {hotspot:"0.07 secs. - at.favre.tools.dconvert.WorkerHandler$Worker.run()V"
+                                            },
+
+                                        ]},
+
+                                    ]},
+
+                                ]},
+
+                            ]},
+
+                        ]},
+
+                    ]},
+
+                ]},
+
+            ]},
+            {hotspot:"at.favre.tools.dconvert.WorkerHandler.<init>(Ljava/util/List;Lat/favre/tools/dconvert/arg/Arguments;Lat/favre/tools/dconvert/WorkerHandler$Callback;)V",selfTimeVisual:"0.011795",selfTime:"0.01", _children:[
+                {hotspot:"0.01 secs. - at.favre.tools.dconvert.DConvert.execute(Lat/favre/tools/dconvert/arg/Arguments;ZLat/favre/tools/dconvert/DConvert$HandlerCallback;)V", _children:[
+                    {hotspot:"0.01 secs. - at.favre.tools.dconvert.Convert.main([Ljava/lang/String;)V"
+                    },
+
+                ]},
+
+            ]},
+            {hotspot:"com.mortennobel.imagescaling.ResampleFilters.<clinit>()V",selfTimeVisual:"0.011379",selfTime:"0.01", _children:[
+                {hotspot:"0.01 secs. - at.favre.tools.dconvert.arg.EScalingAlgorithm.<clinit>()V", _children:[
+                    {hotspot:"0.01 secs. - at.favre.tools.dconvert.arg.Arguments.<clinit>()V", _children:[
+                        {hotspot:"0.01 secs. - at.favre.tools.dconvert.Convert.upScalingAlgo(Z)Ljava/lang/String;", _children:[
+                            {hotspot:"0.01 secs. - at.favre.tools.dconvert.Convert.main([Ljava/lang/String;)V"
+                            },
+
+                        ]},
+
+                    ]},
+
+                ]},
+
+            ]},
+            {hotspot:"at.favre.tools.dconvert.util.DensityBucketUtil.getDensityBucketsWithFactorScale(Ljava/util/List;Ljava/awt/Dimension;Lat/favre/tools/dconvert/arg/Arguments;F)Ljava/util/Map;",selfTimeVisual:"0.010526",selfTime:"0.01", _children:[
+                {hotspot:"0.01 secs. - at.favre.tools.dconvert.util.DensityBucketUtil.getDensityBuckets(Ljava/util/List;Ljava/awt/Dimension;Lat/favre/tools/dconvert/arg/Arguments;FZ)Ljava/util/Map;", _children:[
+                    {hotspot:"0.01 secs. - at.favre.tools.dconvert.converters.APlatformConverter.convert(Ljava/io/File;Lat/favre/tools/dconvert/arg/Arguments;)Lat/favre/tools/dconvert/converters/Result;", _children:[
+                        {hotspot:"0.01 secs. - at.favre.tools.dconvert.WorkerHandler$Worker.run()V"
+                        },
+
+                    ]},
+
+                ]},
+
+            ]},
+            {hotspot:"com.mortennobel.imagescaling.ResampleOp.setProgress()V",selfTimeVisual:"0.006585",selfTime:"0.01", _children:[
+                {hotspot:"0.01 secs. - com.mortennobel.imagescaling.ResampleOp.horizontallyFromSrcToWork(Ljava/awt/image/BufferedImage;[[BII)V", _children:[
+                    {hotspot:"0.01 secs. - com.mortennobel.imagescaling.ResampleOp.doFilter(Ljava/awt/image/BufferedImage;Ljava/awt/image/BufferedImage;II)Ljava/awt/image/BufferedImage;", _children:[
+                        {hotspot:"0.01 secs. - com.mortennobel.imagescaling.AdvancedResizeOp.filter(Ljava/awt/image/BufferedImage;Ljava/awt/image/BufferedImage;)Ljava/awt/image/BufferedImage;", _children:[
+                            {hotspot:"0.01 secs. - at.favre.tools.dconvert.converters.scaling.ResampleAlgorithm.scale(Ljava/awt/image/BufferedImage;II)Ljava/awt/image/BufferedImage;", _children:[
+                                {hotspot:"0.01 secs. - at.favre.tools.dconvert.converters.scaling.ImageHandler.scale(Lat/favre/tools/dconvert/converters/scaling/ScaleAlgorithm;Ljava/awt/image/BufferedImage;IILat/favre/tools/dconvert/arg/ImageType$ECompression;Ljava/awt/Color;)Ljava/awt/image/BufferedImage;", _children:[
+                                    {hotspot:"0.01 secs. - at.favre.tools.dconvert.converters.scaling.ImageHandler.saveToFile(Ljava/io/File;Lat/favre/tools/dconvert/util/LoadedImage;Ljava/awt/Dimension;Z)Ljava/util/List;", _children:[
+                                        {hotspot:"0.01 secs. - at.favre.tools.dconvert.converters.APlatformConverter.convert(Lat/favre/tools/dconvert/arg/Arguments;Lat/favre/tools/dconvert/util/LoadedImage;ZLjava/lang/StringBuilder;Ljava/util/List;Ljava/awt/Dimension;Ljava/io/File;)V", _children:[
+                                            {hotspot:"0.01 secs. - at.favre.tools.dconvert.converters.APlatformConverter.convert(Ljava/io/File;Lat/favre/tools/dconvert/arg/Arguments;)Lat/favre/tools/dconvert/converters/Result;", _children:[
+                                                {hotspot:"0.01 secs. - at.favre.tools.dconvert.WorkerHandler$Worker.run()V"
+                                                },
+
+                                            ]},
+
+                                        ]},
+
+                                    ]},
+
+                                ]},
+
+                            ]},
+
+                        ]},
+
+                    ]},
+
+                ]},
+
+            ]},
+            {hotspot:"at.favre.tools.dconvert.DConvert$1.onFinished(ILjava/util/List;Ljava/lang/StringBuilder;Ljava/util/List;Z)V",selfTimeVisual:"0.006484",selfTime:"0.01", _children:[
+                {hotspot:"0.01 secs. - at.favre.tools.dconvert.WorkerHandler$InternalCallback.onJobFinished(Lat/favre/tools/dconvert/converters/Result;)V", _children:[
+                    {hotspot:"0.01 secs. - at.favre.tools.dconvert.WorkerHandler$Worker.run()V"
+                    },
+
+                ]},
+
+            ]},
+            {hotspot:"at.favre.tools.dconvert.DConvert.informFinished(ILjava/util/List;Z)V",selfTimeVisual:"0.006471",selfTime:"0.01", _children:[
+                {hotspot:"0.01 secs. - at.favre.tools.dconvert.DConvert$1$1.onFinished(ILjava/util/List;Ljava/lang/StringBuilder;Ljava/util/List;Z)V", _children:[
+                    {hotspot:"0.01 secs. - at.favre.tools.dconvert.WorkerHandler.start(Ljava/util/List;)V", _children:[
+                        {hotspot:"0.01 secs. - at.favre.tools.dconvert.DConvert$1.onFinished(ILjava/util/List;Ljava/lang/StringBuilder;Ljava/util/List;Z)V", _children:[
+                            {hotspot:"0.01 secs. - at.favre.tools.dconvert.WorkerHandler$InternalCallback.onJobFinished(Lat/favre/tools/dconvert/converters/Result;)V", _children:[
+                                {hotspot:"0.01 secs. - at.favre.tools.dconvert.WorkerHandler$Worker.run()V"
+                                },
+
+                            ]},
+
+                        ]},
+
+                    ]},
+
+                ]},
+
+            ]},
+            {hotspot:"at.favre.tools.dconvert.converters.APlatformConverter.convert(Lat/favre/tools/dconvert/arg/Arguments;Lat/favre/tools/dconvert/util/LoadedImage;ZLjava/lang/StringBuilder;Ljava/util/List;Ljava/awt/Dimension;Ljava/io/File;)V",selfTimeVisual:"0.00641",selfTime:"0.01", _children:[
+                {hotspot:"0.01 secs. - at.favre.tools.dconvert.converters.APlatformConverter.convert(Ljava/io/File;Lat/favre/tools/dconvert/arg/Arguments;)Lat/favre/tools/dconvert/converters/Result;", _children:[
+                    {hotspot:"0.01 secs. - at.favre.tools.dconvert.WorkerHandler$Worker.run()V"
+                    },
+
+                ]},
+
+            ]},
+            {hotspot:"at.favre.tools.dconvert.arg.EPlatform.<clinit>()V",selfTimeVisual:"0.006331",selfTime:"0.01", _children:[
+                {hotspot:"0.01 secs. - at.favre.tools.dconvert.arg.Arguments.<clinit>()V", _children:[
+                    {hotspot:"0.01 secs. - at.favre.tools.dconvert.Convert.upScalingAlgo(Z)Ljava/lang/String;", _children:[
+                        {hotspot:"0.01 secs. - at.favre.tools.dconvert.Convert.main([Ljava/lang/String;)V"
+                        },
+
+                    ]},
+
+                ]},
+
+            ]},
+            {hotspot:"com.mortennobel.imagescaling.ResampleOp.<init>(II)V",selfTimeVisual:"0.00617",selfTime:"0.01", _children:[
+                {hotspot:"0.01 secs. - at.favre.tools.dconvert.converters.scaling.ResampleAlgorithm.scale(Ljava/awt/image/BufferedImage;II)Ljava/awt/image/BufferedImage;", _children:[
+                    {hotspot:"0.01 secs. - at.favre.tools.dconvert.converters.scaling.ImageHandler.scale(Lat/favre/tools/dconvert/converters/scaling/ScaleAlgorithm;Ljava/awt/image/BufferedImage;IILat/favre/tools/dconvert/arg/ImageType$ECompression;Ljava/awt/Color;)Ljava/awt/image/BufferedImage;", _children:[
+                        {hotspot:"0.01 secs. - at.favre.tools.dconvert.converters.scaling.ImageHandler.saveToFile(Ljava/io/File;Lat/favre/tools/dconvert/util/LoadedImage;Ljava/awt/Dimension;Z)Ljava/util/List;", _children:[
+                            {hotspot:"0.01 secs. - at.favre.tools.dconvert.converters.APlatformConverter.convert(Lat/favre/tools/dconvert/arg/Arguments;Lat/favre/tools/dconvert/util/LoadedImage;ZLjava/lang/StringBuilder;Ljava/util/List;Ljava/awt/Dimension;Ljava/io/File;)V", _children:[
+                                {hotspot:"0.01 secs. - at.favre.tools.dconvert.converters.APlatformConverter.convert(Ljava/io/File;Lat/favre/tools/dconvert/arg/Arguments;)Lat/favre/tools/dconvert/converters/Result;", _children:[
+                                    {hotspot:"0.01 secs. - at.favre.tools.dconvert.WorkerHandler$Worker.run()V"
+                                    },
+
+                                ]},
+
+                            ]},
+
+                        ]},
+
+                    ]},
+
+                ]},
+
+            ]},
+            {hotspot:"at.favre.tools.dconvert.arg.Arguments.<clinit>()V",selfTimeVisual:"0.0056",selfTime:"0.01", _children:[
+                {hotspot:"0.01 secs. - at.favre.tools.dconvert.Convert.upScalingAlgo(Z)Ljava/lang/String;", _children:[
+                    {hotspot:"0.01 secs. - at.favre.tools.dconvert.Convert.main([Ljava/lang/String;)V"
+                    },
+
+                ]},
+
+            ]},
+            {hotspot:"at.favre.tools.dconvert.converters.scaling.ImageHandler.saveToFile(Ljava/io/File;Lat/favre/tools/dconvert/util/LoadedImage;Ljava/awt/Dimension;Z)Ljava/util/List;",selfTimeVisual:"0.005473",selfTime:"0.01", _children:[
+                {hotspot:"0.01 secs. - at.favre.tools.dconvert.converters.APlatformConverter.convert(Lat/favre/tools/dconvert/arg/Arguments;Lat/favre/tools/dconvert/util/LoadedImage;ZLjava/lang/StringBuilder;Ljava/util/List;Ljava/awt/Dimension;Ljava/io/File;)V", _children:[
+                    {hotspot:"0.01 secs. - at.favre.tools.dconvert.converters.APlatformConverter.convert(Ljava/io/File;Lat/favre/tools/dconvert/arg/Arguments;)Lat/favre/tools/dconvert/converters/Result;", _children:[
+                        {hotspot:"0.01 secs. - at.favre.tools.dconvert.WorkerHandler$Worker.run()V"
+                        },
+
+                    ]},
+
+                ]},
+
+            ]},
+            {hotspot:"com.twelvemonkeys.imageio.metadata.jpeg.JPEGSegmentUtil.<clinit>()V",selfTimeVisual:"0.005373",selfTime:"0.01", _children:[
+                {hotspot:"0.01 secs. - at.favre.tools.dconvert.util.ImageUtil.readExif(Ljava/io/File;)Lcom/twelvemonkeys/imageio/metadata/CompoundDirectory;", _children:[
+                    {hotspot:"0.01 secs. - at.favre.tools.dconvert.util.ImageUtil.loadImage(Ljava/io/File;)Lat/favre/tools/dconvert/util/LoadedImage;", _children:[
+                        {hotspot:"0.01 secs. - at.favre.tools.dconvert.converters.APlatformConverter.convert(Ljava/io/File;Lat/favre/tools/dconvert/arg/Arguments;)Lat/favre/tools/dconvert/converters/Result;", _children:[
+                            {hotspot:"0.01 secs. - at.favre.tools.dconvert.WorkerHandler$Worker.run()V"
+                            },
+
+                        ]},
+
+                    ]},
+
+                ]},
+
+            ]},
+            {hotspot:"at.favre.tools.dconvert.Convert.main([Ljava/lang/String;)V",selfTimeVisual:"0.005232",selfTime:"0.01", _children:[
+                {hotspot:"0.01 secs. - ."
+                },
+
+            ]},
+            {hotspot:"at.favre.tools.dconvert.DConvert.execute(Lat/favre/tools/dconvert/arg/Arguments;ZLat/favre/tools/dconvert/DConvert$HandlerCallback;)V",selfTimeVisual:"0.005226",selfTime:"0.01", _children:[
+                {hotspot:"0.01 secs. - at.favre.tools.dconvert.Convert.main([Ljava/lang/String;)V"
+                },
+
+            ]},
+            {hotspot:"at.favre.tools.dconvert.converters.APlatformConverter.convert(Ljava/io/File;Lat/favre/tools/dconvert/arg/Arguments;)Lat/favre/tools/dconvert/converters/Result;",selfTimeVisual:"0.005226",selfTime:"0.01", _children:[
+                {hotspot:"0.01 secs. - at.favre.tools.dconvert.WorkerHandler$Worker.run()V"
+                },
+
+            ]},
+            {hotspot:"at.favre.tools.dconvert.arg.RoundingHandler.round(D)J",selfTimeVisual:"0.005182",selfTime:"0.01", _children:[
+                {hotspot:"0.01 secs. - at.favre.tools.dconvert.arg.Arguments.round(D)D", _children:[
+                    {hotspot:"0.01 secs. - at.favre.tools.dconvert.util.DensityBucketUtil.lambda$getDensityBucketsWithFactorScale$5(Ljava/util/Map;Lat/favre/tools/dconvert/arg/Arguments;DDLat/favre/tools/dconvert/converters/descriptors/DensityDescriptor;)V", _children:[
+                        {hotspot:"0.01 secs. - at.favre.tools.dconvert.util.DensityBucketUtil.getDensityBucketsWithFactorScale(Ljava/util/List;Ljava/awt/Dimension;Lat/favre/tools/dconvert/arg/Arguments;F)Ljava/util/Map;", _children:[
+                            {hotspot:"0.01 secs. - at.favre.tools.dconvert.util.DensityBucketUtil.getDensityBuckets(Ljava/util/List;Ljava/awt/Dimension;Lat/favre/tools/dconvert/arg/Arguments;FZ)Ljava/util/Map;", _children:[
+                                {hotspot:"0.01 secs. - at.favre.tools.dconvert.converters.APlatformConverter.convert(Ljava/io/File;Lat/favre/tools/dconvert/arg/Arguments;)Lat/favre/tools/dconvert/converters/Result;", _children:[
+                                    {hotspot:"0.01 secs. - at.favre.tools.dconvert.WorkerHandler$Worker.run()V"
+                                    },
+
+                                ]},
+
+                            ]},
+
+                        ]},
+
+                    ]},
+
+                ]},
+
+            ]},
+            {hotspot:"at.favre.tools.dconvert.arg.EScalingAlgorithm.<clinit>()V",selfTimeVisual:"0.005146",selfTime:"0.01", _children:[
+                {hotspot:"0.01 secs. - at.favre.tools.dconvert.arg.Arguments.<clinit>()V", _children:[
+                    {hotspot:"0.01 secs. - at.favre.tools.dconvert.Convert.upScalingAlgo(Z)Ljava/lang/String;", _children:[
+                        {hotspot:"0.01 secs. - at.favre.tools.dconvert.Convert.main([Ljava/lang/String;)V"
+                        },
+
+                    ]},
+
+                ]},
+
+            ]},
+        ];
+
+        var table = new Tabulator("#example-table", {
+            data:tableDataNested,
+            dataTree:true,
+            dataTreeStartExpanded:false,
+            columns:[
+                {title:"Hot Spot", field:"hotspot", width:"50px"},
+                {title:"Self Time Visual", field:"selfTimeVisual", sorter:"number", formatter:"progress", width:"10px", formatterParams:{max:7.063156}}, 
+                {title:"Self Time (secs.)", field:"selfTime", hozAlign:"right", sorter:"numeric"},
+			],
+        });
+        </script>
+    </body>
+</html>
+
