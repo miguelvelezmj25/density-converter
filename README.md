@@ -57,7 +57,7 @@ That is, you cannot suggest running the program on faster hardware.
 ## Docs
 
 ### KEEP_SCALE
-Whether to keep the original scale or reduce in the output image.
+Whether to keep the original scale or reduce it in the output images.
 
 ### SCALE_IS_HEIGHT_DP
 Whether to interpret the scale as fixed height and not as width, if the scale is in dp.
