@@ -19,7 +19,6 @@ package at.favre.tools.dconvert.converters;
 import at.favre.tools.dconvert.arg.Arguments;
 import at.favre.tools.dconvert.arg.EScaleMode;
 import at.favre.tools.dconvert.arg.ImageType;
-import at.favre.tools.dconvert.converters.descriptors.AndroidDensityDescriptor;
 import at.favre.tools.dconvert.converters.descriptors.DensityDescriptor;
 import at.favre.tools.dconvert.converters.scaling.ImageHandler;
 import at.favre.tools.dconvert.util.DensityBucketUtil;
@@ -45,7 +44,7 @@ public abstract class APlatformConverter<T extends DensityDescriptor> implements
             String targetImageFileName = MiscUtil.getFileNameWithoutExtension(srcImage);
             ImageType imageType = Arguments.getImageType(srcImage);
             boolean isNinePatch = AndroidConverter.isNinePatch(srcImage) && getClass() == AndroidConverter.class;
-            boolean converttvdpi = args.scale != Arguments.DEFAULT_SCALE;
+            boolean convertSpecial = args.scale != Arguments.DEFAULT_SCALE;
 
             StringBuilder log = new StringBuilder();
             log.append(getConverterName()).append(": ").append(targetImageFileName).append(" ")
@@ -69,15 +68,15 @@ public abstract class APlatformConverter<T extends DensityDescriptor> implements
                             .append(entry.getKey().scale).append(") ").append(isNinePatch ? "(9-patch)" : "").append("\n");
 
                     if (!args.dryRun) {
-                        convert(args, imageData, isNinePatch, log, allResultingFiles, entry.getValue(), imageFile);
+                        convertImage(args, imageData, isNinePatch, log, allResultingFiles, entry.getValue(), imageFile);
                     }
                 } else {
                     throw new IllegalStateException("could not create " + dstFolder);
                 }
             }
 
-            if(!args.dryRun && converttvdpi) {
-                converttvdpi(args, imageData, targetImageFileName, isNinePatch, log, mainSubFolder, allResultingFiles);
+            if(!args.dryRun && convertSpecial) {
+                convertSpecial(args, imageData, targetImageFileName, isNinePatch, log, mainSubFolder, allResultingFiles);
             }
 
             onPostExecute(args);
@@ -91,7 +90,7 @@ public abstract class APlatformConverter<T extends DensityDescriptor> implements
         }
     }
 
-    private void converttvdpi(Arguments args, LoadedImage imageData, String targetImageFileName, boolean isNinePatch, StringBuilder log, File mainSubFolder, List<File> allResultingFiles) throws Exception {
+    private void convertSpecial(Arguments args, LoadedImage imageData, String targetImageFileName, boolean isNinePatch, StringBuilder log, File mainSubFolder, List<File> allResultingFiles) throws Exception {
         T descriptor = this.specialOutputDensities();
         Dimension dimension = new Dimension(15000, 10000);
 
@@ -102,16 +101,13 @@ public abstract class APlatformConverter<T extends DensityDescriptor> implements
 
             log.append("process ").append(imageFile).append(" with ").append(dimension.width).append("x").append(dimension.height).append(" (x")
                     .append(descriptor.scale).append(") ").append(isNinePatch ? "(9-patch)" : "").append("\n");
-
-            if (!args.dryRun) {
-                convert(args, imageData, isNinePatch, log, allResultingFiles, dimension, imageFile);
-            }
+            convertImage(args, imageData, isNinePatch, log, allResultingFiles, dimension, imageFile);
         } else {
             throw new IllegalStateException("could not create " + dstFolder);
         }
     }
 
-    private void convert(Arguments args, LoadedImage imageData, boolean isNinePatch, StringBuilder log, List<File> allResultingFiles, Dimension dimension, File imageFile) throws Exception {
+    private void convertImage(Arguments args, LoadedImage imageData, boolean isNinePatch, StringBuilder log, List<File> allResultingFiles, Dimension dimension, File imageFile) throws Exception {
         List<File> files = new ImageHandler(args).saveToFile(imageFile, imageData, dimension, isNinePatch);
 
         allResultingFiles.addAll(files);

@@ -25,290 +25,269 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Entry point of the app. Use arg -h to get help.
- */
+/** Entry point of the app. Use arg -h to get help. */
 public final class Convert {
 
-    private static float KEEP_SCALE;
-    private static boolean SCALE_IS_HEIGHT_DP;
-    private static float COMPRESSION_QUALITY;
-    private static String OUT_COMPRESSION;
-    private static String PLATFORM;
-    private static String UPSCALING_ALGO;
-    private static String DOWNSCALING_ALGO;
-    private static String ROUNDING_MODE;
-    private static boolean SKIP_UPSCALING;
-    private static boolean SKIP_EXISTING;
-    private static boolean ANDROID_INCLUDE_LDPI_TVDPI;
-    private static boolean VERBOSE;
-    private static boolean ANDROID_MIPMAP_INSTEAD_OF_DRAWABLE;
-    private static boolean ANTI_ALIASING;
-    private static boolean POST_PROCESSOR_PNG_CRUSH;
-    private static boolean POST_PROCESSOR_WEBP;
-    private static boolean DRY_RUN;
-    private static boolean POST_PROCESSOR_MOZ_JPEG;
-    private static boolean KEEP_ORIGINAL_POST_PROCESSED_FILES;
-    private static boolean IOS_CREATE_IMAGESET_FOLDERS;
-    private static boolean CLEAN;
-    private static boolean HALT_ON_ERROR;
+  private Convert() {}
 
-    private Convert() {
-    }
+  public static void main(String[] rawArgs) {
+    boolean androidIncludeLdpiTvdpi = false;
+    boolean androidMipmapInsteadOfDrawable = false;
+    boolean antiAliasing = false;
+    boolean clean = true;
+    float compressionQuality = compressionQuality(false);
+    String downScalingAlgo = downScalingAlgo(false);
+    boolean dryRun = false;
+    boolean haltOnError = false;
+    boolean iosCreateImagesetFolders = false;
+    boolean keepOriginalPostProcessedFiles = true;
+    float keepScale = keep_scale(true);
+    String outCompression = outCompression(false);
+    String selectedPlatform = platform(false);
+    boolean postProcessorMozJpeg = true;
+    boolean postProcessorPngCrush = false;
+    boolean postProcessorWebp = false;
+    String roundingMode = roundingMode(false);
+    boolean scaleIsHeightDp = false;
+    boolean skipExisting = false;
+    boolean skipUpscaling = false;
+    String upScalingAlgo = upScalingAlgo(false);
+    boolean VERBOSE = true;
 
-    public static void main(String[] rawArgs) {
-        KEEP_SCALE = keep_scale(true);
-        SCALE_IS_HEIGHT_DP = false;
-        COMPRESSION_QUALITY = compressionQuality(false);
-        OUT_COMPRESSION = outCompression(false);
-        PLATFORM = platform(false);
-        UPSCALING_ALGO = upScalingAlgo(false);
-        DOWNSCALING_ALGO = downScalingAlgo(false);
-        ROUNDING_MODE = roundingMode(false);
-        SKIP_UPSCALING = false;
-        SKIP_EXISTING = false;
-        ANDROID_INCLUDE_LDPI_TVDPI = false;
-        VERBOSE = true;
-        ANDROID_MIPMAP_INSTEAD_OF_DRAWABLE = false;
-        ANTI_ALIASING = false;
-        POST_PROCESSOR_PNG_CRUSH = false;
-        POST_PROCESSOR_WEBP = false;
-        DRY_RUN = false;
-        POST_PROCESSOR_MOZ_JPEG = true;
-        KEEP_ORIGINAL_POST_PROCESSED_FILES = true;
-        IOS_CREATE_IMAGESET_FOLDERS = false;
-        CLEAN = true;
-        HALT_ON_ERROR = false;
+    File src = new File("./pictures/person.jpg");
+    File dst = new File("./output");
+    Set<EPlatform> platform = getPlatform(selectedPlatform);
+    EOutputCompressionMode outputCompressionMode = getOutCompression(outCompression);
+    EScaleMode scaleMode = scaleMode(false, scaleIsHeightDp);
+    EScalingAlgorithm downScalingAlgorithm = EScalingAlgorithm.getByName(downScalingAlgo);
+    EScalingAlgorithm upScalingAlgorithm = EScalingAlgorithm.getByName(upScalingAlgo);
+    RoundingHandler.Strategy roundingHandler = getRoundingHandler(roundingMode);
 
-        File src = new File("./pictures/person.jpg");
-        File dst = new File("./output");
-        float scale = KEEP_SCALE;
-        Set<EPlatform> platform = getPlatform(PLATFORM);
-        EOutputCompressionMode outputCompressionMode = getOutCompression(OUT_COMPRESSION);
-        EScaleMode scaleMode = scaleMode(false, SCALE_IS_HEIGHT_DP);
-        EScalingAlgorithm downScalingAlgorithm = EScalingAlgorithm.getByName(DOWNSCALING_ALGO);
-        EScalingAlgorithm upScalingAlgorithm = EScalingAlgorithm.getByName(UPSCALING_ALGO);
-        float compressionQuality = COMPRESSION_QUALITY;
-        boolean skipExistingFiles = SKIP_EXISTING;
-        boolean skipUpscaling = SKIP_UPSCALING;
-        boolean verboseLog = VERBOSE;
-        boolean includeAndroidLdpiTvdpi = ANDROID_INCLUDE_LDPI_TVDPI;
-        boolean haltOnError = HALT_ON_ERROR;
-        boolean createMipMapInsteadOfDrawableDir = ANDROID_MIPMAP_INSTEAD_OF_DRAWABLE;
-        boolean iosCreateImagesetFolders = IOS_CREATE_IMAGESET_FOLDERS;
-        boolean enablePngCrush = POST_PROCESSOR_PNG_CRUSH;
-        boolean enableMozJpeg = POST_PROCESSOR_MOZ_JPEG;
-        boolean postConvertWebp = POST_PROCESSOR_WEBP;
-        boolean enableAntiAliasing = ANTI_ALIASING;
-        boolean dryRun = DRY_RUN;
-        boolean keepUnoptimizedFilesPostProcessor = KEEP_ORIGINAL_POST_PROCESSED_FILES;
-        RoundingHandler.Strategy roundingHandler = getRoundingHandler(ROUNDING_MODE);
-        boolean clearDirBeforeConvert = CLEAN;
+    Arguments args =
+        new Arguments(
+            src,
+            dst,
+            keepScale,
+            platform,
+            outputCompressionMode,
+            scaleMode,
+            downScalingAlgorithm,
+            upScalingAlgorithm,
+            compressionQuality,
+            1,
+            skipExisting,
+            skipUpscaling,
+            VERBOSE,
+            androidIncludeLdpiTvdpi,
+            haltOnError,
+            androidMipmapInsteadOfDrawable,
+            iosCreateImagesetFolders,
+            postProcessorPngCrush,
+            postProcessorMozJpeg,
+            postProcessorWebp,
+            antiAliasing,
+            dryRun,
+            keepOriginalPostProcessedFiles,
+            roundingHandler,
+            false,
+            clean);
 
-        Arguments args = new Arguments(src, dst, scale, platform, outputCompressionMode,
-                scaleMode,
-                downScalingAlgorithm,
-                upScalingAlgorithm,
-                compressionQuality,
-                1,
-                skipExistingFiles,
-                skipUpscaling,
-                verboseLog,
-                includeAndroidLdpiTvdpi,
-                haltOnError,
-                createMipMapInsteadOfDrawableDir,
-                iosCreateImagesetFolders,
-                enablePngCrush,
-                enableMozJpeg,
-                postConvertWebp,
-                enableAntiAliasing,
-                dryRun,
-                keepUnoptimizedFilesPostProcessor,
-                roundingHandler,
-                false,
-                clearDirBeforeConvert
-        );
+    //        if (rawArgs.length < 1) {
+    //            new GUI().launchApp(rawArgs);
+    //            return;
+    //        }
+    //
+    //        Arguments args = CLIInterpreter.parse(analysisArgs.toArray(new String[0]));
+    //
+    //        if (args == null) {
+    //            return;
+    //        } else if (args == Arguments.START_GUI) {
+    //            System.out.println("start gui");
+    //            new GUI().launchApp(rawArgs);
+    //            return;
+    //        }
 
-//        if (rawArgs.length < 1) {
-//            new GUI().launchApp(rawArgs);
-//            return;
-//        }
-//
-//        Arguments args = CLIInterpreter.parse(analysisArgs.toArray(new String[0]));
-//
-//        if (args == null) {
-//            return;
-//        } else if (args == Arguments.START_GUI) {
-//            System.out.println("start gui");
-//            new GUI().launchApp(rawArgs);
-//            return;
-//        }
+    System.out.println("start converting " + args.filesToProcess.size() + " files");
 
-        System.out.println("start converting " + args.filesToProcess.size() + " files");
-
-        new DConvert().execute(args, true, new DConvert.HandlerCallback() {
-            @Override
-            public void onProgress(float progress) {
+    new DConvert()
+        .execute(
+            args,
+            true,
+            new DConvert.HandlerCallback() {
+              @Override
+              public void onProgress(float progress) {
                 try {
-                    System.out.write(MiscUtil.getCmdProgressBar(progress).getBytes());
+                  System.out.write(MiscUtil.getCmdProgressBar(progress).getBytes());
                 } catch (IOException e) {
-                    e.printStackTrace();
+                  e.printStackTrace();
                 }
-            }
+              }
 
-            @Override
-            public void onFinished(int finishedJobs, List<Exception> exceptions, long time, boolean haltedDuringProcess, String log) {
+              @Override
+              public void onFinished(
+                  int finishedJobs,
+                  List<Exception> exceptions,
+                  long time,
+                  boolean haltedDuringProcess,
+                  String log) {
                 System.out.print(MiscUtil.getCmdProgressBar(1f));
 
                 System.out.println("");
 
                 if (args.verboseLog) {
-                    System.out.println("Log:");
-                    System.out.println(log);
+                  System.out.println("Log:");
+                  System.out.println(log);
                 }
 
                 if (haltedDuringProcess) {
-                    System.err.println("abort due to error");
+                  System.err.println("abort due to error");
                 }
                 if (exceptions.size() > 0) {
-                    System.err.println("found " + exceptions.size() + " errors during execution");
-                    if (args.verboseLog) {
-                        for (Exception exception : exceptions) {
-                            System.err.println("\terror: " + exception.getMessage());
-                            exception.printStackTrace();
-                        }
+                  System.err.println("found " + exceptions.size() + " errors during execution");
+                  if (args.verboseLog) {
+                    for (Exception exception : exceptions) {
+                      System.err.println("\terror: " + exception.getMessage());
+                      exception.printStackTrace();
                     }
+                  }
                 }
-                System.out.println("execution finished (" + time + "ms) with " + finishedJobs + " finsihed jobs and " + exceptions.size() + " errors");
-            }
-        });
+                System.out.println(
+                    "execution finished ("
+                        + time
+                        + "ms) with "
+                        + finishedJobs
+                        + " finsihed jobs and "
+                        + exceptions.size()
+                        + " errors");
+              }
+            });
+  }
+
+  private static RoundingHandler.Strategy getRoundingHandler(String roundingMode) {
+    switch (roundingMode) {
+      case "round":
+        return RoundingHandler.Strategy.ROUND_HALF_UP;
+      case "ceil":
+        return RoundingHandler.Strategy.CEIL;
+      case "floor":
+        return RoundingHandler.Strategy.FLOOR;
+      default:
+        throw new RuntimeException("unknown mode: " + roundingMode);
+    }
+  }
+
+  private static EScaleMode scaleMode(boolean dp, boolean scaleIsHeightDp) {
+    if (dp && scaleIsHeightDp) {
+      return EScaleMode.DP_HEIGHT;
+    } else if (dp && !scaleIsHeightDp) {
+      return EScaleMode.DP_WIDTH;
+    } else {
+      return EScaleMode.FACTOR;
+    }
+  }
+
+  private static EOutputCompressionMode getOutCompression(String outCompression) {
+    switch (outCompression) {
+      case "strict":
+        return EOutputCompressionMode.SAME_AS_INPUT_STRICT;
+      case "png":
+        return EOutputCompressionMode.AS_PNG;
+      case "jpg":
+        return EOutputCompressionMode.AS_JPG;
+      case "gif":
+        return EOutputCompressionMode.AS_GIF;
+      case "bmp":
+        return EOutputCompressionMode.AS_BMP;
+      case "png+jpg":
+        return EOutputCompressionMode.AS_JPG_AND_PNG;
+      default:
+        throw new RuntimeException("unknown compression type: " + outCompression);
+    }
+  }
+
+  private static Set<EPlatform> getPlatform(String platform) {
+    Set<EPlatform> platformSet = new HashSet<>();
+
+    switch (platform) {
+      case "all":
+        platformSet = EPlatform.getAll();
+        break;
+      case "android":
+        platformSet.add(EPlatform.ANDROID);
+        break;
+      case "ios":
+        platformSet.add(EPlatform.IOS);
+        break;
+      case "win":
+        platformSet.add(EPlatform.WINDOWS);
+        break;
+      case "web":
+        platformSet.add(EPlatform.WEB);
+        break;
+      default:
+        System.err.println("unknown mode: " + platform);
     }
 
-    private static RoundingHandler.Strategy getRoundingHandler(String roundingMode) {
-        switch (roundingMode) {
-            case "round":
-                return RoundingHandler.Strategy.ROUND_HALF_UP;
-            case "ceil":
-                return RoundingHandler.Strategy.CEIL;
-            case "floor":
-                return RoundingHandler.Strategy.FLOOR;
-            default:
-                throw new RuntimeException("unknown mode: " + roundingMode);
-        }
+    return platformSet;
+  }
+
+  private static boolean postProcess(boolean option) {
+    return false;
+  }
+
+  private static String roundingMode(boolean option) {
+    if (option) {
+      return "ceil";
     }
 
-    private static EScaleMode scaleMode(boolean dp, boolean scaleIsHeightDp) {
-        if (dp && scaleIsHeightDp) {
-            return EScaleMode.DP_HEIGHT;
-        } else if (dp && !scaleIsHeightDp) {
-            return EScaleMode.DP_WIDTH;
-        } else {
-            return EScaleMode.FACTOR;
-        }
+    return "floor";
+  }
+
+  private static String downScalingAlgo(boolean option) {
+    if (option) {
+      return EScalingAlgorithm.LANCZOS3.getName();
     }
 
-    private static EOutputCompressionMode getOutCompression(String outCompression) {
-        switch (outCompression) {
-            case "strict":
-                return EOutputCompressionMode.SAME_AS_INPUT_STRICT;
-            case "png":
-                return EOutputCompressionMode.AS_PNG;
-            case "jpg":
-                return EOutputCompressionMode.AS_JPG;
-            case "gif":
-                return EOutputCompressionMode.AS_GIF;
-            case "bmp":
-                return EOutputCompressionMode.AS_BMP;
-            case "png+jpg":
-                return EOutputCompressionMode.AS_JPG_AND_PNG;
-            default:
-                throw new RuntimeException("unknown compression type: " + outCompression);
-        }
+    return Arguments.DEFAULT_UPSCALING_QUALITY.getName();
+  }
+
+  private static String upScalingAlgo(boolean option) {
+    if (option) {
+      return EScalingAlgorithm.LANCZOS3.getName();
     }
 
-    private static Set<EPlatform> getPlatform(String platform) {
-        Set<EPlatform> platformSet = new HashSet<>();
+    return Arguments.DEFAULT_DOWNSCALING_QUALITY.getName();
+  }
 
-        switch (platform) {
-            case "all":
-                platformSet = EPlatform.getAll();
-                break;
-            case "android":
-                platformSet.add(EPlatform.ANDROID);
-                break;
-            case "ios":
-                platformSet.add(EPlatform.IOS);
-                break;
-            case "win":
-                platformSet.add(EPlatform.WINDOWS);
-                break;
-            case "web":
-                platformSet.add(EPlatform.WEB);
-                break;
-            default:
-                System.err.println("unknown mode: " + platform);
-        }
-
-        return platformSet;
+  private static String platform(boolean option) {
+    if (option) {
+      return "ios";
     }
 
-    private static boolean postProcess(boolean option) {
-        return false;
+    return "android";
+  }
+
+  private static String outCompression(boolean option) {
+    if (option) {
+      return "png";
     }
 
-    private static String roundingMode(boolean option) {
-        if (option) {
-            return "ceil";
-        }
+    return "jpg";
+  }
 
-        return "floor";
+  private static float compressionQuality(boolean option) {
+    if (option) {
+      return 0.91f;
     }
 
-    private static String downScalingAlgo(boolean option) {
-        if (option) {
-            return EScalingAlgorithm.LANCZOS3.getName();
-        }
+    return Arguments.DEFAULT_COMPRESSION_QUALITY;
+  }
 
-        return Arguments.DEFAULT_UPSCALING_QUALITY.getName();
+  private static float keep_scale(boolean option) {
+    if (option) {
+      return 1f;
     }
 
-    private static String upScalingAlgo(boolean option) {
-        if (option) {
-            return EScalingAlgorithm.LANCZOS3.getName();
-        }
-
-        return Arguments.DEFAULT_DOWNSCALING_QUALITY.getName();
-    }
-
-    private static String platform(boolean option) {
-        if (option) {
-            return "ios";
-        }
-
-        return "android";
-    }
-
-    private static String outCompression(boolean option) {
-        if (option) {
-            return "png";
-        }
-
-        return "jpg";
-    }
-
-    private static float compressionQuality(boolean option) {
-        if (option) {
-            return 0.91f;
-        }
-
-        return Arguments.DEFAULT_COMPRESSION_QUALITY;
-    }
-
-    private static float keep_scale(boolean option) {
-        if (option) {
-            return 1f;
-        }
-
-        return Arguments.DEFAULT_SCALE;
-    }
+    return Arguments.DEFAULT_SCALE;
+  }
 }
