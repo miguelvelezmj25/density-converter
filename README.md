@@ -51,8 +51,6 @@ Could you please take a look at why the program is taking so long to convert ima
 * The input image is valid.
 * You have successfully reproduced the bug report and confirmed the performance behavior.
 That is, executing the program multiple times with different images, but with the same configuration, takes a long time.
-* The program runs in fixed hardware. 
-That is, you cannot suggest running the program on faster hardware.
 
 ## Docs
 
