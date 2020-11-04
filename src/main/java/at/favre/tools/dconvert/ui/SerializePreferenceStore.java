@@ -30,7 +30,7 @@ public class SerializePreferenceStore implements IPreferenceStore {
     private Preferences prefs;
 
     public SerializePreferenceStore() {
-        this.prefs = Preferences.userNodeForPackage(GUI.class);
+//        this.prefs = Preferences.userNodeForPackage(GUI.class);
     }
 
     @Override
