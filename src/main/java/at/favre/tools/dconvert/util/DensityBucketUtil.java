@@ -26,86 +26,129 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.TreeMap;
 
-/**
- * Helps assembling needed densities to convert to
- */
+/** Helps assembling needed densities to convert to */
 public final class DensityBucketUtil {
-    private static final float SVG_UPSCALE_FACTOR = 4;
+  private static final float SVG_UPSCALE_FACTOR = 4;
 
-    private DensityBucketUtil() {
+  private DensityBucketUtil() {}
+
+  public static <T extends DensityDescriptor> Map<T, Dimension> getDensityBuckets(
+      java.util.List<T> densities,
+      Dimension srcDimension,
+      Arguments args,
+      float scale,
+      boolean isNinePatch)
+      throws IOException {
+
+    if (isNinePatch) {
+      srcDimension.setSize(srcDimension.getWidth() - 2, srcDimension.getHeight() - 2);
     }
 
-    public static <T extends DensityDescriptor> Map<T, Dimension> getDensityBuckets(java.util.List<T> densities, Dimension srcDimension, Arguments args, float scale, boolean isNinePatch) throws IOException {
-
-        if (isNinePatch) {
-            srcDimension.setSize(srcDimension.getWidth() - 2, srcDimension.getHeight() - 2);
-        }
-
-        switch (args.scaleMode) {
-            case DP_WIDTH:
-                return getDensityBucketsWithDpScale(densities, srcDimension, args, scale);
-            case DP_HEIGHT:
-                return getDensityBucketsHeightDpScale(densities, srcDimension, args, scale);
-            default:
-            case FACTOR:
-                return getDensityBucketsWithFactorScale(densities, srcDimension, args, scale);
-        }
+    switch (args.scaleMode) {
+      case DP_WIDTH:
+        return getDensityBucketsWithDpScale(densities, srcDimension, args, scale);
+      case DP_HEIGHT:
+        return getDensityBucketsHeightDpScale(densities, srcDimension, args, scale);
+      default:
+      case FACTOR:
+        return getDensityBucketsWithFactorScale(densities, srcDimension, args, scale);
     }
+  }
 
-    private static <T extends DensityDescriptor> Map<T, Dimension> getDensityBucketsWithDpScale(java.util.List<T> densities, Dimension srcDimension, Arguments args, float scale) throws IOException {
-        float scaleFactor = scale / (float) srcDimension.width;
+  private static <T extends DensityDescriptor> Map<T, Dimension> getDensityBucketsWithDpScale(
+      java.util.List<T> densities, Dimension srcDimension, Arguments args, float scale)
+      throws IOException {
+    float scaleFactor = scale / (float) srcDimension.width;
 
-        int baseWidth = (int) args.round(scale);
-        int baseHeight = (int) args.round(scaleFactor * (float) srcDimension.height);
+    int baseWidth = (int) args.round(scale);
+    int baseHeight = (int) args.round(scaleFactor * (float) srcDimension.height);
 
-        Map<T, Dimension> bucketMap = new TreeMap<>();
-        densities.stream().filter(density -> (int) args.round(baseWidth * density.scale) <= srcDimension.width || !args.skipUpscaling).forEach(density -> {
-            bucketMap.put(density, new Dimension((int) args.round(baseWidth * density.scale),
-                    (int) args.round(baseHeight * density.scale)));
-        });
-        return bucketMap;
+    Map<T, Dimension> bucketMap = new TreeMap<>();
+    densities.stream()
+        .filter(
+            density ->
+                (int) args.round(baseWidth * density.scale) <= srcDimension.width
+                    || !args.skipUpscaling)
+        .forEach(
+            density -> {
+              bucketMap.put(
+                  density,
+                  new Dimension(
+                      (int) args.round(baseWidth * density.scale),
+                      (int) args.round(baseHeight * density.scale)));
+            });
+    return bucketMap;
+  }
+
+  private static <T extends DensityDescriptor> Map<T, Dimension> getDensityBucketsHeightDpScale(
+      java.util.List<T> densities, Dimension srcDimension, Arguments args, float scale)
+      throws IOException {
+    float scaleFactor = scale / (float) srcDimension.height;
+
+    int baseWidth = (int) args.round(scaleFactor * (float) srcDimension.width);
+    int baseHeight = (int) args.round(scale);
+
+    Map<T, Dimension> bucketMap = new TreeMap<>();
+    densities.stream()
+        .filter(
+            density ->
+                (int) args.round(baseHeight * density.scale) <= srcDimension.height
+                    || !args.skipUpscaling)
+        .forEach(
+            density -> {
+              bucketMap.put(
+                  density,
+                  new Dimension(
+                      (int) args.round(baseWidth * density.scale),
+                      (int) args.round(baseHeight * density.scale)));
+            });
+    return bucketMap;
+  }
+
+  private static <T extends DensityDescriptor> Map<T, Dimension> getDensityBucketsWithFactorScale(
+      java.util.List<T> densities, Dimension srcDimension, Arguments args, float scale) {
+    double baseWidth = (double) srcDimension.width / scale;
+    double baseHeight = (double) srcDimension.height / scale;
+
+    Map<T, Dimension> bucketMap = new TreeMap<>();
+    densities.stream()
+        .filter(density -> scale >= density.scale || !args.skipUpscaling)
+        .forEach(
+            density -> {
+              bucketMap.put(
+                  density,
+                  new Dimension(
+                      (int) args.round(baseWidth * density.scale),
+                      (int) args.round(baseHeight * density.scale)));
+            });
+    return bucketMap;
+  }
+
+  private static Dimension getHqDimension(File image, Arguments args) throws IOException {
+    Dimension srcDimension = ImageUtil.getImageDimension(image);
+    Dimension hqDimension;
+    if (args.scaleMode == EScaleMode.FACTOR && args.scale < SVG_UPSCALE_FACTOR) {
+      hqDimension =
+          new Dimension(
+              (int) args.round(SVG_UPSCALE_FACTOR / args.scale * (float) srcDimension.width),
+              (int) args.round(SVG_UPSCALE_FACTOR / args.scale * (float) srcDimension.width));
+    } else if (args.scaleMode == EScaleMode.DP_WIDTH
+        && (args.scale * SVG_UPSCALE_FACTOR < srcDimension.width)) {
+      float scaleFactor = args.scale / (float) srcDimension.width * SVG_UPSCALE_FACTOR;
+      hqDimension =
+          new Dimension(
+              (int) args.round(scaleFactor * (float) srcDimension.width),
+              (int) args.round(scaleFactor * (float) srcDimension.height));
+    } else if (args.scaleMode == EScaleMode.DP_HEIGHT
+        && (args.scale * SVG_UPSCALE_FACTOR < srcDimension.height)) {
+      float scaleFactor = args.scale / (float) srcDimension.height * SVG_UPSCALE_FACTOR;
+      hqDimension =
+          new Dimension(
+              (int) args.round(scaleFactor * (float) srcDimension.width),
+              (int) args.round(scaleFactor * (float) srcDimension.height));
+    } else {
+      hqDimension = srcDimension;
     }
-
-    private static <T extends DensityDescriptor> Map<T, Dimension> getDensityBucketsHeightDpScale(java.util.List<T> densities, Dimension srcDimension, Arguments args, float scale) throws IOException {
-        float scaleFactor = scale / (float) srcDimension.height;
-
-        int baseWidth = (int) args.round(scaleFactor * (float) srcDimension.width);
-        int baseHeight = (int) args.round(scale);
-
-        Map<T, Dimension> bucketMap = new TreeMap<>();
-        densities.stream().filter(density -> (int) args.round(baseHeight * density.scale) <= srcDimension.height || !args.skipUpscaling).forEach(density -> {
-            bucketMap.put(density, new Dimension((int) args.round(baseWidth * density.scale),
-                    (int) args.round(baseHeight * density.scale)));
-        });
-        return bucketMap;
-    }
-
-    private static <T extends DensityDescriptor> Map<T, Dimension> getDensityBucketsWithFactorScale(java.util.List<T> densities, Dimension srcDimension, Arguments args, float scale) {
-        double baseWidth = (double) srcDimension.width / scale;
-        double baseHeight = (double) srcDimension.height / scale;
-
-        Map<T, Dimension> bucketMap = new TreeMap<>();
-        densities.stream().filter(density -> scale >= density.scale || !args.skipUpscaling).forEach(density -> {
-            bucketMap.put(density, new Dimension((int) args.round(baseWidth * density.scale),
-                    (int) args.round(baseHeight * density.scale)));
-        });
-        return bucketMap;
-    }
-
-    private static Dimension getHqDimension(File image, Arguments args) throws IOException {
-        Dimension srcDimension = ImageUtil.getImageDimension(image);
-        Dimension hqDimension;
-        if (args.scaleMode == EScaleMode.FACTOR && args.scale < SVG_UPSCALE_FACTOR) {
-            hqDimension = new Dimension((int) args.round(SVG_UPSCALE_FACTOR / args.scale * (float) srcDimension.width), (int) args.round(SVG_UPSCALE_FACTOR / args.scale * (float) srcDimension.width));
-        } else if (args.scaleMode == EScaleMode.DP_WIDTH && (args.scale * SVG_UPSCALE_FACTOR < srcDimension.width)) {
-            float scaleFactor = args.scale / (float) srcDimension.width * SVG_UPSCALE_FACTOR;
-            hqDimension = new Dimension((int) args.round(scaleFactor * (float) srcDimension.width), (int) args.round(scaleFactor * (float) srcDimension.height));
-        } else if (args.scaleMode == EScaleMode.DP_HEIGHT && (args.scale * SVG_UPSCALE_FACTOR < srcDimension.height)) {
-            float scaleFactor = args.scale / (float) srcDimension.height * SVG_UPSCALE_FACTOR;
-            hqDimension = new Dimension((int) args.round(scaleFactor * (float) srcDimension.width), (int) args.round(scaleFactor * (float) srcDimension.height));
-        } else {
-            hqDimension = srcDimension;
-        }
-        return hqDimension;
-    }
+    return hqDimension;
+  }
 }

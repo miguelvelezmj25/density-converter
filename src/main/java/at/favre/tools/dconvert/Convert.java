@@ -132,7 +132,7 @@ public final class Convert {
                   String log) {
                 System.out.print(MiscUtil.getCmdProgressBar(1f));
 
-                System.out.println("");
+                System.out.println();
 
                 if (args.verboseLog) {
                   System.out.println("Log:");

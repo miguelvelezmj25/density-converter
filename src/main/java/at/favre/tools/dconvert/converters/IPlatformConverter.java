@@ -20,24 +20,22 @@ import at.favre.tools.dconvert.arg.Arguments;
 
 import java.io.File;
 
-/**
- * Defines how an image will be converted for a specific platform and densities
- */
+/** Defines how an image will be converted for a specific platform and densities */
 public interface IPlatformConverter {
 
-    /**
-     * Converts the given file to all needed densities
-     *
-     * @param srcImageFile source image file to be used as base to scale
-     * @param arguments    all tool args
-     * @return result
-     */
-    Result convert(File srcImageFile, Arguments arguments);
+  /**
+   * Converts the given file to all needed densities
+   *
+   * @param srcImageFile source image file to be used as base to scale
+   * @param arguments all tool args
+   * @return result
+   */
+  Result convert(File srcImageFile, Arguments arguments);
 
-    /**
-     * Cleans (ie. deletes) all dirs that would be generated with this converter and arguments
-     *
-     * @param arguments
-     */
-    void clean(Arguments arguments);
+  /**
+   * Cleans (ie. deletes) all dirs that would be generated with this converter and arguments
+   *
+   * @param arguments
+   */
+  void clean(Arguments arguments);
 }

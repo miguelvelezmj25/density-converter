@@ -24,39 +24,36 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-/**
- * Defines platforms to convert to
- */
+/** Defines platforms to convert to */
 public enum EPlatform {
-    ANDROID(new AndroidConverter()),
-    IOS(new IOSConverter()),
-    WINDOWS(new WindowsConverter()),
-    WEB(new WebConverter());
+  ANDROID(new AndroidConverter()),
+  IOS(new IOSConverter()),
+  WINDOWS(new WindowsConverter()),
+  WEB(new WebConverter());
 
-    private final IPlatformConverter converter;
+  private static Set<EPlatform> ALL;
+  private final IPlatformConverter converter;
 
-    EPlatform(IPlatformConverter converter) {
-        this.converter = converter;
+  EPlatform(IPlatformConverter converter) {
+    this.converter = converter;
+  }
+
+  public static Set<EPlatform> getAll() {
+    if (ALL == null) {
+      Set<EPlatform> temp = new HashSet<>(EPlatform.values().length);
+      for (EPlatform ePlatform : EPlatform.values()) {
+        temp.add(ePlatform);
+      }
+      ALL = Collections.unmodifiableSet(temp);
     }
+    return ALL;
+  }
 
-    public IPlatformConverter getConverter() {
-        return converter;
-    }
+  public static List<IPlatformConverter> getAllConverters() {
+    return getAll().stream().map(EPlatform::getConverter).collect(Collectors.toList());
+  }
 
-    private static Set<EPlatform> ALL;
-
-    public static Set<EPlatform> getAll() {
-        if (ALL == null) {
-            Set<EPlatform> temp = new HashSet<>(EPlatform.values().length);
-            for (EPlatform ePlatform : EPlatform.values()) {
-                temp.add(ePlatform);
-            }
-            ALL = Collections.unmodifiableSet(temp);
-        }
-        return ALL;
-    }
-
-    public static List<IPlatformConverter> getAllConverters() {
-        return getAll().stream().map(EPlatform::getConverter).collect(Collectors.toList());
-    }
+  public IPlatformConverter getConverter() {
+    return converter;
+  }
 }

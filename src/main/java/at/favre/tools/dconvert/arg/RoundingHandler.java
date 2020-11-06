@@ -16,31 +16,29 @@
 
 package at.favre.tools.dconvert.arg;
 
-/**
- * Defines how float numbers will be rounded
- */
+/** Defines how float numbers will be rounded */
 public class RoundingHandler {
-    public enum Strategy {
-        ROUND_HALF_UP,
-        CEIL,
-        FLOOR
-    }
+  private final Strategy strategy;
 
-    private final Strategy strategy;
+  public RoundingHandler(Strategy strategy) {
+    this.strategy = strategy;
+  }
 
-    public RoundingHandler(Strategy strategy) {
-        this.strategy = strategy;
+  public long round(double value) {
+    switch (strategy) {
+      case CEIL:
+        return Math.max(1, (long) Math.ceil(value));
+      case FLOOR:
+        return Math.max(1, (long) Math.floor(value));
+      default:
+      case ROUND_HALF_UP:
+        return Math.max(1, Math.round(value));
     }
+  }
 
-    public long round(double value) {
-        switch (strategy) {
-            case CEIL:
-                return Math.max(1, (long) Math.ceil(value));
-            case FLOOR:
-                return Math.max(1, (long) Math.floor(value));
-            default:
-            case ROUND_HALF_UP:
-                return Math.max(1, Math.round(value));
-        }
-    }
+  public enum Strategy {
+    ROUND_HALF_UP,
+    CEIL,
+    FLOOR
+  }
 }

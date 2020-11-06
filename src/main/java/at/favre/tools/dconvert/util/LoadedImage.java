@@ -22,36 +22,34 @@ import javax.imageio.metadata.IIOMetadata;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
-/**
- * Wraps a {@link BufferedImage} and some other meta data
- */
-
+/** Wraps a {@link BufferedImage} and some other meta data */
 public class LoadedImage {
-    private final File sourceFile;
-    private final BufferedImage image;
-    private final IIOMetadata metadata;
-    private final CompoundDirectory directory;
+  private final File sourceFile;
+  private final BufferedImage image;
+  private final IIOMetadata metadata;
+  private final CompoundDirectory directory;
 
-    public LoadedImage(File sourceFile, BufferedImage image, IIOMetadata metadata, CompoundDirectory directory) {
-        this.sourceFile = sourceFile;
-        this.image = image;
-        this.metadata = metadata;
-        this.directory = directory;
-    }
+  public LoadedImage(
+      File sourceFile, BufferedImage image, IIOMetadata metadata, CompoundDirectory directory) {
+    this.sourceFile = sourceFile;
+    this.image = image;
+    this.metadata = metadata;
+    this.directory = directory;
+  }
 
-    public File getSourceFile() {
-        return sourceFile;
-    }
+  public File getSourceFile() {
+    return sourceFile;
+  }
 
-    public BufferedImage getImage() {
-        return image;
-    }
+  public BufferedImage getImage() {
+    return image;
+  }
 
-    public IIOMetadata getMetadata() {
-        return metadata;
-    }
+  public IIOMetadata getMetadata() {
+    return metadata;
+  }
 
-    public CompoundDirectory getExif() {
-        return directory;
-    }
+  public CompoundDirectory getExif() {
+    return directory;
+  }
 }

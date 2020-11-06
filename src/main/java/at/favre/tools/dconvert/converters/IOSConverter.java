@@ -28,112 +28,149 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Needed info to convert for Android
- */
+/** Needed info to convert for Android */
 public class IOSConverter extends APlatformConverter<PostfixDescriptor> {
-    public static final String ROOT_FOLDER = "AssetCatalog";
-    private static final String IOS_FOLDER_NAME = "ios";
+  public static final String ROOT_FOLDER = "AssetCatalog";
+  private static final String IOS_FOLDER_NAME = "ios";
 
-    @Override
-    public List<PostfixDescriptor> usedOutputDensities(Arguments arguments) {
-        return getIosDescriptors();
+  public static List<PostfixDescriptor> getIosDescriptors() {
+    List<PostfixDescriptor> list = new ArrayList<>();
+    list.add(new PostfixDescriptor(1, "1x", ""));
+    list.add(new PostfixDescriptor(2, "2x", "@2x"));
+    list.add(new PostfixDescriptor(3, "3x", "@3x"));
+    return list;
+  }
+
+  @Override
+  public List<PostfixDescriptor> usedOutputDensities(Arguments arguments) {
+    return getIosDescriptors();
+  }
+
+  @Override
+  public PostfixDescriptor specialOutputDensities() {
+    return new PostfixDescriptor(1, "1x", "");
+  }
+
+  @Override
+  public String getConverterName() {
+    return "ios-converter";
+  }
+
+  @Override
+  public File createMainSubFolder(
+      File destinationFolder, String targetImageFileName, Arguments arguments) {
+    if (arguments.platform.size() > 1) {
+      destinationFolder =
+          MiscUtil.createAndCheckFolder(
+              new File(destinationFolder, IOS_FOLDER_NAME).getAbsolutePath(), arguments.dryRun);
     }
-
-    @Override
-    public PostfixDescriptor specialOutputDensities() {
-        return new PostfixDescriptor(1, "1x", "");
+    if (arguments.iosCreateImagesetFolders) {
+      return MiscUtil.createAndCheckFolder(
+          new File(destinationFolder, targetImageFileName + ".imageset").getAbsolutePath(),
+          arguments.dryRun);
+    } else {
+      return MiscUtil.createAndCheckFolder(
+          new File(destinationFolder, ROOT_FOLDER).getAbsolutePath(), arguments.dryRun);
     }
+  }
 
-    public static List<PostfixDescriptor> getIosDescriptors() {
-        List<PostfixDescriptor> list = new ArrayList<>();
-        list.add(new PostfixDescriptor(1, "1x", ""));
-        list.add(new PostfixDescriptor(2, "2x", "@2x"));
-        list.add(new PostfixDescriptor(3, "3x", "@3x"));
-        return list;
+  @Override
+  public File createFolderForOutputFile(
+      File mainSubFolder,
+      PostfixDescriptor density,
+      Dimension dimension,
+      String targetFileName,
+      Arguments arguments) {
+    return mainSubFolder;
+  }
+
+  @Override
+  public String createDestinationFileNameWithoutExtension(
+      PostfixDescriptor density, Dimension dimension, String targetFileName, Arguments arguments) {
+    return targetFileName + density.postFix;
+  }
+
+  @Override
+  public void onPreExecute(
+      File dstFolder,
+      String targetFileName,
+      List<PostfixDescriptor> densityDescriptions,
+      ImageType imageType,
+      Arguments arguments)
+      throws Exception {
+    if (!arguments.dryRun && arguments.iosCreateImagesetFolders) {
+      writeContentsJson(
+          dstFolder,
+          targetFileName,
+          densityDescriptions,
+          Arguments.getOutCompressionForType(arguments.outputCompressionMode, imageType));
     }
+  }
 
-    @Override
-    public String getConverterName() {
-        return "ios-converter";
+  @Override
+  public void onPostExecute(Arguments arguments) {}
+
+  private void writeContentsJson(
+      File dstFolder,
+      String targetFileName,
+      List<PostfixDescriptor> iosDensityDescriptions,
+      List<ImageType.ECompression> compressions)
+      throws IOException {
+    File contentJson = new File(dstFolder, "Contents.json");
+
+    if (contentJson.exists()) {
+      contentJson.delete();
     }
+    contentJson.createNewFile();
 
-    @Override
-    public File createMainSubFolder(File destinationFolder, String targetImageFileName, Arguments arguments) {
-        if (arguments.platform.size() > 1) {
-            destinationFolder = MiscUtil.createAndCheckFolder(new File(destinationFolder, IOS_FOLDER_NAME).getAbsolutePath(), arguments.dryRun);
+    try (PrintWriter out = new PrintWriter(contentJson)) {
+      out.println(createContentsJson(targetFileName, iosDensityDescriptions, compressions));
+    }
+  }
+
+  private String createContentsJson(
+      String targetFileName,
+      List<PostfixDescriptor> iosDensityDescriptions,
+      List<ImageType.ECompression> compressions) {
+    StringBuilder sb = new StringBuilder("{\n\t\"images\": [");
+    for (ImageType.ECompression compression : compressions) {
+      for (PostfixDescriptor densityDescription : iosDensityDescriptions) {
+        sb.append(
+            "\n\t\t{\n"
+                + "\t\t\t\"filename\": \""
+                + targetFileName
+                + densityDescription.postFix
+                + "."
+                + compression.name().toLowerCase()
+                + "\",\n"
+                + "\t\t\t\"idiom\": \"universal\",\n"
+                + "\t\t\t\"scale\": \""
+                + densityDescription.name
+                + "\"\n"
+                + "\t\t},");
+      }
+    }
+    sb.setLength(sb.length() - 1);
+    sb.append("\n\t],\n\t\"info\": {\n\t\t\"author\": \"xcode\",\n\t\t\"version\": 1\n\t}\n}");
+
+    return sb.toString();
+  }
+
+  @Override
+  public void clean(Arguments arguments) {
+    if (arguments.platform.size() == 1) {
+      if (arguments.iosCreateImagesetFolders) {
+        for (File filesToProcess : arguments.filesToProcess) {
+          MiscUtil.deleteFolder(
+              new File(
+                  arguments.dst,
+                  MiscUtil.getFileNameWithoutExtension(filesToProcess) + ".imageset"));
         }
-        if (arguments.iosCreateImagesetFolders) {
-            return MiscUtil.createAndCheckFolder(new File(destinationFolder, targetImageFileName + ".imageset").getAbsolutePath(), arguments.dryRun);
-        } else {
-            return MiscUtil.createAndCheckFolder(new File(destinationFolder, ROOT_FOLDER).getAbsolutePath(), arguments.dryRun);
-        }
+      } else {
+        MiscUtil.deleteFolder(new File(arguments.dst, ROOT_FOLDER));
+      }
+    } else {
+      MiscUtil.deleteFolder(new File(arguments.dst, IOS_FOLDER_NAME));
     }
-
-    @Override
-    public File createFolderForOutputFile(File mainSubFolder, PostfixDescriptor density, Dimension dimension, String targetFileName, Arguments arguments) {
-        return mainSubFolder;
-    }
-
-    @Override
-    public String createDestinationFileNameWithoutExtension(PostfixDescriptor density, Dimension dimension, String targetFileName, Arguments arguments) {
-        return targetFileName + density.postFix;
-    }
-
-    @Override
-    public void onPreExecute(File dstFolder, String targetFileName, List<PostfixDescriptor> densityDescriptions, ImageType imageType, Arguments arguments) throws Exception {
-        if (!arguments.dryRun && arguments.iosCreateImagesetFolders) {
-            writeContentsJson(dstFolder, targetFileName, densityDescriptions, Arguments.getOutCompressionForType(arguments.outputCompressionMode, imageType));
-        }
-    }
-
-    @Override
-    public void onPostExecute(Arguments arguments) {
-
-    }
-
-    private void writeContentsJson(File dstFolder, String targetFileName, List<PostfixDescriptor> iosDensityDescriptions, List<ImageType.ECompression> compressions) throws IOException {
-        File contentJson = new File(dstFolder, "Contents.json");
-
-        if (contentJson.exists()) {
-            contentJson.delete();
-        }
-        contentJson.createNewFile();
-
-        try (PrintWriter out = new PrintWriter(contentJson)) {
-            out.println(createContentsJson(targetFileName, iosDensityDescriptions, compressions));
-        }
-    }
-
-    private String createContentsJson(String targetFileName, List<PostfixDescriptor> iosDensityDescriptions, List<ImageType.ECompression> compressions) {
-        StringBuilder sb = new StringBuilder("{\n\t\"images\": [");
-        for (ImageType.ECompression compression : compressions) {
-            for (PostfixDescriptor densityDescription : iosDensityDescriptions) {
-                sb.append("\n\t\t{\n" +
-                        "\t\t\t\"filename\": \"" + targetFileName + densityDescription.postFix + "." + compression.name().toLowerCase() + "\",\n" +
-                        "\t\t\t\"idiom\": \"universal\",\n" +
-                        "\t\t\t\"scale\": \"" + densityDescription.name + "\"\n" +
-                        "\t\t},");
-            }
-        }
-        sb.setLength(sb.length() - 1);
-        sb.append("\n\t],\n\t\"info\": {\n\t\t\"author\": \"xcode\",\n\t\t\"version\": 1\n\t}\n}");
-
-        return sb.toString();
-    }
-
-    @Override
-    public void clean(Arguments arguments) {
-        if (arguments.platform.size() == 1) {
-            if (arguments.iosCreateImagesetFolders) {
-                for (File filesToProcess : arguments.filesToProcess) {
-                    MiscUtil.deleteFolder(new File(arguments.dst, MiscUtil.getFileNameWithoutExtension(filesToProcess) + ".imageset"));
-                }
-            } else {
-                MiscUtil.deleteFolder(new File(arguments.dst, ROOT_FOLDER));
-            }
-        } else {
-            MiscUtil.deleteFolder(new File(arguments.dst, IOS_FOLDER_NAME));
-        }
-    }
+  }
 }

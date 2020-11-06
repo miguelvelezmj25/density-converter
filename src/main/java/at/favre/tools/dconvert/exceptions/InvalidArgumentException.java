@@ -16,15 +16,13 @@
 
 package at.favre.tools.dconvert.exceptions;
 
-/**
- * Thrown if given arguments is invalid (e.g wrong range)
- */
+/** Thrown if given arguments is invalid (e.g wrong range) */
 public class InvalidArgumentException extends Exception {
-    public InvalidArgumentException(String message) {
-        super(message);
-    }
+  public InvalidArgumentException(String message) {
+    super(message);
+  }
 
-    public InvalidArgumentException(String message, Throwable cause) {
-        super(message, cause);
-    }
+  public InvalidArgumentException(String message, Throwable cause) {
+    super(message, cause);
+  }
 }
