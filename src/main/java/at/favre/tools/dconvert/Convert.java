@@ -41,7 +41,7 @@ public final class Convert {
     boolean haltOnError = false;
     boolean iosCreateImagesetFolders = false;
     boolean keepOriginalPostProcessedFiles = true;
-    float keepScale = keep_scale(true);
+    float scale = keep_scale(true);
     String outCompression = outCompression(false);
     String selectedPlatform = platform(false);
     boolean postProcessorMozJpeg = true;
@@ -67,7 +67,7 @@ public final class Convert {
         new Arguments(
             src,
             dst,
-            keepScale,
+            scale,
             platform,
             outputCompressionMode,
             scaleMode,
