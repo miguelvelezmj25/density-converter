@@ -47,7 +47,7 @@ public final class Convert {
     boolean postProcessorPngCrush = false;
     boolean postProcessorWebp = false;
     String roundingMode = "floor";
-    float scale = Arguments.DEFAULT_SCALE;
+    float scale = 1;
     boolean scaleIsHeightDp = false;
     boolean skipExisting = false;
     boolean skipUpscaling = false;
