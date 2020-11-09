@@ -32,7 +32,7 @@ This is the configuration that I used:
 * `POST_PROCESSOR_PNG_CRUSH = false`  
 * `POST_PROCESSOR_WEBP = false`  
 * `ROUNDING_MODE = "floor"` 
-* `SCALE = true`
+* `SCALE = 1`
 * `SCALE_IS_HEIGHT_DP = false` 
 * `SKIP_EXISTING = false` 
 * `SKIP_UPSCALING = false` 
@@ -121,7 +121,7 @@ Possibles are "round" (rounds up of >= 0.5), "floor" (rounds down), and "ceil" (
 Default is "round".
 
 ### SCALE
-Whether to keep the original scale or reduce it in the output images.
+Scale factor of the original image to use when converting images.
 
 ### SCALE_IS_HEIGHT_DP
 Whether to interpret the scale as fixed height and not as width, if the scale is in dp.
