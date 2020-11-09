@@ -35,29 +35,23 @@ public final class Convert {
     boolean androidMipmapInsteadOfDrawable = false;
     boolean antiAliasing = false;
     boolean clean = true;
-    float compressionQuality = false ? 0.91f : Arguments.DEFAULT_COMPRESSION_QUALITY;
-    String downScalingAlgo =
-        false
-            ? EScalingAlgorithm.LANCZOS3.getName()
-            : Arguments.DEFAULT_UPSCALING_QUALITY.getName();
+    float compressionQuality = Arguments.DEFAULT_COMPRESSION_QUALITY;
+    String downScalingAlgo = Arguments.DEFAULT_UPSCALING_QUALITY.getName();
     boolean dryRun = false;
     boolean haltOnError = false;
     boolean iosCreateImagesetFolders = false;
     boolean keepOriginalPostProcessedFiles = true;
-    float scale = true ? 1f : Arguments.DEFAULT_SCALE;
-    String outCompression = false ? "png" : "jpg";
-    String selectedPlatform = false ? "ios" : "android";
+    float scale = Arguments.DEFAULT_SCALE;
+    String outCompression = "jpg";
+    String selectedPlatform = "android";
     boolean postProcessorMozJpeg = true;
     boolean postProcessorPngCrush = false;
     boolean postProcessorWebp = false;
-    String roundingMode = false ? "ceil" : "floor";
+    String roundingMode = "floor";
     boolean scaleIsHeightDp = false;
     boolean skipExisting = false;
     boolean skipUpscaling = false;
-    String upScalingAlgo =
-        false
-            ? EScalingAlgorithm.LANCZOS3.getName()
-            : Arguments.DEFAULT_DOWNSCALING_QUALITY.getName();
+    String upScalingAlgo = Arguments.DEFAULT_DOWNSCALING_QUALITY.getName();
     boolean VERBOSE = true;
 
     File src = new File("./pictures/person.jpg");
