@@ -35,23 +35,29 @@ public final class Convert {
     boolean androidMipmapInsteadOfDrawable = false;
     boolean antiAliasing = false;
     boolean clean = true;
-    float compressionQuality = compressionQuality(false);
-    String downScalingAlgo = downScalingAlgo(false);
+    float compressionQuality = false ? 0.91f : Arguments.DEFAULT_COMPRESSION_QUALITY;
+    String downScalingAlgo =
+        false
+            ? EScalingAlgorithm.LANCZOS3.getName()
+            : Arguments.DEFAULT_UPSCALING_QUALITY.getName();
     boolean dryRun = false;
     boolean haltOnError = false;
     boolean iosCreateImagesetFolders = false;
     boolean keepOriginalPostProcessedFiles = true;
-    float scale = keep_scale(true);
-    String outCompression = outCompression(false);
-    String selectedPlatform = platform(false);
+    float scale = true ? 1f : Arguments.DEFAULT_SCALE;
+    String outCompression = false ? "png" : "jpg";
+    String selectedPlatform = false ? "ios" : "android";
     boolean postProcessorMozJpeg = true;
     boolean postProcessorPngCrush = false;
     boolean postProcessorWebp = false;
-    String roundingMode = roundingMode(false);
+    String roundingMode = false ? "ceil" : "floor";
     boolean scaleIsHeightDp = false;
     boolean skipExisting = false;
     boolean skipUpscaling = false;
-    String upScalingAlgo = upScalingAlgo(false);
+    String upScalingAlgo =
+        false
+            ? EScalingAlgorithm.LANCZOS3.getName()
+            : Arguments.DEFAULT_DOWNSCALING_QUALITY.getName();
     boolean VERBOSE = true;
 
     File src = new File("./pictures/person.jpg");
@@ -233,61 +239,5 @@ public final class Convert {
 
   private static boolean postProcess(boolean option) {
     return false;
-  }
-
-  private static String roundingMode(boolean option) {
-    if (option) {
-      return "ceil";
-    }
-
-    return "floor";
-  }
-
-  private static String downScalingAlgo(boolean option) {
-    if (option) {
-      return EScalingAlgorithm.LANCZOS3.getName();
-    }
-
-    return Arguments.DEFAULT_UPSCALING_QUALITY.getName();
-  }
-
-  private static String upScalingAlgo(boolean option) {
-    if (option) {
-      return EScalingAlgorithm.LANCZOS3.getName();
-    }
-
-    return Arguments.DEFAULT_DOWNSCALING_QUALITY.getName();
-  }
-
-  private static String platform(boolean option) {
-    if (option) {
-      return "ios";
-    }
-
-    return "android";
-  }
-
-  private static String outCompression(boolean option) {
-    if (option) {
-      return "png";
-    }
-
-    return "jpg";
-  }
-
-  private static float compressionQuality(boolean option) {
-    if (option) {
-      return 0.91f;
-    }
-
-    return Arguments.DEFAULT_COMPRESSION_QUALITY;
-  }
-
-  private static float keep_scale(boolean option) {
-    if (option) {
-      return 1f;
-    }
-
-    return Arguments.DEFAULT_SCALE;
   }
 }
