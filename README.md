@@ -26,13 +26,13 @@ This is the configuration that I used:
 * `HALT_ON_ERROR = false` 
 * `IOS_CREATE_IMAGESET_FOLDERS = false`  
 * `KEEP_ORIGINAL_POST_PROCESSED_FILES = true`  
-* `KEEP_SCALE = true`
 * `OUT_COMPRESSION = "jpg"` 
 * `PLATFORM = "android"` 
 * `POST_PROCESSOR_MOZ_JPEG = true`  
 * `POST_PROCESSOR_PNG_CRUSH = false`  
 * `POST_PROCESSOR_WEBP = false`  
 * `ROUNDING_MODE = "floor"` 
+* `SCALE = true`
 * `SCALE_IS_HEIGHT_DP = false` 
 * `SKIP_EXISTING = false` 
 * `SKIP_UPSCALING = false` 
@@ -93,9 +93,6 @@ Default is to put all images in the root folder.
 If a post-processor is run on an image, determine whether the original will be kept (renamed _orig).
 Otherwise, only the optimized image will be kept.
 
-### KEEP_SCALE
-Whether to keep the original scale or reduce it in the output images.
-
 ### OUT_COMPRESSION
 Sets the compression of the converted image. 
 Can be "png", "jpg", "gif", "bmp", "png+jpg", or "strict".
@@ -122,6 +119,9 @@ Does not delete source files.
 Defines the rounding mode when scaling the dimensions. 
 Possibles are "round" (rounds up of >= 0.5), "floor" (rounds down), and "ceil" (rounds up). 
 Default is "round".
+
+### SCALE
+Whether to keep the original scale or reduce it in the output images.
 
 ### SCALE_IS_HEIGHT_DP
 Whether to interpret the scale as fixed height and not as width, if the scale is in dp.
