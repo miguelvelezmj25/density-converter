@@ -41,13 +41,13 @@ public final class Convert {
     boolean haltOnError = false;
     boolean iosCreateImagesetFolders = false;
     boolean keepOriginalPostProcessedFiles = true;
-    float scale = Arguments.DEFAULT_SCALE;
     String outCompression = "jpg";
     String selectedPlatform = "android";
     boolean postProcessorMozJpeg = true;
     boolean postProcessorPngCrush = false;
     boolean postProcessorWebp = false;
     String roundingMode = "floor";
+    float scale = Arguments.DEFAULT_SCALE;
     boolean scaleIsHeightDp = false;
     boolean skipExisting = false;
     boolean skipUpscaling = false;
