@@ -155,3 +155,24 @@ Default = "LANCZOS3"
 ### VERBOSE
 Whether to log more verbosely to the console.
 Default = false
+
+### Performance of the System
+
+     18.21 seconds when SCALE = 3 (Default)
+    150.82 seconds when SCALE = 1 
+
+### Performance of `verticalFromWorkToDst`
+
+     7.06 seconds when SCALE = 3 (Default)
+    88.03 seconds when SCALE = 1
+
+### Performance of `compressJpeg`
+
+     3.20 seconds when SCALE = 3 (Default)
+    34.04 seconds when SCALE = 1
+    
+### Performance profile when `SCALE = 1`
+Found in `./src/main/resources/profiler/SCALE-1.html`
+
+### Performance profile when `SCALE = 3 (Default)`
+Found in `./src/main/resources/profiler/SCALE-3.html`
