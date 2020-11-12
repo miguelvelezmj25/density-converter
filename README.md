@@ -32,7 +32,7 @@ This is the configuration that I used:
 * `POST_PROCESSOR_PNG_CRUSH = false`  
 * `POST_PROCESSOR_WEBP = false`  
 * `ROUNDING_MODE = "floor"` 
-* `SCALE = 1`
+* `SCALE = 1 <---------------------------------------------`
 * `SCALE_IS_HEIGHT_DP = false` 
 * `SKIP_EXISTING = true` 
 * `SKIP_UPSCALING = false` 
