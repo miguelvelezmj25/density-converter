@@ -36,7 +36,7 @@ public final class Convert {
     boolean antiAliasing = false;
     boolean clean = true;
     float compressionQuality = Arguments.DEFAULT_COMPRESSION_QUALITY;
-    String downScalingAlgo = EScalingAlgorithm.LANCZOS5.getName();
+    String downScalingAlgo = EScalingAlgorithm.MITCHELL.getName();
     boolean dryRun = false;
     boolean haltOnError = false;
     boolean iosCreateImagesetFolders = false;
@@ -51,7 +51,7 @@ public final class Convert {
     boolean scaleIsHeightDp = false;
     boolean skipExisting = true;
     boolean skipUpscaling = false;
-    String upScalingAlgo = EScalingAlgorithm.LANCZOS5.getName();
+    String upScalingAlgo = EScalingAlgorithm.MITCHELL.getName();
     boolean VERBOSE = true;
 
     File src = new File("./pictures/person.jpg");
