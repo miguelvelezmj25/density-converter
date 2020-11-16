@@ -21,7 +21,7 @@ This is the configuration that I used:
 * `ANTI_ALIASING = false`  
 * `CLEAN = true`  
 * `COMPRESSION_QUALITY = 0.9` 
-* `DOWNSCALING_ALGO = "LANCZOS5"` 
+* `DOWNSCALING_ALGO = "MITCHELL"` 
 * `DRY_RUN = false`  
 * `HALT_ON_ERROR = false` 
 * `IOS_CREATE_IMAGESET_FOLDERS = false`  
@@ -36,7 +36,7 @@ This is the configuration that I used:
 * `SCALE_IS_HEIGHT_DP = false` 
 * `SKIP_EXISTING = true` 
 * `SKIP_UPSCALING = false` 
-* `UPSCALING_ALGO = "LANCZOS5"` 
+* `UPSCALING_ALGO = "MITCHELL"` 
 * `VERBOSE = true`   
 
 I tried converting the same image multiple times with the same configuration, and I observed the same execution time. 
