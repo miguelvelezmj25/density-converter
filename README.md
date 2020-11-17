@@ -57,10 +57,12 @@ That is, executing the program multiple times with different images, but with th
 ### ANDROID_INCLUDE_LDPI_TVDPI
 Android only.
 Whether to create mipmap sub-folders instead of drawable.
+Default = false
 
 ### ANDROID_MIPMAP_INSTEAD_OF_DRAWABLE
 Android only.
 Whether to include additional densities (ldpi and tvdpi).
+Default = false
 
 ### ANTI_ALIASING
 Whether to create anti-aliases images with a little more blurred result.
@@ -69,6 +71,7 @@ Useful for very small images.
 
 ### CLEAN
 Whether to delete all file and folders in the output directory that would be used in the current configuration before converting.
+Default = false
 
 ### COMPRESSION_QUALITY
 Only used with compression "jpg". Sets the quality [0-1.0] of the output image, where 1.0 is the highest quality. 
@@ -76,22 +79,27 @@ Default is 0.9.
 
 ### DOWNSCALING_ALGO
 Algorithm to scale down the image.
+Default = "LANCZOS3"
 
 ### DRY_RUN
 Whether to not create any images or folders. 
 Useful as a fast preview in a log of what images and in what resolutions would be created.
+Default = false
 
 ### HALT_ON_ERROR
 Whether to stop the process if an error occurred during conversion.
+Default = false
 
 ### IOS_CREATE_IMAGESET_FOLDERS
 iOS only.
 Whether to create .imageset folders and Content.json for every source image.
 Default is to put all images in the root folder.
+Default = false
 
 ### KEEP_ORIGINAL_POST_PROCESSED_FILES
 If a post-processor is run on an image, determine whether the original will be kept (renamed _orig).
 Otherwise, only the optimized image will be kept.
+Default = false
 
 ### OUT_COMPRESSION
 Sets the compression of the converted image. 
@@ -107,13 +115,16 @@ Default is [IOS, ANDROID].
 
 ### POST_PROCESSOR_MOZ_JPEG
 Whether to post-process all jpegs with mozJpegs lossless compressor.
+Default = false
 
 ### POST_PROCESSOR_PNG_CRUSH
 Whether to post-process all pngs with pngcrush, a lossless compressor. 
+Default = false
 
 ### POST_PROCESSOR_WEBP
 Whether to additionally convert all png/gif to lossless wepb and all jpg to lossy webp with cwebp. 
 Does not delete source files.
+Default = false
 
 ### ROUNDING_MODE
 Defines the rounding mode when scaling the dimensions. 
@@ -122,18 +133,24 @@ Default is "round".
 
 ### SCALE
 Scale factor of the original image to use when converting images.
+Default = 3
 
 ### SCALE_IS_HEIGHT_DP
 Whether to interpret the scale as fixed height and not as width, if the scale is in dp.
+Default = false
  
 ### SKIP_EXISTING
 Whether to overwrite an already existing file.
+Default = false
  
 ### SKIP_UPSCALING
 Whether to only scale down, but not up to prevent image quality loss.
+Default = false
 
 ### UPSCALING_ALGO
 Algorithm to scale up the image.
+Default = "LANCZOS3"
 
 ### VERBOSE
 Whether to log more verbosely to the console.
+Default = false
