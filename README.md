@@ -68,6 +68,7 @@ Default = false
 Whether to create anti-aliases images with a little more blurred result.
 A light 3x3 convolve matrix is used.
 Useful for very small images.
+Default = false.
 
 ### CLEAN
 Whether to delete all file and folders in the output directory that would be used in the current configuration before converting.
