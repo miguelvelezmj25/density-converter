@@ -20,7 +20,7 @@ This is the configuration that I used:
 * `ANDROID_MIPMAP_INSTEAD_OF_DRAWABLE = false`  
 * `ANTI_ALIASING = false`  
 * `CLEAN = true`  
-* `COMPRESSION_QUALITY = 0.9` 
+* `COMPRESSION_QUALITY = 0.7` 
 * `DOWNSCALING_ALGO = "MITCHELL"` 
 * `DRY_RUN = false`  
 * `HALT_ON_ERROR = false` 
