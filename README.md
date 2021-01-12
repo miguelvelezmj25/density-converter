@@ -80,7 +80,7 @@ Default is 0.9.
 
 ### DOWNSCALING_ALGO
 Algorithm to scale down the image.
-Default = "LANCZOS3"
+Default = "LANCZOS2"
 
 ### DRY_RUN
 Whether to not create any images or folders. 
