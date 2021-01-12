@@ -51,7 +51,7 @@ public final class Convert {
     boolean scaleIsHeightDp = false;
     boolean skipExisting = true;
     boolean skipUpscaling = false;
-    String upScalingAlgo = EScalingAlgorithm.MITCHELL.getName();
+    String upScalingAlgo = EScalingAlgorithm.BILINEAR.getName();
     boolean VERBOSE = true;
 
     File src = new File("./pictures/person.jpg");
