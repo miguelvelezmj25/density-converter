@@ -1,5 +1,5 @@
 # Density Converter
-Program to convert images to specific formats and sizes.
+Program to convert images to specific formats, dimensions, and sizes.
 
 **Input:** Image file.
 
