@@ -132,7 +132,7 @@ public class ImageHandler {
   private void compressJpeg(
       BufferedImage bufferedImage, CompoundDirectory exif, float quality, File targetFile)
       throws IOException {
-    if (bufferedImage.isAlphaPremultiplied()) {
+    if (bufferedImage.hasTileWriters()) {
       ImageWriter jpgWriter = ImageIO.getImageWritersByFormatName("jpg").next();
       ImageWriteParam jpgWriteParam = jpgWriter.getDefaultWriteParam();
       jpgWriteParam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
