@@ -132,18 +132,20 @@ public class ImageHandler {
   private void compressJpeg(
       BufferedImage bufferedImage, CompoundDirectory exif, float quality, File targetFile)
       throws IOException {
-    ImageWriter jpgWriter = ImageIO.getImageWritersByFormatName("jpg").next();
-    ImageWriteParam jpgWriteParam = jpgWriter.getDefaultWriteParam();
-    jpgWriteParam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-    jpgWriteParam.setCompressionQuality(quality);
+    if (bufferedImage.isAlphaPremultiplied()) {
+      ImageWriter jpgWriter = ImageIO.getImageWritersByFormatName("jpg").next();
+      ImageWriteParam jpgWriteParam = jpgWriter.getDefaultWriteParam();
+      jpgWriteParam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+      jpgWriteParam.setCompressionQuality(quality);
 
-    ImageWriter writer = null;
-    try (ImageOutputStream outputStream = new FileImageOutputStream(targetFile)) {
-      writer = ImageIO.getImageWritersByFormatName("jpg").next();
-      writer.setOutput(outputStream);
-      writer.write(null, new IIOImage(bufferedImage, null, null), jpgWriteParam);
-    } finally {
-      if (writer != null) writer.dispose();
+      ImageWriter writer = null;
+      try (ImageOutputStream outputStream = new FileImageOutputStream(targetFile)) {
+        writer = ImageIO.getImageWritersByFormatName("jpg").next();
+        writer.setOutput(outputStream);
+        writer.write(null, new IIOImage(bufferedImage, null, null), jpgWriteParam);
+      } finally {
+        if (writer != null) writer.dispose();
+      }
     }
   }
 
