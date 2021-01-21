@@ -47,7 +47,7 @@ public class IOSConverter extends APlatformConverter<PostfixDescriptor> {
   }
 
   @Override
-  public PostfixDescriptor specialOutputDensities() {
+  public PostfixDescriptor largeOutputDensities() {
     return new PostfixDescriptor(1, "1x", "");
   }
 

@@ -56,7 +56,7 @@ public class AndroidConverter extends APlatformConverter<AndroidDensityDescripto
   }
 
   @Override
-  public AndroidDensityDescriptor specialOutputDensities() {
+  public AndroidDensityDescriptor largeOutputDensities() {
     return new AndroidDensityDescriptor(4, "xxxxhdpi", "drawable-xxxxhdpi");
   }
 

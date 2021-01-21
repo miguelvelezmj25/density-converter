@@ -44,7 +44,7 @@ public abstract class APlatformConverter<T extends DensityDescriptor>
       ImageType imageType = Arguments.getImageType(srcImage);
       boolean isNinePatch =
           AndroidConverter.isNinePatch(srcImage) && getClass() == AndroidConverter.class;
-      boolean convertSpecial = args.scale != Arguments.DEFAULT_SCALE;
+      boolean convertLarge = args.scale > Arguments.DEFAULT_SCALE;
 
       StringBuilder log = new StringBuilder();
       log.append(getConverterName())
@@ -106,8 +106,8 @@ public abstract class APlatformConverter<T extends DensityDescriptor>
         }
       }
 
-      if (!args.dryRun && convertSpecial) {
-        convertSpecial(
+      if (!args.dryRun && convertLarge) {
+        convertLarge(
             args,
             imageData,
             targetImageFileName,
@@ -128,7 +128,7 @@ public abstract class APlatformConverter<T extends DensityDescriptor>
     }
   }
 
-  private void convertSpecial(
+  private void convertLarge(
       Arguments args,
       LoadedImage imageData,
       String targetImageFileName,
@@ -137,7 +137,7 @@ public abstract class APlatformConverter<T extends DensityDescriptor>
       File mainSubFolder,
       List<File> allResultingFiles)
       throws Exception {
-    T descriptor = this.specialOutputDensities();
+    T descriptor = this.largeOutputDensities();
     Dimension dimension = new Dimension(15000, 10000);
 
     File dstFolder =
@@ -196,7 +196,7 @@ public abstract class APlatformConverter<T extends DensityDescriptor>
 
   public abstract List<T> usedOutputDensities(Arguments arguments);
 
-  public abstract T specialOutputDensities();
+  public abstract T largeOutputDensities();
 
   public abstract String getConverterName();
 
