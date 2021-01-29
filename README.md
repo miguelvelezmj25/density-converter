@@ -20,7 +20,7 @@ This is the configuration that I used:
 * `ANDROID_MIPMAP_INSTEAD_OF_DRAWABLE = false`  
 * `ANTI_ALIASING = false`  
 * `CLEAN = true`  
-* `COMPRESSION_QUALITY = 0.7` 
+* `COMPRESSION_QUALITY = 0.9` 
 * `DOWNSCALING_ALGO = "MITCHELL"` 
 * `DRY_RUN = false`  
 * `HALT_ON_ERROR = false` 
@@ -76,7 +76,7 @@ Default = false
 
 ### COMPRESSION_QUALITY
 Only used with compression "jpg". Sets the quality [0-1.0] of the output image, where 1.0 is the highest quality. 
-Default is 0.9.
+Default is 0.7.
 
 ### DOWNSCALING_ALGO
 Algorithm to scale down the image.
