@@ -35,7 +35,7 @@ public final class Convert {
     boolean androidMipmapInsteadOfDrawable = false;
     boolean antiAliasing = false;
     boolean clean = true;
-    float compressionQuality = 0.7f;
+    float compressionQuality = 0.9f;
     String downScalingAlgo = EScalingAlgorithm.MITCHELL.getName();
     boolean dryRun = false;
     boolean haltOnError = false;
