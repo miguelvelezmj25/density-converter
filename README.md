@@ -156,6 +156,8 @@ Default = "LANCZOS3"
 Whether to log more verbosely to the console.
 Default = false
 
+## Resources
+
 ### Performance of the System
 
      18.21 seconds when SCALE = 3 (Default)
