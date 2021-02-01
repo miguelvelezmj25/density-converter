@@ -35,34 +35,33 @@ import java.io.InputStream;
 import java.nio.ByteBuffer;
 
 /**
- * Interface for decoders.
- * A {@code Decoder} may be used with a {@code DecoderStream}, to perform
+ * Interface for decoders. A {@code Decoder} may be used with a {@code DecoderStream}, to perform
  * on-the-fly decoding from an {@code InputStream}.
- * <p/>
- * Important note: Decoder implementations are typically not synchronized.
- * <p/>
+ *
+ * <p>Important note: Decoder implementations are typically not synchronized.
+ *
+ * <p>
+ *
  * @see Encoder
  * @see DecoderStream
- *
  * @author <a href="mailto:harald.kuhr@gmail.com">Harald Kuhr</a>
- * @version $Id: //depot/branches/personal/haraldk/twelvemonkeys/release-2/twelvemonkeys-core/src/main/java/com/twelvemonkeys/io/enc/Decoder.java#2 $
+ * @version $Id:
+ *     //depot/branches/personal/haraldk/twelvemonkeys/release-2/twelvemonkeys-core/src/main/java/com/twelvemonkeys/io/enc/Decoder.java#2
+ *     $
  */
 public interface Decoder {
-    
-    /**
-     * Decodes up to {@code buffer.length} bytes from the given input stream,
-     * into the given buffer.
-     *
-     * @param stream the input stream to decode data from
-     * @param buffer buffer to store the read data
-     *
-     * @return the total number of bytes read into the buffer, or {@code 0}
-     * if there is no more data because the end of the stream has been reached.
-     *
-     * @throws DecodeException if encoded data is corrupt.
-     * @throws IOException if an I/O error occurs.
-     * @throws java.io.EOFException if a premature end-of-file is encountered.
-     * @throws NullPointerException if either argument is {@code null}.
-     */
-    int decode(InputStream stream, ByteBuffer buffer) throws IOException;
+
+  /**
+   * Decodes up to {@code buffer.length} bytes from the given input stream, into the given buffer.
+   *
+   * @param stream the input stream to decode data from
+   * @param buffer buffer to store the read data
+   * @return the total number of bytes read into the buffer, or {@code 0} if there is no more data
+   *     because the end of the stream has been reached.
+   * @throws DecodeException if encoded data is corrupt.
+   * @throws IOException if an I/O error occurs.
+   * @throws java.io.EOFException if a premature end-of-file is encountered.
+   * @throws NullPointerException if either argument is {@code null}.
+   */
+  int decode(InputStream stream, ByteBuffer buffer) throws IOException;
 }

@@ -38,70 +38,65 @@ import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 /**
- * {@code StringTokenizer} replacement, that uses regular expressions to split
- * strings into tokens.
- * <p/>
- * @see Pattern for pattern syntax.
+ * {@code StringTokenizer} replacement, that uses regular expressions to split strings into tokens.
  *
+ * <p>
+ *
+ * @see Pattern for pattern syntax.
  * @author <a href="mailto:harald.kuhr@gmail.com">Harald Kuhr</a>
- * @version $Id: //depot/branches/personal/haraldk/twelvemonkeys/release-2/twelvemonkeys-core/src/main/java/com/twelvemonkeys/util/regex/RegExTokenIterator.java#1 $
+ * @version $Id:
+ *     //depot/branches/personal/haraldk/twelvemonkeys/release-2/twelvemonkeys-core/src/main/java/com/twelvemonkeys/util/regex/RegExTokenIterator.java#1
+ *     $
  */
 public class RegExTokenIterator extends AbstractTokenIterator {
-    private final Matcher matcher;
-    private boolean next = false;
+  private final Matcher matcher;
+  private boolean next = false;
 
-    /**
-     * Creates a {@code RegExTokenIterator}.
-     * Default pettern is {@code "\S+"}.
-     *
-     * @param pString the string to be parsed.
-     *
-     * @throws IllegalArgumentException if {@code pString} is {@code null}
-     */
-    public RegExTokenIterator(String pString) {
-        this(pString, "\\S+");
+  /**
+   * Creates a {@code RegExTokenIterator}. Default pettern is {@code "\S+"}.
+   *
+   * @param pString the string to be parsed.
+   * @throws IllegalArgumentException if {@code pString} is {@code null}
+   */
+  public RegExTokenIterator(String pString) {
+    this(pString, "\\S+");
+  }
+
+  /**
+   * Creates a {@code RegExTokenIterator}.
+   *
+   * @see Pattern for pattern syntax.
+   * @param pString the string to be parsed.
+   * @param pPattern the pattern
+   * @throws PatternSyntaxException if {@code pPattern} is not a valid pattern
+   * @throws IllegalArgumentException if any of the arguments are {@code null}
+   */
+  public RegExTokenIterator(String pString, String pPattern) {
+    if (pString == null) {
+      throw new IllegalArgumentException("string == null");
     }
 
-    /**
-     * Creates a {@code RegExTokenIterator}.
-     *
-     * @see Pattern for pattern syntax.
-     *
-     * @param pString the string to be parsed.
-     * @param pPattern the pattern
-     *
-     * @throws PatternSyntaxException if {@code pPattern} is not a valid pattern
-     * @throws IllegalArgumentException if any of the arguments are {@code null}
-     */
-    public RegExTokenIterator(String pString, String pPattern) {
-        if (pString == null) {
-            throw new IllegalArgumentException("string == null");
-        }
-
-        if (pPattern == null) {
-            throw new IllegalArgumentException("pattern == null");
-        }
-
-        matcher = Pattern.compile(pPattern).matcher(pString);
+    if (pPattern == null) {
+      throw new IllegalArgumentException("pattern == null");
     }
 
-    /**
-     * Resets this iterator.
-     *
-     */
-    public void reset() {
-        matcher.reset();
-    }
+    matcher = Pattern.compile(pPattern).matcher(pString);
+  }
 
-    public boolean hasNext() {
-        return next || (next = matcher.find());
-    }
+  /** Resets this iterator. */
+  public void reset() {
+    matcher.reset();
+  }
 
-    public String next() {
-        if (!hasNext()) {
-            throw new NoSuchElementException();
-        }
-        next = false;
-        return matcher.group();
+  public boolean hasNext() {
+    return next || (next = matcher.find());
+  }
+
+  public String next() {
+    if (!hasNext()) {
+      throw new NoSuchElementException();
     }
+    next = false;
+    return matcher.group();
+  }
 }

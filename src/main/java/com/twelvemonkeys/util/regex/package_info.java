@@ -28,7 +28,5 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/**
- * Provides functionality for regular expressions.
- */
+/** Provides functionality for regular expressions. */
 package com.twelvemonkeys.util.regex;

@@ -35,36 +35,27 @@ import java.io.OutputStream;
 
 /**
  * An {@code OutputStream} implementation that works as a sink.
- * <p/>
+ *
+ * <p>
  *
  * @author <a href="mailto:harald.kuhr@gmail.com">Harald Kuhr</a>
- * @version $Id: //depot/branches/personal/haraldk/twelvemonkeys/release-2/twelvemonkeys-core/src/main/java/com/twelvemonkeys/io/NullOutputStream.java#2 $
+ * @version $Id:
+ *     //depot/branches/personal/haraldk/twelvemonkeys/release-2/twelvemonkeys-core/src/main/java/com/twelvemonkeys/io/NullOutputStream.java#2
+ *     $
  */
 public class NullOutputStream extends OutputStream {
 
-    /**
-     * Creates a {@code NullOutputStream}.
-     */
-    public NullOutputStream() {
-    }
+  /** Creates a {@code NullOutputStream}. */
+  public NullOutputStream() {}
 
-    /**
-     * This implementation does nothing.
-     */
-    public void write(int pByte) throws IOException {
-    }
+  /** This implementation does nothing. */
+  public void write(int pByte) throws IOException {}
 
-    /**
-     * This implementation does nothing.
-     */
-    @Override
-    public void write(byte pBytes[]) throws IOException {
-    }
+  /** This implementation does nothing. */
+  @Override
+  public void write(byte pBytes[]) throws IOException {}
 
-    /**
-     * This implementation does nothing.
-     */
-    @Override
-    public void write(byte pBytes[], int pOffset, int pLength) throws IOException {
-    }
+  /** This implementation does nothing. */
+  @Override
+  public void write(byte pBytes[], int pOffset, int pLength) throws IOException {}
 }

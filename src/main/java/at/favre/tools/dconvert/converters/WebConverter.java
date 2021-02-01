@@ -44,7 +44,7 @@ public class WebConverter extends APlatformConverter<PostfixDescriptor> {
   }
 
   @Override
-  public PostfixDescriptor largeOutputDensities() {
+  public PostfixDescriptor originalOutputDensities() {
     return new PostfixDescriptor(1, "1x", "-1x");
   }
 

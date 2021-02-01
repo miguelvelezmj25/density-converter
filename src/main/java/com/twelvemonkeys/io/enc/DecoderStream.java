@@ -36,165 +36,162 @@ import java.io.InputStream;
 import java.nio.ByteBuffer;
 
 /**
- * An {@code InputStream} that provides on-the-fly decoding from an underlying
- * stream.
- * <p/>
+ * An {@code InputStream} that provides on-the-fly decoding from an underlying stream.
+ *
+ * <p>
+ *
  * @see EncoderStream
  * @see Decoder
- *
  * @author <a href="mailto:harald.kuhr@gmail.com">Harald Kuhr</a>
- * @version $Id: //depot/branches/personal/haraldk/twelvemonkeys/release-2/twelvemonkeys-core/src/main/java/com/twelvemonkeys/io/enc/DecoderStream.java#2 $
+ * @version $Id:
+ *     //depot/branches/personal/haraldk/twelvemonkeys/release-2/twelvemonkeys-core/src/main/java/com/twelvemonkeys/io/enc/DecoderStream.java#2
+ *     $
  */
 public final class DecoderStream extends FilterInputStream {
-    protected final ByteBuffer buffer;
-    protected final Decoder decoder;
+  protected final ByteBuffer buffer;
+  protected final Decoder decoder;
 
-    /**
-     * Creates a new decoder stream and chains it to the
-     * input stream specified by the {@code pStream} argument.
-     * The stream will use a default decode buffer size.
-     *
-     * @param pStream the underlying input stream.
-     * @param pDecoder the decoder that will be used to decode the underlying stream
-     *
-     * @see FilterInputStream#in
-     */
-    public DecoderStream(final InputStream pStream, final Decoder pDecoder) {
-        // TODO: Let the decoder decide preferred buffer size
-        this(pStream, pDecoder, 1024);
+  /**
+   * Creates a new decoder stream and chains it to the input stream specified by the {@code pStream}
+   * argument. The stream will use a default decode buffer size.
+   *
+   * @param pStream the underlying input stream.
+   * @param pDecoder the decoder that will be used to decode the underlying stream
+   * @see FilterInputStream#in
+   */
+  public DecoderStream(final InputStream pStream, final Decoder pDecoder) {
+    // TODO: Let the decoder decide preferred buffer size
+    this(pStream, pDecoder, 1024);
+  }
+
+  /**
+   * Creates a new decoder stream and chains it to the input stream specified by the {@code pStream}
+   * argument.
+   *
+   * @param pStream the underlying input stream.
+   * @param pDecoder the decoder that will be used to decode the underlying stream
+   * @param pBufferSize the size of the decode buffer
+   * @see FilterInputStream#in
+   */
+  public DecoderStream(final InputStream pStream, final Decoder pDecoder, final int pBufferSize) {
+    super(pStream);
+
+    decoder = pDecoder;
+    buffer = ByteBuffer.allocate(pBufferSize);
+    buffer.flip();
+  }
+
+  public int available() throws IOException {
+    return buffer.remaining();
+  }
+
+  public int read() throws IOException {
+    if (!buffer.hasRemaining()) {
+      if (fill() < 0) {
+        return -1;
+      }
     }
 
-    /**
-     * Creates a new decoder stream and chains it to the
-     * input stream specified by the {@code pStream} argument.
-     *
-     * @param pStream the underlying input stream.
-     * @param pDecoder the decoder that will be used to decode the underlying stream
-     * @param pBufferSize the size of the decode buffer
-     *
-     * @see FilterInputStream#in
-     */
-    public DecoderStream(final InputStream pStream, final Decoder pDecoder, final int pBufferSize) {
-        super(pStream);
+    return buffer.get() & 0xff;
+  }
 
-        decoder = pDecoder;
-        buffer = ByteBuffer.allocate(pBufferSize);
-        buffer.flip();
+  public int read(final byte pBytes[], final int pOffset, final int pLength) throws IOException {
+    if (pBytes == null) {
+      throw new NullPointerException();
+    } else if ((pOffset < 0)
+        || (pOffset > pBytes.length)
+        || (pLength < 0)
+        || ((pOffset + pLength) > pBytes.length)
+        || ((pOffset + pLength) < 0)) {
+      throw new IndexOutOfBoundsException(
+          "bytes.length=" + pBytes.length + " offset=" + pOffset + " length=" + pLength);
+    } else if (pLength == 0) {
+      return 0;
     }
 
-    public int available() throws IOException {
-        return buffer.remaining();
+    // End of file?
+    if (!buffer.hasRemaining()) {
+      if (fill() < 0) {
+        return -1;
+      }
     }
 
-    public int read() throws IOException {
-        if (!buffer.hasRemaining()) {
-            if (fill() < 0) {
-                return -1;
-            }
-        }
+    // Read until we have read pLength bytes, or have reached EOF
+    int count = 0;
+    int off = pOffset;
 
-        return buffer.get() & 0xff;
+    while (pLength > count) {
+      if (!buffer.hasRemaining()) {
+        if (fill() < 0) {
+          break;
+        }
+      }
+
+      // Copy as many bytes as possible
+      int dstLen = Math.min(pLength - count, buffer.remaining());
+      buffer.get(pBytes, off, dstLen);
+
+      // Update offset (rest)
+      off += dstLen;
+
+      // Increase count
+      count += dstLen;
     }
 
-    public int read(final byte pBytes[], final int pOffset, final int pLength) throws IOException {
-        if (pBytes == null) {
-            throw new NullPointerException();
-        }
-        else if ((pOffset < 0) || (pOffset > pBytes.length) || (pLength < 0) ||
-                ((pOffset + pLength) > pBytes.length) || ((pOffset + pLength) < 0)) {
-            throw new IndexOutOfBoundsException("bytes.length=" + pBytes.length + " offset=" + pOffset + " length=" + pLength);
-        }
-        else if (pLength == 0) {
-            return 0;
-        }
+    return count;
+  }
 
-        // End of file?
-        if (!buffer.hasRemaining()) {
-            if (fill() < 0) {
-                return -1;
-            }
-        }
-
-        // Read until we have read pLength bytes, or have reached EOF
-        int count = 0;
-        int off = pOffset;
-
-        while (pLength > count) {
-            if (!buffer.hasRemaining()) {
-                if (fill() < 0) {
-                    break;
-                }
-            }
-
-            // Copy as many bytes as possible
-            int dstLen = Math.min(pLength - count, buffer.remaining());
-            buffer.get(pBytes, off, dstLen);
-
-            // Update offset (rest)
-            off += dstLen;
-
-            // Increase count
-            count += dstLen;
-        }
-
-        return count;
+  public long skip(final long pLength) throws IOException {
+    // End of file?
+    if (!buffer.hasRemaining()) {
+      if (fill() < 0) {
+        return 0; // Yes, 0, not -1
+      }
     }
 
-    public long skip(final long pLength) throws IOException {
-        // End of file?
-        if (!buffer.hasRemaining()) {
-            if (fill() < 0) {
-                return 0; // Yes, 0, not -1
-            }
+    // Skip until we have skipped pLength bytes, or have reached EOF
+    long total = 0;
+
+    while (total < pLength) {
+      if (!buffer.hasRemaining()) {
+        if (fill() < 0) {
+          break;
         }
+      }
 
-        // Skip until we have skipped pLength bytes, or have reached EOF
-        long total = 0;
-
-        while (total < pLength) {
-            if (!buffer.hasRemaining()) {
-                if (fill() < 0) {
-                    break;
-                }
-            }
-
-            // NOTE: Skipped can never be more than avail, which is an int, so the cast is safe
-            int skipped = (int) Math.min(pLength - total, buffer.remaining());
-            buffer.position(buffer.position() + skipped);
-            total += skipped;
-        }
-
-        return total;
+      // NOTE: Skipped can never be more than avail, which is an int, so the cast is safe
+      int skipped = (int) Math.min(pLength - total, buffer.remaining());
+      buffer.position(buffer.position() + skipped);
+      total += skipped;
     }
 
-    /**
-     * Fills the buffer, by decoding data from the underlying input stream.
-     *
-     * @return the number of bytes decoded, or {@code -1} if the end of the
-     * file is reached
-     *
-     * @throws IOException if an I/O error occurs
-     */
-    protected int fill() throws IOException {
-        buffer.clear();
-        int read = decoder.decode(in, buffer);
+    return total;
+  }
 
-        // TODO: Enforce this in test case, leave here to aid debugging
-        if (read > buffer.capacity()) {
-            throw new AssertionError(
-                    String.format(
-                            "Decode beyond buffer (%d): %d (using %s decoder)",
-                            buffer.capacity(), read, decoder.getClass().getName()
-                    )
-            );
-        }
+  /**
+   * Fills the buffer, by decoding data from the underlying input stream.
+   *
+   * @return the number of bytes decoded, or {@code -1} if the end of the file is reached
+   * @throws IOException if an I/O error occurs
+   */
+  protected int fill() throws IOException {
+    buffer.clear();
+    int read = decoder.decode(in, buffer);
 
-        buffer.flip();
-
-        if (read == 0) {
-            return -1;
-        }
-
-        return read;
+    // TODO: Enforce this in test case, leave here to aid debugging
+    if (read > buffer.capacity()) {
+      throw new AssertionError(
+          String.format(
+              "Decode beyond buffer (%d): %d (using %s decoder)",
+              buffer.capacity(), read, decoder.getClass().getName()));
     }
+
+    buffer.flip();
+
+    if (read == 0) {
+      return -1;
+    }
+
+    return read;
+  }
 }

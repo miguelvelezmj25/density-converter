@@ -37,101 +37,101 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * An {@code InputStream} reading up to a specified number of bytes from an
- * underlying stream.
- * <p/>
+ * An {@code InputStream} reading up to a specified number of bytes from an underlying stream.
+ *
+ * <p>
  *
  * @author <a href="mailto:harald.kuhr@gmail.com">Harald Kuhr</a>
- * @version $Id: //depot/branches/personal/haraldk/twelvemonkeys/release-2/twelvemonkeys-core/src/main/java/com/twelvemonkeys/io/SubStream.java#2 $
+ * @version $Id:
+ *     //depot/branches/personal/haraldk/twelvemonkeys/release-2/twelvemonkeys-core/src/main/java/com/twelvemonkeys/io/SubStream.java#2
+ *     $
  */
 public final class SubStream extends FilterInputStream {
-    private long bytesLeft;
-    private int markLimit;
+  private long bytesLeft;
+  private int markLimit;
 
-    /**
-     * Creates a {@code SubStream} of the given {@code pStream}.
-     *
-     * @param pStream the underlying input stream
-     * @param pLength maximum number of bytes to read drom this stream
-     */
-    public SubStream(final InputStream pStream, final long pLength) {
-        super(Validate.notNull(pStream, "stream"));
-        bytesLeft = pLength;
+  /**
+   * Creates a {@code SubStream} of the given {@code pStream}.
+   *
+   * @param pStream the underlying input stream
+   * @param pLength maximum number of bytes to read drom this stream
+   */
+  public SubStream(final InputStream pStream, final long pLength) {
+    super(Validate.notNull(pStream, "stream"));
+    bytesLeft = pLength;
+  }
+
+  /**
+   * Marks this stream as closed. This implementation does <em>not</em> close the underlying stream.
+   */
+  @Override
+  public void close() throws IOException {
+    // NOTE: Do not close the underlying stream
+    while (bytesLeft > 0) {
+      //noinspection ResultOfMethodCallIgnored
+      skip(bytesLeft);
+    }
+  }
+
+  @Override
+  public int available() throws IOException {
+    return (int) Math.min(super.available(), bytesLeft);
+  }
+
+  @Override
+  public void mark(int pReadLimit) {
+    super.mark(pReadLimit); // This either succeeds or does nothing...
+    markLimit = pReadLimit;
+  }
+
+  @Override
+  public void reset() throws IOException {
+    super.reset(); // This either succeeds or throws IOException
+    bytesLeft += markLimit;
+  }
+
+  @Override
+  public int read() throws IOException {
+    if (bytesLeft-- <= 0) {
+      return -1;
+    }
+    return super.read();
+  }
+
+  @Override
+  public final int read(byte[] pBytes) throws IOException {
+    return read(pBytes, 0, pBytes.length);
+  }
+
+  @Override
+  public int read(final byte[] pBytes, final int pOffset, final int pLength) throws IOException {
+    if (bytesLeft <= 0) {
+      return -1;
     }
 
-    /**
-     * Marks this stream as closed.
-     * This implementation does <em>not</em> close the underlying stream.
-     */
-    @Override
-    public void close() throws IOException {
-        // NOTE: Do not close the underlying stream
-        while (bytesLeft > 0) {
-            //noinspection ResultOfMethodCallIgnored
-            skip(bytesLeft);
-        }
-    }
+    int read = super.read(pBytes, pOffset, (int) findMaxLen(pLength));
+    bytesLeft = read < 0 ? 0 : bytesLeft - read;
+    return read;
+  }
 
-    @Override
-    public int available() throws IOException {
-        return (int) Math.min(super.available(), bytesLeft);
+  /**
+   * Finds the maximum number of bytes we can read or skip, from this stream.
+   *
+   * @param pLength the requested length
+   * @return the maximum number of bytes to read
+   */
+  private long findMaxLen(long pLength) {
+    if (bytesLeft < pLength) {
+      return (int) Math.max(bytesLeft, 0);
+    } else {
+      return pLength;
     }
+  }
 
-    @Override
-    public void mark(int pReadLimit) {
-        super.mark(pReadLimit);// This either succeeds or does nothing...
-        markLimit = pReadLimit;
-    }
-
-    @Override
-    public void reset() throws IOException {
-        super.reset();// This either succeeds or throws IOException
-        bytesLeft += markLimit;
-    }
-
-    @Override
-    public int read() throws IOException {
-        if (bytesLeft-- <= 0) {
-            return -1;
-        }
-        return super.read();
-    }
-
-    @Override
-    public final int read(byte[] pBytes) throws IOException {
-        return read(pBytes, 0, pBytes.length);
-    }
-
-    @Override
-    public int read(final byte[] pBytes, final int pOffset, final int pLength) throws IOException {
-        if (bytesLeft <= 0) {
-            return -1;
-        }
-
-        int read = super.read(pBytes, pOffset, (int) findMaxLen(pLength));
-        bytesLeft = read < 0 ? 0 : bytesLeft - read;
-        return read;
-    }
-
-    /**
-     * Finds the maximum number of bytes we can read or skip, from this stream.
-     *
-     * @param pLength the requested length
-     * @return the maximum number of bytes to read
-     */
-    private long findMaxLen(long pLength) {
-        if (bytesLeft < pLength) {
-            return (int) Math.max(bytesLeft, 0);
-        }
-        else {
-            return pLength;
-        }
-    }
-
-    @Override
-    public long skip(long pLength) throws IOException {
-        long skipped = super.skip(findMaxLen(pLength));// Skips 0 or more, never -1
-        bytesLeft -= skipped;
-        return skipped;
-    }
+  @Override
+  public long skip(long pLength) throws IOException {
+    long skipped = super.skip(findMaxLen(pLength)); // Skips 0 or more, never -1
+    bytesLeft -= skipped;
+    return skipped;
+  }
 }

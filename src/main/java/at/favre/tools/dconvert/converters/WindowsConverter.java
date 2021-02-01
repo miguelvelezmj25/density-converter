@@ -46,7 +46,7 @@ public class WindowsConverter extends APlatformConverter<PostfixDescriptor> {
   }
 
   @Override
-  public PostfixDescriptor largeOutputDensities() {
+  public PostfixDescriptor originalOutputDensities() {
     return new PostfixDescriptor(1, "100%", ".scale-100");
   }
 

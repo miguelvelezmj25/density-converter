@@ -37,67 +37,66 @@ import java.io.InputStreamReader;
 
 /**
  * FileSystem
- * <p/>
+ *
+ * <p>
  *
  * @author <a href="mailto:harald.kuhr@gmail.com">Harald Kuhr</a>
  * @version $Id: FileSystem.java#1 $
  */
 abstract class FileSystem {
-    abstract long getFreeSpace(File pPath);
+  abstract long getFreeSpace(File pPath);
 
-    abstract long getTotalSpace(File pPath);
+  abstract long getTotalSpace(File pPath);
 
-    abstract String getName();
+  abstract String getName();
 
-    static BufferedReader exec(String[] pArgs) throws IOException {
-        Process cmd = Runtime.getRuntime().exec(pArgs);
-        return new BufferedReader(new InputStreamReader(cmd.getInputStream()));
+  static BufferedReader exec(String[] pArgs) throws IOException {
+    Process cmd = Runtime.getRuntime().exec(pArgs);
+    return new BufferedReader(new InputStreamReader(cmd.getInputStream()));
+  }
+
+  static FileSystem get() {
+    String os = System.getProperty("os.name");
+    // System.out.println("os = " + os);
+
+    os = os.toLowerCase();
+    if (os.contains("windows")) {
+      return new Win32FileSystem();
+    } else if (os.contains("linux")
+        || os.contains("sun os")
+        || os.contains("sunos")
+        || os.contains("solaris")
+        || os.contains("mpe/ix")
+        || os.contains("hp-ux")
+        || os.contains("aix")
+        || os.contains("freebsd")
+        || os.contains("irix")
+        || os.contains("digital unix")
+        || os.contains("unix")
+        || os.contains("mac os x")) {
+      return new UnixFileSystem();
+    } else {
+      return new UnknownFileSystem(os);
+    }
+  }
+
+  private static class UnknownFileSystem extends FileSystem {
+    private final String osName;
+
+    UnknownFileSystem(String pOSName) {
+      osName = pOSName;
     }
 
-    static FileSystem get() {
-        String os = System.getProperty("os.name");
-        //System.out.println("os = " + os);
-
-        os = os.toLowerCase();
-        if (os.contains("windows")) {
-            return new Win32FileSystem();
-        }
-        else if (os.contains("linux") ||
-                os.contains("sun os") ||
-                os.contains("sunos") ||
-                os.contains("solaris") ||
-                os.contains("mpe/ix") ||
-                os.contains("hp-ux") ||
-                os.contains("aix") ||
-                os.contains("freebsd") ||
-                os.contains("irix") ||
-                os.contains("digital unix") ||
-                os.contains("unix") ||
-                os.contains("mac os x")) {
-            return new UnixFileSystem();
-        }
-        else {
-            return new UnknownFileSystem(os);
-        }
+    long getFreeSpace(File pPath) {
+      return 0l;
     }
 
-    private static class UnknownFileSystem extends FileSystem {
-        private final String osName;
-
-        UnknownFileSystem(String pOSName) {
-            osName = pOSName;
-        }
-
-        long getFreeSpace(File pPath) {
-            return 0l;
-        }
-
-        long getTotalSpace(File pPath) {
-            return 0l;
-        }
-
-        String getName() {
-            return "Unknown (" + osName + ")";
-        }
+    long getTotalSpace(File pPath) {
+      return 0l;
     }
+
+    String getName() {
+      return "Unknown (" + osName + ")";
+    }
+  }
 }

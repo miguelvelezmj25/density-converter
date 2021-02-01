@@ -36,71 +36,71 @@ import java.nio.ByteBuffer;
 
 /**
  * {@code Encoder} implementation for standard base64 encoding.
- * <p/>
+ *
+ * <p>
+ *
  * @see <a href="http://tools.ietf.org/html/rfc1421">RFC 1421</a>
  * @see <a href="http://tools.ietf.org/html/rfc2045"RFC 2045</a>
- *
  * @see Base64Decoder
- *
  * @author <a href="mailto:harald.kuhr@gmail.com">Harald Kuhr</a>
- * @version $Id: //depot/branches/personal/haraldk/twelvemonkeys/release-2/twelvemonkeys-core/src/main/java/com/twelvemonkeys/io/enc/Base64Encoder.java#2 $
+ * @version $Id:
+ *     //depot/branches/personal/haraldk/twelvemonkeys/release-2/twelvemonkeys-core/src/main/java/com/twelvemonkeys/io/enc/Base64Encoder.java#2
+ *     $
  */
 public class Base64Encoder implements Encoder {
 
-    public void encode(final OutputStream stream, final ByteBuffer buffer)
-            throws IOException
-    {
+  public void encode(final OutputStream stream, final ByteBuffer buffer) throws IOException {
 
-        // TODO: Implement
-        // NOTE: This is impossible, given the current spec, as we need to either:
-        //  - buffer all data in the EncoderStream
-        //  - or have flush/end method(s) in the Encoder
-        // to ensure proper end of stream handling
+    // TODO: Implement
+    // NOTE: This is impossible, given the current spec, as we need to either:
+    //  - buffer all data in the EncoderStream
+    //  - or have flush/end method(s) in the Encoder
+    // to ensure proper end of stream handling
 
-        int length;
+    int length;
 
-        // TODO: Temp impl, will only work for single writes
-        while (buffer.hasRemaining()) {
-            byte a, b, c;
+    // TODO: Temp impl, will only work for single writes
+    while (buffer.hasRemaining()) {
+      byte a, b, c;
 
-//            if ((buffer.remaining()) > 2) {
-//                length = 3;
-//            }
-//            else {
-//                length = buffer.remaining();
-//            }
-            length = Math.min(3, buffer.remaining());
+      //            if ((buffer.remaining()) > 2) {
+      //                length = 3;
+      //            }
+      //            else {
+      //                length = buffer.remaining();
+      //            }
+      length = Math.min(3, buffer.remaining());
 
-            switch (length) {
-                case 1:
-                    a = buffer.get();
-                    b = 0;
-                    stream.write(Base64Decoder.PEM_ARRAY[(a >>> 2) & 0x3F]);
-                    stream.write(Base64Decoder.PEM_ARRAY[((a << 4) & 0x30) + ((b >>> 4) & 0xf)]);
-                    stream.write('=');
-                    stream.write('=');
-                    break;
+      switch (length) {
+        case 1:
+          a = buffer.get();
+          b = 0;
+          stream.write(Base64Decoder.PEM_ARRAY[(a >>> 2) & 0x3F]);
+          stream.write(Base64Decoder.PEM_ARRAY[((a << 4) & 0x30) + ((b >>> 4) & 0xf)]);
+          stream.write('=');
+          stream.write('=');
+          break;
 
-                case 2:
-                    a = buffer.get();
-                    b = buffer.get();
-                    c = 0;
-                    stream.write(Base64Decoder.PEM_ARRAY[(a >>> 2) & 0x3F]);
-                    stream.write(Base64Decoder.PEM_ARRAY[((a << 4) & 0x30) + ((b >>> 4) & 0xf)]);
-                    stream.write(Base64Decoder.PEM_ARRAY[((b << 2) & 0x3c) + ((c >>> 6) & 0x3)]);
-                    stream.write('=');
-                    break;
+        case 2:
+          a = buffer.get();
+          b = buffer.get();
+          c = 0;
+          stream.write(Base64Decoder.PEM_ARRAY[(a >>> 2) & 0x3F]);
+          stream.write(Base64Decoder.PEM_ARRAY[((a << 4) & 0x30) + ((b >>> 4) & 0xf)]);
+          stream.write(Base64Decoder.PEM_ARRAY[((b << 2) & 0x3c) + ((c >>> 6) & 0x3)]);
+          stream.write('=');
+          break;
 
-                default:
-                    a = buffer.get();
-                    b = buffer.get();
-                    c = buffer.get();
-                    stream.write(Base64Decoder.PEM_ARRAY[(a >>> 2) & 0x3F]);
-                    stream.write(Base64Decoder.PEM_ARRAY[((a << 4) & 0x30) + ((b >>> 4) & 0xf)]);
-                    stream.write(Base64Decoder.PEM_ARRAY[((b << 2) & 0x3c) + ((c >>> 6) & 0x3)]);
-                    stream.write(Base64Decoder.PEM_ARRAY[c & 0x3F]);
-                    break;
-            }
-        }
+        default:
+          a = buffer.get();
+          b = buffer.get();
+          c = buffer.get();
+          stream.write(Base64Decoder.PEM_ARRAY[(a >>> 2) & 0x3F]);
+          stream.write(Base64Decoder.PEM_ARRAY[((a << 4) & 0x30) + ((b >>> 4) & 0xf)]);
+          stream.write(Base64Decoder.PEM_ARRAY[((b << 2) & 0x3c) + ((c >>> 6) & 0x3)]);
+          stream.write(Base64Decoder.PEM_ARRAY[c & 0x3F]);
+          break;
+      }
     }
+  }
 }

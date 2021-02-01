@@ -35,48 +35,48 @@ import java.io.InputStream;
 
 /**
  * An {@code InputStream} that contains no bytes.
- * <p/>
+ *
+ * <p>
  *
  * @author <a href="mailto:harald.kuhr@gmail.com">Harald Kuhr</a>
- * @version $Id: //depot/branches/personal/haraldk/twelvemonkeys/release-2/twelvemonkeys-core/src/main/java/com/twelvemonkeys/io/NullInputStream.java#2 $
+ * @version $Id:
+ *     //depot/branches/personal/haraldk/twelvemonkeys/release-2/twelvemonkeys-core/src/main/java/com/twelvemonkeys/io/NullInputStream.java#2
+ *     $
  */
 public class NullInputStream extends InputStream {
 
-    /**
-     * Creates a {@code NullInputStream}.
-     */
-    public NullInputStream() {
-    }
+  /** Creates a {@code NullInputStream}. */
+  public NullInputStream() {}
 
-    /**
-     * This implementation returns {@code -1} (EOF), always.
-     *
-     * @return {@code -1}
-     * @throws IOException
-     */
-    public int read() throws IOException {
-        return -1;
-    }
+  /**
+   * This implementation returns {@code -1} (EOF), always.
+   *
+   * @return {@code -1}
+   * @throws IOException
+   */
+  public int read() throws IOException {
+    return -1;
+  }
 
-    /**
-     * This implementation returns {@code 0}, always.
-     *
-     * @return {@code 0}
-     * @throws IOException
-     */
-    @Override
-    public int available() throws IOException {
-        return 0;
-    }
+  /**
+   * This implementation returns {@code 0}, always.
+   *
+   * @return {@code 0}
+   * @throws IOException
+   */
+  @Override
+  public int available() throws IOException {
+    return 0;
+  }
 
-    /**
-     * This implementation returns {@code 0}, always.
-     *
-     * @return {@code 0}
-     * @throws IOException
-     */
-    @Override
-    public long skip(long pOffset) throws IOException {
-        return 0l;
-    }
+  /**
+   * This implementation returns {@code 0}, always.
+   *
+   * @return {@code 0}
+   * @throws IOException
+   */
+  @Override
+  public long skip(long pOffset) throws IOException {
+    return 0l;
+  }
 }

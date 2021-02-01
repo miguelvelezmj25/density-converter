@@ -36,206 +36,207 @@ import java.io.EOFException;
 import java.io.IOException;
 
 /**
- * A data stream that is both readable and writable, much like a
- * {@code RandomAccessFile}, except it may be backed by something other than a file.
- * <p/>
+ * A data stream that is both readable and writable, much like a {@code RandomAccessFile}, except it
+ * may be backed by something other than a file.
+ *
+ * <p>
  *
  * @see java.io.RandomAccessFile
- *
  * @author <a href="mailto:harald.kuhr@gmail.com">Harald Kuhr</a>
  * @author last modified by $Author: haku $
- * @version $Id: //depot/branches/personal/haraldk/twelvemonkeys/release-2/twelvemonkeys-core/src/main/java/com/twelvemonkeys/io/RandomAccessStream.java#3 $
+ * @version $Id:
+ *     //depot/branches/personal/haraldk/twelvemonkeys/release-2/twelvemonkeys-core/src/main/java/com/twelvemonkeys/io/RandomAccessStream.java#3
+ *     $
  */
 public abstract class RandomAccessStream implements Seekable, DataInput, DataOutput {
-    // TODO: Use a RandomAcceessFile as backing in impl, probably
-    // TODO: Create an in-memory implementation too?
-    // TODO: Package private SeekableDelegate?
+  // TODO: Use a RandomAcceessFile as backing in impl, probably
+  // TODO: Create an in-memory implementation too?
+  // TODO: Package private SeekableDelegate?
 
-    // TODO: Both read and write must update stream position
-    //private int position = -1;
+  // TODO: Both read and write must update stream position
+  // private int position = -1;
 
-    /** This random access stream, wrapped in an {@code InputStream} */
-    SeekableInputStream inputView = null;
-    /** This random access stream, wrapped in an {@code OutputStream} */
-    SeekableOutputStream outputView = null;
+  /** This random access stream, wrapped in an {@code InputStream} */
+  SeekableInputStream inputView = null;
+  /** This random access stream, wrapped in an {@code OutputStream} */
+  SeekableOutputStream outputView = null;
 
-    // TODO: Create an Input and an Output interface matching InputStream and OutputStream?
-    public int read() throws IOException {
-        try {
-            return readByte() & 0xff;
-        }
-        catch (EOFException e) {
-            return -1;
-        }
+  // TODO: Create an Input and an Output interface matching InputStream and OutputStream?
+  public int read() throws IOException {
+    try {
+      return readByte() & 0xff;
+    } catch (EOFException e) {
+      return -1;
+    }
+  }
+
+  public int read(final byte[] pBytes, final int pOffset, final int pLength) throws IOException {
+    if (pBytes == null) {
+      throw new NullPointerException("bytes == null");
+    } else if ((pOffset < 0)
+        || (pOffset > pBytes.length)
+        || (pLength < 0)
+        || ((pOffset + pLength) > pBytes.length)
+        || ((pOffset + pLength) < 0)) {
+      throw new IndexOutOfBoundsException();
+    } else if (pLength == 0) {
+      return 0;
     }
 
-    public int read(final byte[] pBytes, final int pOffset, final int pLength) throws IOException {
-        if (pBytes == null) {
-            throw new NullPointerException("bytes == null");
-        }
-        else if ((pOffset < 0) || (pOffset > pBytes.length) || (pLength < 0) ||
-                ((pOffset + pLength) > pBytes.length) || ((pOffset + pLength) < 0)) {
-            throw new IndexOutOfBoundsException();
-        }
-        else if (pLength == 0) {
-            return 0;
-        }
+    // Special case, allready at EOF
+    int c = read();
+    if (c == -1) {
+      return -1;
+    }
 
-        // Special case, allready at EOF
-        int c = read();
+    // Otherwise, read as many as bytes as possible
+    pBytes[pOffset] = (byte) c;
+
+    int i = 1;
+    try {
+      for (; i < pLength; i++) {
+        c = read();
         if (c == -1) {
-            return -1;
+          break;
         }
-
-        // Otherwise, read as many as bytes as possible
-        pBytes[pOffset] = (byte) c;
-
-        int i = 1;
-        try {
-            for (; i < pLength; i++) {
-                c = read();
-                if (c == -1) {
-                    break;
-                }
-                pBytes[pOffset + i] = (byte) c;
-            }
-        }
-        catch (IOException ignore) {
-            // Ignore exception, just return length
-        }
-
-        return i;
+        pBytes[pOffset + i] = (byte) c;
+      }
+    } catch (IOException ignore) {
+      // Ignore exception, just return length
     }
 
-    public final int read(byte[] pBytes) throws IOException {
-        return read(pBytes, 0, pBytes != null ? pBytes.length : 1);
+    return i;
+  }
+
+  public final int read(byte[] pBytes) throws IOException {
+    return read(pBytes, 0, pBytes != null ? pBytes.length : 1);
+  }
+
+  /**
+   * Returns an input view of this {@code RandomAccessStream}. Invoking this method several times,
+   * will return the same object.
+   *
+   * <p><em>Note that read access is NOT synchronized.</em>
+   *
+   * @return a {@code SeekableInputStream} reading from this stream
+   */
+  public final SeekableInputStream asInputStream() {
+    if (inputView == null) {
+      inputView = new InputStreamView(this);
+    }
+    return inputView;
+  }
+
+  /**
+   * Returns an output view of this {@code RandomAccessStream}. Invoking this method several times,
+   * will return the same object.
+   *
+   * <p><em>Note that write access is NOT synchronized.</em>
+   *
+   * @return a {@code SeekableOutputStream} writing to this stream
+   */
+  public final SeekableOutputStream asOutputStream() {
+    if (outputView == null) {
+      outputView = new OutputStreamView(this);
+    }
+    return outputView;
+  }
+
+  static final class InputStreamView extends SeekableInputStream {
+    // TODO: Consider adding synchonization (on stream) for all operations
+    // TODO: Is is a good thing that close/flush etc works on stream?
+    //  - Or should it rather just work on the views?
+    //  - Allow multiple views?
+
+    private final RandomAccessStream mStream;
+
+    public InputStreamView(RandomAccessStream pStream) {
+      if (pStream == null) {
+        throw new IllegalArgumentException("stream == null");
+      }
+      mStream = pStream;
     }
 
-    /**
-     * Returns an input view of this {@code RandomAccessStream}.
-     * Invoking this method several times, will return the same object.
-     * <p/>
-     * <em>Note that read access is NOT synchronized.</em>
-     *
-     * @return a {@code SeekableInputStream} reading from this stream
-     */
-    public final SeekableInputStream asInputStream() {
-        if (inputView == null) {
-             inputView = new InputStreamView(this);
-        }
-        return inputView;
+    public boolean isCached() {
+      return mStream.isCached();
     }
 
-    /**
-     * Returns an output view of this {@code RandomAccessStream}.
-     * Invoking this method several times, will return the same object.
-     * <p/>
-     * <em>Note that write access is NOT synchronized.</em>
-     *
-     * @return a {@code SeekableOutputStream} writing to this stream
-     */
-    public final SeekableOutputStream asOutputStream() {
-        if (outputView == null) {
-            outputView = new OutputStreamView(this);
-        }
-        return outputView;
+    public boolean isCachedFile() {
+      return mStream.isCachedFile();
     }
 
-    static final class InputStreamView extends SeekableInputStream {
-        // TODO: Consider adding synchonization (on stream) for all operations
-        // TODO: Is is a good thing that close/flush etc works on stream?
-        //  - Or should it rather just work on the views?
-        //  - Allow multiple views?
-
-        final private RandomAccessStream mStream;
-
-        public InputStreamView(RandomAccessStream pStream) {
-            if (pStream == null) {
-                throw new IllegalArgumentException("stream == null");
-            }
-            mStream = pStream;
-        }
-
-        public boolean isCached() {
-            return mStream.isCached();
-        }
-
-        public boolean isCachedFile() {
-            return mStream.isCachedFile();
-        }
-
-        public boolean isCachedMemory() {
-            return mStream.isCachedMemory();
-        }
-
-        protected void closeImpl() throws IOException {
-            mStream.close();
-        }
-
-        protected void flushBeforeImpl(long pPosition) throws IOException {
-            mStream.flushBefore(pPosition);
-        }
-
-        protected void seekImpl(long pPosition) throws IOException {
-            mStream.seek(pPosition);
-        }
-
-        public int read() throws IOException {
-            return mStream.read();
-        }
-
-        @Override
-        public int read(byte pBytes[], int pOffset, int pLength) throws IOException {
-            return mStream.read(pBytes, pOffset, pLength);
-        }
+    public boolean isCachedMemory() {
+      return mStream.isCachedMemory();
     }
 
-    static final class OutputStreamView extends SeekableOutputStream {
-        // TODO: Consider adding synchonization (on stream) for all operations
-        // TODO: Is is a good thing that close/flush etc works on stream?
-        //  - Or should it rather just work on the views?
-        //  - Allow multiple views?
-
-        final private RandomAccessStream mStream;
-
-        public OutputStreamView(RandomAccessStream pStream) {
-            if (pStream == null) {
-                throw new IllegalArgumentException("stream == null");
-            }
-            mStream = pStream;
-        }
-
-        public boolean isCached() {
-            return mStream.isCached();
-        }
-
-        public boolean isCachedFile() {
-            return mStream.isCachedFile();
-        }
-
-        public boolean isCachedMemory() {
-            return mStream.isCachedMemory();
-        }
-
-        protected void closeImpl() throws IOException {
-            mStream.close();
-        }
-
-        protected void flushBeforeImpl(long pPosition) throws IOException {
-            mStream.flushBefore(pPosition);
-        }
-
-        protected void seekImpl(long pPosition) throws IOException {
-            mStream.seek(pPosition);
-        }
-
-        public void write(int pByte) throws IOException {
-            mStream.write(pByte);
-        }
-
-        @Override
-        public void write(byte pBytes[], int pOffset, int pLength) throws IOException {
-            mStream.write(pBytes, pOffset, pLength);
-        }
+    protected void closeImpl() throws IOException {
+      mStream.close();
     }
+
+    protected void flushBeforeImpl(long pPosition) throws IOException {
+      mStream.flushBefore(pPosition);
+    }
+
+    protected void seekImpl(long pPosition) throws IOException {
+      mStream.seek(pPosition);
+    }
+
+    public int read() throws IOException {
+      return mStream.read();
+    }
+
+    @Override
+    public int read(byte pBytes[], int pOffset, int pLength) throws IOException {
+      return mStream.read(pBytes, pOffset, pLength);
+    }
+  }
+
+  static final class OutputStreamView extends SeekableOutputStream {
+    // TODO: Consider adding synchonization (on stream) for all operations
+    // TODO: Is is a good thing that close/flush etc works on stream?
+    //  - Or should it rather just work on the views?
+    //  - Allow multiple views?
+
+    private final RandomAccessStream mStream;
+
+    public OutputStreamView(RandomAccessStream pStream) {
+      if (pStream == null) {
+        throw new IllegalArgumentException("stream == null");
+      }
+      mStream = pStream;
+    }
+
+    public boolean isCached() {
+      return mStream.isCached();
+    }
+
+    public boolean isCachedFile() {
+      return mStream.isCachedFile();
+    }
+
+    public boolean isCachedMemory() {
+      return mStream.isCachedMemory();
+    }
+
+    protected void closeImpl() throws IOException {
+      mStream.close();
+    }
+
+    protected void flushBeforeImpl(long pPosition) throws IOException {
+      mStream.flushBefore(pPosition);
+    }
+
+    protected void seekImpl(long pPosition) throws IOException {
+      mStream.seek(pPosition);
+    }
+
+    public void write(int pByte) throws IOException {
+      mStream.write(pByte);
+    }
+
+    @Override
+    public void write(byte pBytes[], int pOffset, int pLength) throws IOException {
+      mStream.write(pBytes, pOffset, pLength);
+    }
+  }
 }

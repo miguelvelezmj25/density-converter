@@ -28,7 +28,5 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/**
- *Contains utils/helpers for classes in {@code java.lang}.
- */
+/** Contains utils/helpers for classes in {@code java.lang}. */
 package com.twelvemonkeys.lang;

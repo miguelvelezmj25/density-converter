@@ -27,7 +27,5 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-/**
- * Provides for system input and output through data streams, serialization and the file system.
- */
+/** Provides for system input and output through data streams, serialization and the file system. */
 package com.twelvemonkeys.io;

@@ -46,138 +46,138 @@ import java.io.Writer;
  *
  * @author <a href="mailto:harald.kuhr@gmail.com">Harald Kuhr</a>
  * @author last modified by $Author: haku $
- * @version $Id: //depot/branches/personal/haraldk/twelvemonkeys/release-2/twelvemonkeys-core/src/main/java/com/twelvemonkeys/xml/DOMSerializer.java#2 $
+ * @version $Id:
+ *     //depot/branches/personal/haraldk/twelvemonkeys/release-2/twelvemonkeys-core/src/main/java/com/twelvemonkeys/xml/DOMSerializer.java#2
+ *     $
  */
 public final class DOMSerializer {
 
-    private static final String PARAM_PRETTY_PRINT = "format-pretty-print";
-    private static final String PARAM_XML_DECLARATION = "xml-declaration";
+  private static final String PARAM_PRETTY_PRINT = "format-pretty-print";
+  private static final String PARAM_XML_DECLARATION = "xml-declaration";
 
-    private final LSSerializer serializer;
-    private final LSOutput output;
+  private final LSSerializer serializer;
+  private final LSOutput output;
 
-    private DOMSerializer() {
-        DOMImplementationLS domImpl = Support.getImplementation();
-        serializer = domImpl.createLSSerializer();
-        output = domImpl.createLSOutput();
+  private DOMSerializer() {
+    DOMImplementationLS domImpl = Support.getImplementation();
+    serializer = domImpl.createLSSerializer();
+    output = domImpl.createLSOutput();
+  }
+
+  /**
+   * Creates a serializer using the given byte stream and encoding.
+   *
+   * @param pStream the byte stream.
+   * @param pEncoding the encoding.
+   * @throws IllegalStateException if no {@code DOMImplementation} with the right features can be
+   *     instantiated.
+   */
+  public DOMSerializer(final OutputStream pStream, final String pEncoding) {
+    this();
+
+    output.setByteStream(pStream);
+    output.setEncoding(pEncoding);
+  }
+
+  /**
+   * Creates a serializer using the given character stream and encoding.
+   *
+   * @param pStream the characted stream.
+   * @throws IllegalStateException if no {@code DOMImplementation} with the right features can be
+   *     instantiated.
+   */
+  public DOMSerializer(final Writer pStream) {
+    this();
+
+    output.setCharacterStream(pStream);
+  }
+
+  /*
+  // TODO: Is it useful?
+  public void setNewLine(final String pNewLine) {
+      serializer.setNewLine(pNewLine);
+  }
+
+  public String getNewLine() {
+      return serializer.getNewLine();
+  }
+  */
+
+  /**
+   * Specifies wether the serializer should use indentation and optimize for readability.
+   *
+   * <p>Note: This is a hint, and may be ignored by DOM implemenations.
+   *
+   * @param pPrettyPrint {@code true} to enable pretty printing
+   */
+  public void setPrettyPrint(final boolean pPrettyPrint) {
+    DOMConfiguration configuration = serializer.getDomConfig();
+    if (configuration.canSetParameter(PARAM_PRETTY_PRINT, pPrettyPrint)) {
+      configuration.setParameter(PARAM_PRETTY_PRINT, pPrettyPrint);
     }
+  }
 
-    /**
-     * Creates a serializer using the given byte stream and encoding.
-     *
-     * @param pStream   the byte stream.
-     * @param pEncoding the encoding.
-     * @throws IllegalStateException if no {@code DOMImplementation} with the right features can be instantiated.
-     */
-    public DOMSerializer(final OutputStream pStream, final String pEncoding) {
-        this();
+  public boolean getPrettyPrint() {
+    return Boolean.TRUE.equals(serializer.getDomConfig().getParameter(PARAM_PRETTY_PRINT));
+  }
 
-        output.setByteStream(pStream);
-        output.setEncoding(pEncoding);
-    }
+  private void setXMLDeclaration(boolean pXMLDeclaration) {
+    serializer.getDomConfig().setParameter(PARAM_XML_DECLARATION, pXMLDeclaration);
+  }
 
-    /**
-     * Creates a serializer using the given character stream and encoding.
-     *
-     * @param pStream the characted stream.
-     * @throws IllegalStateException if no {@code DOMImplementation} with the right features can be instantiated.
-     */
-    public DOMSerializer(final Writer pStream) {
-        this();
+  /**
+   * Serializes the entire document.
+   *
+   * @param pDocument the document.
+   */
+  public void serialize(final Document pDocument) {
+    serializeImpl(pDocument, true);
+  }
 
-        output.setCharacterStream(pStream);
-    }
+  /**
+   * Serializes the given node, along with any subnodes. Will not emit XML declaration.
+   *
+   * @param pNode the top node.
+   */
+  public void serialize(final Node pNode) {
+    serializeImpl(pNode, false);
+  }
 
-    /*
-    // TODO: Is it useful?
-    public void setNewLine(final String pNewLine) {
-        serializer.setNewLine(pNewLine);
-    }
+  private void serializeImpl(final Node pNode, final boolean pOmitDecl) {
+    setXMLDeclaration(pOmitDecl);
+    serializer.write(pNode, output);
+  }
 
-    public String getNewLine() {
-        return serializer.getNewLine();
-    }
-    */
+  private static class Support {
+    private static final DOMImplementationRegistry DOM_REGISTRY = createDOMRegistry();
 
-    /**
-     * Specifies wether the serializer should use indentation and optimize for
-     * readability.
-     * <p/>
-     * Note: This is a hint, and may be ignored by DOM implemenations. 
-     *
-     * @param pPrettyPrint {@code true} to enable pretty printing
-     */
-    public void setPrettyPrint(final boolean pPrettyPrint) {
-        DOMConfiguration configuration = serializer.getDomConfig();
-        if (configuration.canSetParameter(PARAM_PRETTY_PRINT, pPrettyPrint)) {
-            configuration.setParameter(PARAM_PRETTY_PRINT, pPrettyPrint);
-        }
-    }
+    static DOMImplementationLS getImplementation() {
+      DOMImplementationLS implementation =
+          (DOMImplementationLS) DOM_REGISTRY.getDOMImplementation("LS 3.0");
+      if (implementation == null) {
 
-    public boolean getPrettyPrint() {
-        return Boolean.TRUE.equals(serializer.getDomConfig().getParameter(PARAM_PRETTY_PRINT));
-    }
-
-    private void setXMLDeclaration(boolean pXMLDeclaration) {
-        serializer.getDomConfig().setParameter(PARAM_XML_DECLARATION, pXMLDeclaration);
-    }
-
-    /**
-     * Serializes the entire document.
-     *
-     * @param pDocument the document.
-     */
-    public void serialize(final Document pDocument) {
-        serializeImpl(pDocument, true);
-    }
-
-    /**
-     * Serializes the given node, along with any subnodes.
-     * Will not emit XML declaration.
-     *
-     * @param pNode the top node.
-     */
-    public void serialize(final Node pNode) {
-        serializeImpl(pNode, false);
-    }
-
-    private void serializeImpl(final Node pNode, final boolean pOmitDecl) {
-        setXMLDeclaration(pOmitDecl);
-        serializer.write(pNode, output);
-    }
-
-    private static class Support {
-        private final static DOMImplementationRegistry DOM_REGISTRY = createDOMRegistry();
-
-        static DOMImplementationLS getImplementation() {
-            DOMImplementationLS implementation = (DOMImplementationLS) DOM_REGISTRY.getDOMImplementation("LS 3.0");
-            if (implementation == null) {
-
-                DOMImplementationList list = DOM_REGISTRY.getDOMImplementationList("");
-                System.err.println("DOM implementations (" + list.getLength() + "):");
-                for (int i = 0; i < list.getLength(); i++) {
-                    System.err.println("    " + list.item(i));
-                }
-
-                throw new IllegalStateException("Could not create DOM Implementation (no LS support found)");
-            }
-            return implementation;
+        DOMImplementationList list = DOM_REGISTRY.getDOMImplementationList("");
+        System.err.println("DOM implementations (" + list.getLength() + "):");
+        for (int i = 0; i < list.getLength(); i++) {
+          System.err.println("    " + list.item(i));
         }
 
-        private static DOMImplementationRegistry createDOMRegistry() {
-            try {
-                return DOMImplementationRegistry.newInstance();
-            }
-            catch (ClassNotFoundException e) {
-                throw new IllegalStateException(e);
-            }
-            catch (InstantiationException e) {
-                throw new IllegalStateException(e);
-            }
-            catch (IllegalAccessException e) {
-                throw new IllegalStateException(e);
-            }
-        }
+        throw new IllegalStateException(
+            "Could not create DOM Implementation (no LS support found)");
+      }
+      return implementation;
     }
 
+    private static DOMImplementationRegistry createDOMRegistry() {
+      try {
+        return DOMImplementationRegistry.newInstance();
+      } catch (ClassNotFoundException e) {
+        throw new IllegalStateException(e);
+      } catch (InstantiationException e) {
+        throw new IllegalStateException(e);
+      } catch (IllegalAccessException e) {
+        throw new IllegalStateException(e);
+      }
+    }
+  }
 }

@@ -17,104 +17,97 @@ import java.awt.image.ColorModel;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author Morten Nobel-Joergensen
- */
+/** @author Morten Nobel-Joergensen */
 public abstract class AdvancedResizeOp implements BufferedImageOp {
-	public static enum UnsharpenMask{
-		None(0),
-		Soft(0.15f),
-		Normal(0.3f),
-		VerySharp(0.45f),
-		Oversharpened(0.60f);
-		private final float factor;
+  public static enum UnsharpenMask {
+    None(0),
+    Soft(0.15f),
+    Normal(0.3f),
+    VerySharp(0.45f),
+    Oversharpened(0.60f);
+    private final float factor;
 
-		UnsharpenMask(float factor) {
-			this.factor = factor;
-		}
-	}
-	private List<ProgressListener> listeners = new ArrayList<ProgressListener>();
+    UnsharpenMask(float factor) {
+      this.factor = factor;
+    }
+  }
 
-    private final DimensionConstrain dimensionConstrain;
-	private UnsharpenMask unsharpenMask = UnsharpenMask.None;
+  private List<ProgressListener> listeners = new ArrayList<ProgressListener>();
 
-	public AdvancedResizeOp(DimensionConstrain dimensionConstrain) {
-		this.dimensionConstrain = dimensionConstrain;
-	}
+  private final DimensionConstrain dimensionConstrain;
+  private UnsharpenMask unsharpenMask = UnsharpenMask.None;
 
-	public UnsharpenMask getUnsharpenMask() {
-		return unsharpenMask;
-	}
+  public AdvancedResizeOp(DimensionConstrain dimensionConstrain) {
+    this.dimensionConstrain = dimensionConstrain;
+  }
 
-	public void setUnsharpenMask(UnsharpenMask unsharpenMask) {
-		this.unsharpenMask = unsharpenMask;
-	}
+  public UnsharpenMask getUnsharpenMask() {
+    return unsharpenMask;
+  }
 
-	protected void fireProgressChanged(float fraction){
-        for (ProgressListener progressListener:listeners){
-            progressListener.notifyProgress(fraction);
-        }
+  public void setUnsharpenMask(UnsharpenMask unsharpenMask) {
+    this.unsharpenMask = unsharpenMask;
+  }
+
+  protected void fireProgressChanged(float fraction) {
+    for (ProgressListener progressListener : listeners) {
+      progressListener.notifyProgress(fraction);
+    }
+  }
+
+  public final void addProgressListener(ProgressListener progressListener) {
+    listeners.add(progressListener);
+  }
+
+  public final boolean removeProgressListener(ProgressListener progressListener) {
+    return listeners.remove(progressListener);
+  }
+
+  public final BufferedImage filter(BufferedImage src, BufferedImage dest) {
+    Dimension dstDimension =
+        dimensionConstrain.getDimension(new Dimension(src.getWidth(), src.getHeight()));
+    int dstWidth = dstDimension.width;
+    int dstHeight = dstDimension.height;
+    BufferedImage bufferedImage = doFilter(src, dest, dstWidth, dstHeight);
+
+    if (unsharpenMask != UnsharpenMask.None) {
+      UnsharpFilter unsharpFilter = new UnsharpFilter();
+      unsharpFilter.setRadius(2f);
+      unsharpFilter.setAmount(unsharpenMask.factor);
+      unsharpFilter.setThreshold(10);
+      return unsharpFilter.filter(bufferedImage, null);
     }
 
-    public final void addProgressListener(ProgressListener progressListener) {
-        listeners.add(progressListener);
+    return bufferedImage;
+  }
+
+  protected abstract BufferedImage doFilter(
+      BufferedImage src, BufferedImage dest, int dstWidth, int dstHeight);
+
+  /** {@inheritDoc} */
+  public final Rectangle2D getBounds2D(BufferedImage src) {
+    return new Rectangle(0, 0, src.getWidth(), src.getHeight());
+  }
+
+  /** {@inheritDoc} */
+  public final BufferedImage createCompatibleDestImage(BufferedImage src, ColorModel destCM) {
+    if (destCM == null) {
+      destCM = src.getColorModel();
     }
+    return new BufferedImage(
+        destCM,
+        destCM.createCompatibleWritableRaster(src.getWidth(), src.getHeight()),
+        destCM.isAlphaPremultiplied(),
+        null);
+  }
 
-    public final boolean removeProgressListener(ProgressListener progressListener) {
-        return listeners.remove(progressListener);
-    }
+  /** {@inheritDoc} */
+  public final Point2D getPoint2D(Point2D srcPt, Point2D dstPt) {
+    return (Point2D) srcPt.clone();
+  }
 
-    public final BufferedImage filter(BufferedImage src, BufferedImage dest){
-		Dimension dstDimension = dimensionConstrain.getDimension(new  Dimension(src.getWidth(),src.getHeight()));
-		int dstWidth = dstDimension.width;
-		int dstHeight = dstDimension.height;
-		BufferedImage bufferedImage = doFilter(src, dest, dstWidth, dstHeight);
-
-		if (unsharpenMask!= UnsharpenMask.None){
-			UnsharpFilter unsharpFilter= new UnsharpFilter();
-			unsharpFilter.setRadius(2f);
-			unsharpFilter.setAmount(unsharpenMask.factor);
-			unsharpFilter.setThreshold(10);
-			return  unsharpFilter.filter(bufferedImage, null);
-		}
-
-		return bufferedImage;
-	}
-
-	protected abstract BufferedImage doFilter(BufferedImage src, BufferedImage dest, int dstWidth, int dstHeight);
-
-	/**
-     * {@inheritDoc}
-     */
-    public final Rectangle2D getBounds2D(BufferedImage src) {
-        return new Rectangle(0, 0, src.getWidth(), src.getHeight());
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public final BufferedImage createCompatibleDestImage(BufferedImage src,
-                                                   ColorModel destCM) {
-        if (destCM == null) {
-            destCM = src.getColorModel();
-        }
-        return new BufferedImage(destCM,
-                                 destCM.createCompatibleWritableRaster(
-                                         src.getWidth(), src.getHeight()),
-                                 destCM.isAlphaPremultiplied(), null);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public final Point2D getPoint2D(Point2D srcPt, Point2D dstPt) {
-        return (Point2D) srcPt.clone();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public final RenderingHints getRenderingHints() {
-        return null;
-    }
+  /** {@inheritDoc} */
+  public final RenderingHints getRenderingHints() {
+    return null;
+  }
 }

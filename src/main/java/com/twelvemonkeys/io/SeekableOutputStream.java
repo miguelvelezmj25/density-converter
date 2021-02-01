@@ -35,106 +35,108 @@ import java.io.OutputStream;
 import java.util.Stack;
 
 /**
- * Abstract base class for {@code OutputStream}s implementing the
- * {@code Seekable} interface.
- * <p/>
- * @see SeekableInputStream
+ * Abstract base class for {@code OutputStream}s implementing the {@code Seekable} interface.
  *
+ * <p>
+ *
+ * @see SeekableInputStream
  * @author <a href="mailto:harald.kuhr@gmail.com">Harald Kuhr</a>
- * @version $Id: //depot/branches/personal/haraldk/twelvemonkeys/release-2/twelvemonkeys-core/src/main/java/com/twelvemonkeys/io/SeekableOutputStream.java#2 $
+ * @version $Id:
+ *     //depot/branches/personal/haraldk/twelvemonkeys/release-2/twelvemonkeys-core/src/main/java/com/twelvemonkeys/io/SeekableOutputStream.java#2
+ *     $
  */
 public abstract class SeekableOutputStream extends OutputStream implements Seekable {
-    // TODO: Implement
-    long position;
-    long flushedPosition;
-    boolean closed;
+  // TODO: Implement
+  long position;
+  long flushedPosition;
+  boolean closed;
 
-    protected Stack<Long> markedPositions = new Stack<Long>();
+  protected Stack<Long> markedPositions = new Stack<Long>();
 
-    /// Outputstream overrides
-    @Override
-    public final void write(byte pBytes[]) throws IOException {
-        write(pBytes, 0, pBytes != null ? pBytes.length : 1);
+  /// Outputstream overrides
+  @Override
+  public final void write(byte pBytes[]) throws IOException {
+    write(pBytes, 0, pBytes != null ? pBytes.length : 1);
+  }
+
+  /// Seekable implementation
+  // TODO: This is common behaviour/implementation with SeekableInputStream,
+  // probably a good idea to extract a delegate..?
+  public final void seek(long pPosition) throws IOException {
+    checkOpen();
+
+    // TODO: This is correct according to javax.imageio (IndexOutOfBoundsException),
+    // but it's inconsistent with reset that throws IOException...
+    if (pPosition < flushedPosition) {
+      throw new IndexOutOfBoundsException("position < flushedPosition!");
     }
 
-    /// Seekable implementation
-    // TODO: This is common behaviour/implementation with SeekableInputStream,
-    // probably a good idea to extract a delegate..?
-    public final void seek(long pPosition) throws IOException {
-        checkOpen();
+    seekImpl(pPosition);
+    position = pPosition;
+  }
 
-        // TODO: This is correct according to javax.imageio (IndexOutOfBoundsException),
-        // but it's inconsistent with reset that throws IOException...
-        if (pPosition < flushedPosition) {
-            throw new IndexOutOfBoundsException("position < flushedPosition!");
-        }
+  protected abstract void seekImpl(long pPosition) throws IOException;
 
-        seekImpl(pPosition);
-        position = pPosition;
+  public final void mark() {
+    markedPositions.push(position);
+  }
+
+  public final void reset() throws IOException {
+    checkOpen();
+    if (!markedPositions.isEmpty()) {
+      long newPos = markedPositions.pop();
+
+      // TODO: This is correct according to javax.imageio (IOException),
+      // but it's inconsistent with seek that throws IndexOutOfBoundsException...
+      if (newPos < flushedPosition) {
+        throw new IOException("Previous marked position has been discarded!");
+      }
+
+      seek(newPos);
     }
+  }
 
-    protected abstract void seekImpl(long pPosition) throws IOException;
-
-    public final void mark() {
-        markedPositions.push(position);
+  public final void flushBefore(long pPosition) throws IOException {
+    if (pPosition < flushedPosition) {
+      throw new IndexOutOfBoundsException("position < flushedPosition!");
     }
-
-    public final void reset() throws IOException {
-        checkOpen();
-        if (!markedPositions.isEmpty()) {
-            long newPos = markedPositions.pop();
-
-            // TODO: This is correct according to javax.imageio (IOException),
-            // but it's inconsistent with seek that throws IndexOutOfBoundsException...
-            if (newPos < flushedPosition) {
-                throw new IOException("Previous marked position has been discarded!");
-            }
-
-            seek(newPos);
-        }
+    if (pPosition > getStreamPosition()) {
+      throw new IndexOutOfBoundsException("position > getStreamPosition()!");
     }
+    checkOpen();
+    flushBeforeImpl(pPosition);
+    flushedPosition = pPosition;
+  }
 
-    public final void flushBefore(long pPosition) throws IOException {
-        if (pPosition < flushedPosition) {
-            throw new IndexOutOfBoundsException("position < flushedPosition!");
-        }
-        if (pPosition > getStreamPosition()) {
-            throw new IndexOutOfBoundsException("position > getStreamPosition()!");
-        }
-        checkOpen();
-        flushBeforeImpl(pPosition);
-        flushedPosition = pPosition;
+  protected abstract void flushBeforeImpl(long pPosition) throws IOException;
+
+  @Override
+  public final void flush() throws IOException {
+    flushBefore(flushedPosition);
+  }
+
+  public final long getFlushedPosition() throws IOException {
+    checkOpen();
+    return flushedPosition;
+  }
+
+  public final long getStreamPosition() throws IOException {
+    checkOpen();
+    return position;
+  }
+
+  protected final void checkOpen() throws IOException {
+    if (closed) {
+      throw new IOException("closed");
     }
+  }
 
-    protected abstract void flushBeforeImpl(long pPosition) throws IOException;
+  @Override
+  public final void close() throws IOException {
+    checkOpen();
+    closed = true;
+    closeImpl();
+  }
 
-    @Override
-    public final void flush() throws IOException {
-        flushBefore(flushedPosition);
-    }
-
-    public final long getFlushedPosition() throws IOException {
-        checkOpen();
-        return flushedPosition;
-    }
-
-    public final long getStreamPosition() throws IOException {
-        checkOpen();
-        return position;
-    }
-
-    protected final void checkOpen() throws IOException {
-        if (closed) {
-            throw new IOException("closed");
-        }
-    }
-
-    @Override
-    public final void close() throws IOException {
-        checkOpen();
-        closed = true;
-        closeImpl();
-    }
-
-    protected abstract void closeImpl() throws IOException;
+  protected abstract void closeImpl() throws IOException;
 }

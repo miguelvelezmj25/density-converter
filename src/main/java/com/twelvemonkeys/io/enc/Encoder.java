@@ -35,31 +35,30 @@ import java.io.OutputStream;
 import java.nio.ByteBuffer;
 
 /**
- * Interface for encoders.
- * An {@code Encoder} may be used with an {@code EncoderStream}, to perform
+ * Interface for encoders. An {@code Encoder} may be used with an {@code EncoderStream}, to perform
  * on-the-fly encoding to an {@code OutputStream}.
- * <p/>
- * Important note: Encoder implementations are typically not synchronized.
+ *
+ * <p>Important note: Encoder implementations are typically not synchronized.
  *
  * @see Decoder
  * @see EncoderStream
- *
  * @author <a href="mailto:harald.kuhr@gmail.com">Harald Kuhr</a>
- * @version $Id: //depot/branches/personal/haraldk/twelvemonkeys/release-2/twelvemonkeys-core/src/main/java/com/twelvemonkeys/io/enc/Encoder.java#2 $
+ * @version $Id:
+ *     //depot/branches/personal/haraldk/twelvemonkeys/release-2/twelvemonkeys-core/src/main/java/com/twelvemonkeys/io/enc/Encoder.java#2
+ *     $
  */
 public interface Encoder {
-    
-    /**
-     * Encodes up to {@code buffer.remaining()} bytes into the given input stream,
-     * from the given buffer.
-     *
-     * @param stream the output stream to encode data to
-     * @param buffer buffer to read data from
-     *
-     * @throws IOException if an I/O error occurs
-     */
-    void encode(OutputStream stream, ByteBuffer buffer) throws IOException;
 
-    //TODO: int requiredBufferSize(): -1 == any, otherwise, use this buffer size
-    // void flush()?
+  /**
+   * Encodes up to {@code buffer.remaining()} bytes into the given input stream, from the given
+   * buffer.
+   *
+   * @param stream the output stream to encode data to
+   * @param buffer buffer to read data from
+   * @throws IOException if an I/O error occurs
+   */
+  void encode(OutputStream stream, ByteBuffer buffer) throws IOException;
+
+  // TODO: int requiredBufferSize(): -1 == any, otherwise, use this buffer size
+  // void flush()?
 }

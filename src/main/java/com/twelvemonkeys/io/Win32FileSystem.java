@@ -36,57 +36,58 @@ import java.io.IOException;
 
 /**
  * WindowsFileSystem
- * <p/>
+ *
+ * <p>
  *
  * @author <a href="mailto:harald.kuhr@gmail.com">Harald Kuhr</a>
- * @version $Id: //depot/branches/personal/haraldk/twelvemonkeys/release-2/twelvemonkeys-core/src/main/java/com/twelvemonkeys/io/Win32FileSystem.java#2 $
+ * @version $Id:
+ *     //depot/branches/personal/haraldk/twelvemonkeys/release-2/twelvemonkeys-core/src/main/java/com/twelvemonkeys/io/Win32FileSystem.java#2
+ *     $
  */
 final class Win32FileSystem extends FileSystem {
-    public long getFreeSpace(File pPath) {
-        try {
-            // Windows version
-            // TODO: Test on W2K/95/98/etc... (tested on XP)
-            BufferedReader reader = exec(new String[] {"CMD.EXE", "/C", "DIR", "/-C", pPath.getAbsolutePath()});
+  public long getFreeSpace(File pPath) {
+    try {
+      // Windows version
+      // TODO: Test on W2K/95/98/etc... (tested on XP)
+      BufferedReader reader =
+          exec(new String[] {"CMD.EXE", "/C", "DIR", "/-C", pPath.getAbsolutePath()});
 
-            String last = null;
-            String line;
-            try {
-                while ((line = reader.readLine()) != null) {
-                    last = line;
-                }
-            }
-            finally {
-                FileUtil.close(reader);
-            }
-
-            if (last != null) {
-                int end = last.lastIndexOf(" bytes free");
-                int start = last.lastIndexOf(' ', end - 1);
-
-                if (start >= 0 && end >= 0) {
-                    try {
-                        return Long.parseLong(last.substring(start + 1, end));
-                    }
-                    catch (NumberFormatException ignore) {
-                        // Ignore
-                    }
-                }
-            }
+      String last = null;
+      String line;
+      try {
+        while ((line = reader.readLine()) != null) {
+          last = line;
         }
-        catch (IOException ignore) {
+      } finally {
+        FileUtil.close(reader);
+      }
+
+      if (last != null) {
+        int end = last.lastIndexOf(" bytes free");
+        int start = last.lastIndexOf(' ', end - 1);
+
+        if (start >= 0 && end >= 0) {
+          try {
+            return Long.parseLong(last.substring(start + 1, end));
+          } catch (NumberFormatException ignore) {
             // Ignore
+          }
         }
-
-        return 0l;
+      }
+    } catch (IOException ignore) {
+      // Ignore
     }
 
-    long getTotalSpace(File pPath) {
-        // TODO: Implement, probably need some JNI stuff...
-        // Distribute df.exe and execute from temp!? ;-)
-        return getFreeSpace(pPath);
-    }
+    return 0l;
+  }
 
-    String getName() {
-        return "Win32";
-    }
+  long getTotalSpace(File pPath) {
+    // TODO: Implement, probably need some JNI stuff...
+    // Distribute df.exe and execute from temp!? ;-)
+    return getFreeSpace(pPath);
+  }
+
+  String getName() {
+    return "Win32";
+  }
 }

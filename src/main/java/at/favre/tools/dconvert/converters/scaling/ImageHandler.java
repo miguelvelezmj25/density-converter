@@ -129,7 +129,7 @@ public class ImageHandler {
     return files;
   }
 
-  private void compressJpeg(
+  public void compressJpeg(
       BufferedImage bufferedImage, CompoundDirectory exif, float quality, File targetFile)
       throws IOException {
     if (bufferedImage.hasTileWriters()) {
@@ -175,7 +175,7 @@ public class ImageHandler {
     }
   }
 
-  private BufferedImage scale(
+  public BufferedImage scale(
       ScaleAlgorithm scaleAlgorithm,
       BufferedImage imageToScale,
       int dWidth,

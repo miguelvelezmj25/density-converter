@@ -28,7 +28,5 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/**
- * Provides classes for net access.
- */
+/** Provides classes for net access. */
 package com.twelvemonkeys.net;

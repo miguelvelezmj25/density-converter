@@ -37,99 +37,99 @@ import java.io.RandomAccessFile;
 
 /**
  * A {@code SeekableInputStream} implementation that uses random access directly to a {@code File}.
- * <p/>
+ *
+ * <p>
+ *
  * @see FileCacheSeekableStream
  * @see MemoryCacheSeekableStream
  * @see RandomAccessFile
- *
  * @author <a href="mailto:harald.kuhr@gmail.com">Harald Kuhr</a>
- * @version $Id: //depot/branches/personal/haraldk/twelvemonkeys/release-2/twelvemonkeys-core/src/main/java/com/twelvemonkeys/io/FileSeekableStream.java#4 $
+ * @version $Id:
+ *     //depot/branches/personal/haraldk/twelvemonkeys/release-2/twelvemonkeys-core/src/main/java/com/twelvemonkeys/io/FileSeekableStream.java#4
+ *     $
  */
 public final class FileSeekableStream extends SeekableInputStream {
 
-    // TODO: Figure out why this class is SLOWER than FileCacheSeekableStream in
-    // my tests..?
+  // TODO: Figure out why this class is SLOWER than FileCacheSeekableStream in
+  // my tests..?
 
-    final RandomAccessFile mRandomAccess;
+  final RandomAccessFile mRandomAccess;
 
-    /**
-     * Creates a {@code FileSeekableStream} that reads from the given
-     * {@code File}.
-     *
-     * @param pInput file to read from
-     * @throws FileNotFoundException if {@code pInput} does not exist
-     */
-    public FileSeekableStream(final File pInput) throws FileNotFoundException {
-        this(new RandomAccessFile(pInput, "r"));
+  /**
+   * Creates a {@code FileSeekableStream} that reads from the given {@code File}.
+   *
+   * @param pInput file to read from
+   * @throws FileNotFoundException if {@code pInput} does not exist
+   */
+  public FileSeekableStream(final File pInput) throws FileNotFoundException {
+    this(new RandomAccessFile(pInput, "r"));
+  }
+
+  /**
+   * Creates a {@code FileSeekableStream} that reads from the given file. The {@code
+   * RandomAccessFile} needs only to be open in read ({@code "r"}) mode.
+   *
+   * @param pInput file to read from
+   */
+  public FileSeekableStream(final RandomAccessFile pInput) {
+    mRandomAccess = pInput;
+  }
+
+  /// Seekable
+
+  public boolean isCached() {
+    return false;
+  }
+
+  public boolean isCachedFile() {
+    return false;
+  }
+
+  public boolean isCachedMemory() {
+    return false;
+  }
+
+  /// InputStream
+
+  @Override
+  public int available() throws IOException {
+    long length = mRandomAccess.length() - position;
+    return length > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) length;
+  }
+
+  public void closeImpl() throws IOException {
+    mRandomAccess.close();
+  }
+
+  public int read() throws IOException {
+    checkOpen();
+
+    int read = mRandomAccess.read();
+    if (read >= 0) {
+      position++;
     }
+    return read;
+  }
 
-    /**
-     * Creates a {@code FileSeekableStream} that reads from the given file.
-     * The {@code RandomAccessFile} needs only to be open in read
-     * ({@code "r"}) mode.
-     *
-     * @param pInput file to read from
-     */
-    public FileSeekableStream(final RandomAccessFile pInput) {
-        mRandomAccess = pInput;
+  @Override
+  public int read(byte pBytes[], int pOffset, int pLength) throws IOException {
+    checkOpen();
+
+    int read = mRandomAccess.read(pBytes, pOffset, pLength);
+    if (read > 0) {
+      position += read;
     }
+    return read;
+  }
 
-    /// Seekable
+  /**
+   * Does nothing, as we don't really do any caching here.
+   *
+   * @param pPosition the position to flush to
+   */
+  protected void flushBeforeImpl(long pPosition) {}
 
-    public boolean isCached() {
-        return false;
-    }
-
-    public boolean isCachedFile() {
-        return false;
-    }
-
-    public boolean isCachedMemory() {
-        return false;
-    }
-
-    /// InputStream
-
-    @Override
-    public int available() throws IOException {
-        long length = mRandomAccess.length() - position;
-        return length > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) length;
-    }
-
-    public void closeImpl() throws IOException {
-        mRandomAccess.close();
-    }
-
-    public int read() throws IOException {
-        checkOpen();
-
-        int read = mRandomAccess.read();
-        if (read >= 0) {
-            position++;
-        }
-        return read;
-    }
-
-    @Override
-    public int read(byte pBytes[], int pOffset, int pLength) throws IOException {
-        checkOpen();
-
-        int read = mRandomAccess.read(pBytes, pOffset, pLength);
-        if (read > 0) {
-            position += read;
-        }
-        return read;
-    }
-
-    /**
-     * Does nothing, as we don't really do any caching here.
-     *
-     * @param pPosition the position to flush to
-     */
-    protected void flushBeforeImpl(long pPosition) {
-    }
-
-    protected void seekImpl(long pPosition) throws IOException {
-        mRandomAccess.seek(pPosition);
-    }
+  protected void seekImpl(long pPosition) throws IOException {
+    mRandomAccess.seek(pPosition);
+  }
 }

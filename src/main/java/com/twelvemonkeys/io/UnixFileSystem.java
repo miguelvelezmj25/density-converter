@@ -38,70 +38,69 @@ import java.io.IOException;
 
 /**
  * UnixFileSystem
- * <p/>
+ *
+ * <p>
  *
  * @author <a href="mailto:harald.kuhr@gmail.com">Harald Kuhr</a>
- * @version $Id: //depot/branches/personal/haraldk/twelvemonkeys/release-2/twelvemonkeys-core/src/main/java/com/twelvemonkeys/io/UnixFileSystem.java#1 $
+ * @version $Id:
+ *     //depot/branches/personal/haraldk/twelvemonkeys/release-2/twelvemonkeys-core/src/main/java/com/twelvemonkeys/io/UnixFileSystem.java#1
+ *     $
  */
 final class UnixFileSystem extends FileSystem {
-    long getFreeSpace(File pPath) {
+  long getFreeSpace(File pPath) {
+    try {
+      return getNumber(pPath, 3);
+    } catch (IOException e) {
+      return 0l;
+    }
+  }
+
+  long getTotalSpace(File pPath) {
+    try {
+      return getNumber(pPath, 5);
+    } catch (IOException e) {
+      return 0l;
+    }
+  }
+
+  private long getNumber(File pPath, int pIndex) throws IOException {
+    // TODO: Test on other platforms
+    // Tested on Mac OS X, CygWin
+    BufferedReader reader = exec(new String[] {"df", "-k", pPath.getAbsolutePath()});
+
+    String last = null;
+    String line;
+    try {
+      while ((line = reader.readLine()) != null) {
+        last = line;
+      }
+    } finally {
+      FileUtil.close(reader);
+    }
+
+    if (last != null) {
+      String blocks = null;
+      StringTokenIterator tokens = new StringTokenIterator(last, " ", StringTokenIterator.REVERSE);
+      int count = 0;
+      // We want the 3rd last token
+      while (count < pIndex && tokens.hasNext()) {
+        blocks = tokens.nextToken();
+        count++;
+      }
+
+      if (blocks != null) {
         try {
-            return getNumber(pPath, 3);
+          return Long.parseLong(blocks) * 1024L;
+        } catch (NumberFormatException ignore) {
+          // Ignore
         }
-        catch (IOException e) {
-            return 0l;
-        }
+      }
     }
 
-    long getTotalSpace(File pPath) {
-        try {
-            return getNumber(pPath, 5);
-        }
-        catch (IOException e) {
-            return 0l;
-        }
-    }
+    return 0l;
+  }
 
-    private long getNumber(File pPath, int pIndex) throws IOException {
-        // TODO: Test on other platforms
-        // Tested on Mac OS X, CygWin
-        BufferedReader reader = exec(new String[] {"df", "-k", pPath.getAbsolutePath()});
-
-        String last = null;
-        String line;
-        try {
-            while ((line = reader.readLine()) != null) {
-                last = line;
-            }
-        }
-        finally {
-            FileUtil.close(reader);
-        }
-
-        if (last != null) {
-            String blocks = null;
-            StringTokenIterator tokens = new StringTokenIterator(last, " ", StringTokenIterator.REVERSE);
-            int count = 0;
-            // We want the 3rd last token
-            while (count < pIndex && tokens.hasNext()) {
-                blocks = tokens.nextToken();
-                count++;
-            }
-
-            if (blocks != null) {
-                try {
-                    return Long.parseLong(blocks) * 1024L;
-                }
-                catch (NumberFormatException ignore) {
-                    // Ignore
-                }
-            }
-        }
-
-        return 0l;
-    }
-
-    String getName() {
-        return "Unix";
-    }
+  String getName() {
+    return "Unix";
+  }
 }

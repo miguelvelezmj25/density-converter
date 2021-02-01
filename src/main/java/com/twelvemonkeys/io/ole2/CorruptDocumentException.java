@@ -37,20 +37,22 @@ import java.io.IOException;
  *
  * @author <a href="mailto:harald.kuhr@gmail.no">Harald Kuhr</a>
  * @author last modified by $Author: haku $
- * @version $Id: //depot/branches/personal/haraldk/twelvemonkeys/release-2/twelvemonkeys-core/src/main/java/com/twelvemonkeys/io/ole2/CorruptDocumentException.java#3 $
+ * @version $Id:
+ *     //depot/branches/personal/haraldk/twelvemonkeys/release-2/twelvemonkeys-core/src/main/java/com/twelvemonkeys/io/ole2/CorruptDocumentException.java#3
+ *     $
  * @see CompoundDocument
  */
 public class CorruptDocumentException extends IOException {
-    public CorruptDocumentException() {
-        this("Corrupt OLE 2 Compound Document");
-    }
+  public CorruptDocumentException() {
+    this("Corrupt OLE 2 Compound Document");
+  }
 
-    public CorruptDocumentException(final String pMessage) {
-        super(pMessage);
-    }
+  public CorruptDocumentException(final String pMessage) {
+    super(pMessage);
+  }
 
-    public CorruptDocumentException(final Throwable pCause) {
-        super(pCause.getMessage());
-        initCause(pCause);
-    }
+  public CorruptDocumentException(final Throwable pCause) {
+    super(pCause.getMessage());
+    initCause(pCause);
+  }
 }

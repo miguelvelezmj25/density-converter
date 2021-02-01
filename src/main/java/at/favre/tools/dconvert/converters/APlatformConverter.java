@@ -107,14 +107,7 @@ public abstract class APlatformConverter<T extends DensityDescriptor>
       }
 
       if (!args.dryRun && convertLarge) {
-        convertLarge(
-            args,
-            imageData,
-            targetImageFileName,
-            isNinePatch,
-            log,
-            mainSubFolder,
-            allResultingFiles);
+        convertOriginal(args, imageData, targetImageFileName, isNinePatch, log, mainSubFolder);
       }
 
       onPostExecute(args);
@@ -128,40 +121,43 @@ public abstract class APlatformConverter<T extends DensityDescriptor>
     }
   }
 
-  private void convertLarge(
+  private void convertOriginal(
       Arguments args,
       LoadedImage imageData,
       String targetImageFileName,
       boolean isNinePatch,
       StringBuilder log,
-      File mainSubFolder,
-      List<File> allResultingFiles)
+      File mainSubFolder)
       throws Exception {
-    T descriptor = this.largeOutputDensities();
-    Dimension dimension = new Dimension(15000, 10000);
+    T descriptor = this.originalOutputDensities();
+    Dimension dimension =
+        new Dimension(imageData.getImage().getWidth(), imageData.getImage().getHeight());
 
     File dstFolder =
         createFolderForOutputFile(mainSubFolder, descriptor, dimension, targetImageFileName, args);
-
     if ((dstFolder.isDirectory() && dstFolder.exists()) || args.dryRun) {
-      File imageFile =
-          new File(
-              dstFolder,
-              createDestinationFileNameWithoutExtension(
-                  descriptor, dimension, targetImageFileName, args));
+      File imageFile = new File(dstFolder, imageData.getSourceFile().getName());
 
       log.append("process ")
           .append(imageFile)
           .append(" with ")
-          .append(dimension.width)
+          .append(imageData.getImage().getWidth())
           .append("x")
-          .append(dimension.height)
+          .append(imageData.getImage().getHeight())
           .append(" (x")
           .append(descriptor.scale)
           .append(") ")
           .append(isNinePatch ? "(9-patch)" : "")
           .append("\n");
-      convertImage(args, imageData, isNinePatch, log, allResultingFiles, dimension, imageFile);
+
+      new ImageHandler(args)
+          .compressJpeg(imageData.getImage(), null, args.compressionQuality, imageFile);
+
+      log.append("compressed to disk: ")
+          .append(imageFile)
+          .append(" (")
+          .append(String.format(Locale.US, "%.2f", (float) imageFile.length() / 1024f))
+          .append("kB)\n");
     } else {
       throw new IllegalStateException("could not create " + dstFolder);
     }
@@ -196,7 +192,7 @@ public abstract class APlatformConverter<T extends DensityDescriptor>
 
   public abstract List<T> usedOutputDensities(Arguments arguments);
 
-  public abstract T largeOutputDensities();
+  public abstract T originalOutputDensities();
 
   public abstract String getConverterName();
 

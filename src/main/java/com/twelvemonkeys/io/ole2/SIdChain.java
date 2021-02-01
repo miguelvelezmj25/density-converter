@@ -37,70 +37,72 @@ import java.util.NoSuchElementException;
  *
  * @author <a href="mailto:harald.kuhr@gmail.no">Harald Kuhr</a>
  * @author last modified by $Author: haku $
- * @version $Id: //depot/branches/personal/haraldk/twelvemonkeys/release-2/twelvemonkeys-core/src/main/java/com/twelvemonkeys/io/ole2/SIdChain.java#1 $
+ * @version $Id:
+ *     //depot/branches/personal/haraldk/twelvemonkeys/release-2/twelvemonkeys-core/src/main/java/com/twelvemonkeys/io/ole2/SIdChain.java#1
+ *     $
  */
 final class SIdChain {
-    int[] chain;
-    int size = 0;
-    int next = 0;
+  int[] chain;
+  int size = 0;
+  int next = 0;
 
-    public SIdChain() {
-        chain = new int[16];
+  public SIdChain() {
+    chain = new int[16];
+  }
+
+  void addSID(int pSID) {
+    ensureCapacity();
+    chain[size++] = pSID;
+  }
+
+  private void ensureCapacity() {
+    if (chain.length == size) {
+      int[] temp = new int[size << 1];
+      System.arraycopy(chain, 0, temp, 0, size);
+      chain = temp;
     }
+  }
 
-    void addSID(int pSID) {
-        ensureCapacity();
-        chain[size++] = pSID;
+  public int[] getChain() {
+    int[] result = new int[size];
+    System.arraycopy(chain, 0, result, 0, size);
+    return result;
+  }
+
+  public void reset() {
+    next = 0;
+  }
+
+  public boolean hasNext() {
+    return next < size;
+  }
+
+  public int next() {
+    if (next >= size) {
+      throw new NoSuchElementException("No element");
     }
+    return chain[next++];
+  }
 
-    private void ensureCapacity() {
-        if (chain.length == size) {
-            int[] temp = new int[size << 1];
-            System.arraycopy(chain, 0, temp, 0, size);
-            chain = temp;
-        }
+  public int get(final int pIndex) {
+    return chain[pIndex];
+  }
+
+  public int length() {
+    return size;
+  }
+
+  public String toString() {
+    StringBuilder buf = new StringBuilder(size * 5);
+    buf.append('[');
+    for (int i = 0; i < size; i++) {
+      if (i != 0) {
+        buf.append(',');
+      }
+      buf.append(chain[i]);
     }
+    buf.append(']');
 
-    public int[] getChain() {
-        int[] result = new int[size];
-        System.arraycopy(chain, 0, result, 0, size);
-        return result;
-    }
-
-    public void reset() {
-        next = 0;
-    }
-
-    public boolean hasNext() {
-        return next < size;
-    }
-
-    public int next() {
-        if (next >= size) {
-            throw new NoSuchElementException("No element");
-        }
-        return chain[next++];
-    }
-
-    public int get(final int pIndex) {
-        return chain[pIndex];
-    }
-
-    public int length() {
-        return size;
-    }
-
-    public String toString() {
-        StringBuilder buf = new StringBuilder(size * 5);
-        buf.append('[');
-        for (int i = 0; i < size; i++) {
-            if (i != 0) {
-                buf.append(',');
-            }
-            buf.append(chain[i]);
-        }
-        buf.append(']');
-
-        return buf.toString();
-    }
+    return buf.toString();
+  }
 }

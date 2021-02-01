@@ -124,6 +124,7 @@ public enum EScalingAlgorithm {
   private final String cliName;
   private final List<Type> supportedForType;
   private final boolean enabled;
+
   EScalingAlgorithm(
       ScaleAlgorithm algorithm, String cliName, Type[] supportedForType, boolean enabled) {
     this.algorithm = algorithm;

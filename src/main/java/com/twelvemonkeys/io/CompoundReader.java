@@ -40,183 +40,182 @@ import java.util.List;
 
 /**
  * A Reader implementation that can read from multiple sources.
- * <p/>
+ *
+ * <p>
  *
  * @author <a href="mailto:harald.kuhr@gmail.com">Harald Kuhr</a>
  * @author last modified by $Author: haku $
- * @version $Id: //depot/branches/personal/haraldk/twelvemonkeys/release-2/twelvemonkeys-core/src/main/java/com/twelvemonkeys/io/CompoundReader.java#2 $
+ * @version $Id:
+ *     //depot/branches/personal/haraldk/twelvemonkeys/release-2/twelvemonkeys-core/src/main/java/com/twelvemonkeys/io/CompoundReader.java#2
+ *     $
  */
 public class CompoundReader extends Reader {
 
-    private Reader current;
-    private List<Reader> readers;
+  private Reader current;
+  private List<Reader> readers;
 
-    protected final Object finalLock;
+  protected final Object finalLock;
 
-    protected final boolean markSupported;
+  protected final boolean markSupported;
 
-    private int currentReader;
-    private int markedReader;
-    private int mark;
-    private int mNext;
+  private int currentReader;
+  private int markedReader;
+  private int mark;
+  private int mNext;
 
-    /**
-     * Create a new compound reader.
-     *
-     * @param pReaders {@code Iterator} containting {@code Reader}s,
-     *        providing the character stream.
-     *
-     * @throws NullPointerException if {@code pReaders} is {@code null}, or
-     *         any of the elements in the iterator is {@code null}.
-     * @throws ClassCastException if any element of the iterator is not a
-     *         {@code java.io.Reader}
-     */
-    public CompoundReader(final Iterator<Reader> pReaders) {
-        super(Validate.notNull(pReaders, "readers"));
+  /**
+   * Create a new compound reader.
+   *
+   * @param pReaders {@code Iterator} containting {@code Reader}s, providing the character stream.
+   * @throws NullPointerException if {@code pReaders} is {@code null}, or any of the elements in the
+   *     iterator is {@code null}.
+   * @throws ClassCastException if any element of the iterator is not a {@code java.io.Reader}
+   */
+  public CompoundReader(final Iterator<Reader> pReaders) {
+    super(Validate.notNull(pReaders, "readers"));
 
-        finalLock = pReaders; // NOTE: It's ok to sync on pReaders, as the
-                          // reference can't change, only it's elements
+    finalLock = pReaders; // NOTE: It's ok to sync on pReaders, as the
+    // reference can't change, only it's elements
 
-        readers = new ArrayList<Reader>();
+    readers = new ArrayList<Reader>();
 
-        boolean markSupported = true;
-        while (pReaders.hasNext()) {
-            Reader reader = pReaders.next();
-            if (reader == null) {
-                throw new NullPointerException("readers cannot contain null-elements");
-            }
-            readers.add(reader);
-            markSupported = markSupported && reader.markSupported();
-        }
-        this.markSupported = markSupported;
+    boolean markSupported = true;
+    while (pReaders.hasNext()) {
+      Reader reader = pReaders.next();
+      if (reader == null) {
+        throw new NullPointerException("readers cannot contain null-elements");
+      }
+      readers.add(reader);
+      markSupported = markSupported && reader.markSupported();
+    }
+    this.markSupported = markSupported;
 
-        current = nextReader();
+    current = nextReader();
+  }
+
+  protected final Reader nextReader() {
+    if (currentReader >= readers.size()) {
+      current = new EmptyReader();
+    } else {
+      current = readers.get(currentReader++);
     }
 
-    protected final Reader nextReader() {
-        if (currentReader >= readers.size()) {
-            current = new EmptyReader();
-        }
-        else {
-            current = readers.get(currentReader++);
-        }
-        
-        // NOTE: Reset mNext for every reader, and record marked reader in mark/reset methods!
-        mNext = 0;
-        return current;
+    // NOTE: Reset mNext for every reader, and record marked reader in mark/reset methods!
+    mNext = 0;
+    return current;
+  }
+
+  /**
+   * Check to make sure that the stream has not been closed
+   *
+   * @throws IOException if the stream is closed
+   */
+  protected final void ensureOpen() throws IOException {
+    if (readers == null) {
+      throw new IOException("Stream closed");
+    }
+  }
+
+  public void close() throws IOException {
+    // Close all readers
+    for (Reader reader : readers) {
+      reader.close();
     }
 
-    /**
-     * Check to make sure that the stream has not been closed
-     *
-     * @throws IOException if the stream is closed
-     */
-    protected final void ensureOpen() throws IOException {
-        if (readers == null) {
-            throw new IOException("Stream closed");
+    readers = null;
+  }
+
+  @Override
+  public void mark(int pReadLimit) throws IOException {
+    if (pReadLimit < 0) {
+      throw new IllegalArgumentException("Read limit < 0");
+    }
+
+    // TODO: It would be nice if we could actually close some readers now
+
+    synchronized (finalLock) {
+      ensureOpen();
+      mark = mNext;
+      markedReader = currentReader;
+
+      current.mark(pReadLimit);
+    }
+  }
+
+  @Override
+  public void reset() throws IOException {
+    synchronized (finalLock) {
+      ensureOpen();
+
+      if (currentReader != markedReader) {
+        // Reset any reader before this
+        for (int i = currentReader; i >= markedReader; i--) {
+          readers.get(i).reset();
         }
+
+        currentReader = markedReader - 1;
+        nextReader();
+      }
+      current.reset();
+
+      mNext = mark;
     }
+  }
 
-    public void close() throws IOException {
-        // Close all readers
-        for (Reader reader : readers) {
-            reader.close();
-        }
+  @Override
+  public boolean markSupported() {
+    return markSupported;
+  }
 
-        readers = null;
+  @Override
+  public int read() throws IOException {
+    synchronized (finalLock) {
+      int read = current.read();
+
+      if (read < 0 && currentReader < readers.size()) {
+        nextReader();
+        return read(); // In case of 0-length readers
+      }
+
+      mNext++;
+
+      return read;
     }
+  }
 
-    @Override
-    public void mark(int pReadLimit) throws IOException {
-        if (pReadLimit < 0) {
-            throw new IllegalArgumentException("Read limit < 0");
-        }
+  public int read(char pBuffer[], int pOffset, int pLength) throws IOException {
+    synchronized (finalLock) {
+      int read = current.read(pBuffer, pOffset, pLength);
 
-        // TODO: It would be nice if we could actually close some readers now
+      if (read < 0 && currentReader < readers.size()) {
+        nextReader();
+        return read(pBuffer, pOffset, pLength); // In case of 0-length readers
+      }
 
-        synchronized (finalLock) {
-            ensureOpen();
-            mark = mNext;
-            markedReader = currentReader;
+      mNext += read;
 
-            current.mark(pReadLimit);
-        }
+      return read;
     }
+  }
 
-    @Override
-    public void reset() throws IOException {
-        synchronized (finalLock) {
-            ensureOpen();
+  @Override
+  public boolean ready() throws IOException {
+    return current.ready();
+  }
 
-            if (currentReader != markedReader) {
-                // Reset any reader before this
-                for (int i = currentReader; i >= markedReader; i--) {
-                    readers.get(i).reset();
-                }
+  @Override
+  public long skip(long pChars) throws IOException {
+    synchronized (finalLock) {
+      long skipped = current.skip(pChars);
 
-                currentReader = markedReader - 1;
-                nextReader();
-            }
-            current.reset();
+      if (skipped == 0 && currentReader < readers.size()) {
+        nextReader();
+        return skip(pChars); // In case of 0-length readers
+      }
 
-            mNext = mark;
-        }
+      mNext += skipped;
+
+      return skipped;
     }
-
-    @Override
-    public boolean markSupported() {
-        return markSupported;
-    }
-
-    @Override
-    public int read() throws IOException {
-        synchronized (finalLock) {
-            int read = current.read();
-
-            if (read < 0 && currentReader < readers.size()) {
-                nextReader();
-                return read(); // In case of 0-length readers
-            }
-
-            mNext++;
-
-            return read;
-        }
-    }
-
-    public int read(char pBuffer[], int pOffset, int pLength) throws IOException {
-        synchronized (finalLock) {
-            int read = current.read(pBuffer, pOffset, pLength);
-
-            if (read < 0 && currentReader < readers.size()) {
-                nextReader();
-                return read(pBuffer, pOffset, pLength); // In case of 0-length readers
-            }
-
-            mNext += read;
-
-            return read;
-        }
-    }
-
-    @Override
-    public boolean ready() throws IOException {
-        return current.ready();
-    }
-
-    @Override
-    public long skip(long pChars) throws IOException {
-        synchronized (finalLock) {
-            long skipped = current.skip(pChars);
-
-            if (skipped == 0 && currentReader < readers.size()) {
-                nextReader();
-                return skip(pChars); // In case of 0-length readers
-            }
-
-            mNext += skipped;
-
-            return skipped;
-        }
-    }
+  }
 }

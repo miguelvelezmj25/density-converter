@@ -56,8 +56,8 @@ public class AndroidConverter extends APlatformConverter<AndroidDensityDescripto
   }
 
   @Override
-  public AndroidDensityDescriptor largeOutputDensities() {
-    return new AndroidDensityDescriptor(4, "xxxxhdpi", "drawable-xxxxhdpi");
+  public AndroidDensityDescriptor originalOutputDensities() {
+    return new AndroidDensityDescriptor(1, "odpi", "drawable-xxxxhdpi");
   }
 
   @Override
@@ -120,6 +120,8 @@ public class AndroidConverter extends APlatformConverter<AndroidDensityDescripto
         File dir = new File(arguments.dst, androidDensityDescriptor.folderName);
         MiscUtil.deleteFolder(dir);
       }
+      File dir = new File(arguments.dst, originalOutputDensities().folderName);
+      MiscUtil.deleteFolder(dir);
     } else {
       MiscUtil.deleteFolder(new File(arguments.dst, ANDROID_FOLDER_NAME));
     }

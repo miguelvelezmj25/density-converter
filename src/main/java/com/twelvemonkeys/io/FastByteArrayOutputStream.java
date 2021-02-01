@@ -36,101 +36,102 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * An unsynchronized {@code ByteArrayOutputStream} implementation. This version
- * also has a constructor that lets you create a stream with initial content.
- * <p/>
+ * An unsynchronized {@code ByteArrayOutputStream} implementation. This version also has a
+ * constructor that lets you create a stream with initial content.
+ *
+ * <p>
  *
  * @author <a href="mailto:harald.kuhr@gmail.com">Harald Kuhr</a>
  * @version $Id: FastByteArrayOutputStream.java#2 $
  */
-// TODO: Performance test of a stream impl that uses list of fixed size blocks, rather than contiguous block 
+// TODO: Performance test of a stream impl that uses list of fixed size blocks, rather than
+// contiguous block
 public final class FastByteArrayOutputStream extends ByteArrayOutputStream {
-    /** Max grow size (unless if writing more than this amount of bytes) */
-    protected int maxGrowSize = 1024 * 1024; // 1 MB
+  /** Max grow size (unless if writing more than this amount of bytes) */
+  protected int maxGrowSize = 1024 * 1024; // 1 MB
 
-    /**
-     * Creates a {@code ByteArrayOutputStream} with the given initial buffer
-     * size.
-     *
-     * @param pSize initial buffer size
-     */
-    public FastByteArrayOutputStream(int pSize) {
-        super(pSize);
+  /**
+   * Creates a {@code ByteArrayOutputStream} with the given initial buffer size.
+   *
+   * @param pSize initial buffer size
+   */
+  public FastByteArrayOutputStream(int pSize) {
+    super(pSize);
+  }
+
+  /**
+   * Creates a {@code ByteArrayOutputStream} with the given initial content.
+   *
+   * <p>Note that the buffer is not cloned, for maximum performance.
+   *
+   * @param pBuffer initial buffer
+   */
+  public FastByteArrayOutputStream(byte[] pBuffer) {
+    super(0); // Don't allocate array
+    buf = pBuffer;
+    count = pBuffer.length;
+  }
+
+  @Override
+  public void write(byte pBytes[], int pOffset, int pLength) {
+    if ((pOffset < 0)
+        || (pOffset > pBytes.length)
+        || (pLength < 0)
+        || ((pOffset + pLength) > pBytes.length)
+        || ((pOffset + pLength) < 0)) {
+      throw new IndexOutOfBoundsException();
+    } else if (pLength == 0) {
+      return;
     }
 
-    /**
-     * Creates a {@code ByteArrayOutputStream} with the given initial content.
-     * <p/>
-     * Note that the buffer is not cloned, for maximum performance.
-     *
-     * @param pBuffer initial buffer
-     */
-    public FastByteArrayOutputStream(byte[] pBuffer) {
-        super(0); // Don't allocate array
-        buf = pBuffer;
-        count = pBuffer.length;
+    int newCount = count + pLength;
+    growIfNeeded(newCount);
+    System.arraycopy(pBytes, pOffset, buf, count, pLength);
+    count = newCount;
+  }
+
+  @Override
+  public void write(int pByte) {
+    int newCount = count + 1;
+    growIfNeeded(newCount);
+    buf[count] = (byte) pByte;
+    count = newCount;
+  }
+
+  private void growIfNeeded(int pNewCount) {
+    if (pNewCount > buf.length) {
+      int newSize = Math.max(Math.min(buf.length << 1, buf.length + maxGrowSize), pNewCount);
+      byte newBuf[] = new byte[newSize];
+      System.arraycopy(buf, 0, newBuf, 0, count);
+      buf = newBuf;
     }
+  }
 
-    @Override
-    public void write(byte pBytes[], int pOffset, int pLength) {
-        if ((pOffset < 0) || (pOffset > pBytes.length) || (pLength < 0) ||
-                ((pOffset + pLength) > pBytes.length) || ((pOffset + pLength) < 0)) {
-            throw new IndexOutOfBoundsException();
-        }
-        else if (pLength == 0) {
-            return;
-        }
+  // Non-synchronized version of writeTo
+  @Override
+  public void writeTo(OutputStream pOut) throws IOException {
+    pOut.write(buf, 0, count);
+  }
 
-        int newCount = count + pLength;
-        growIfNeeded(newCount);
-        System.arraycopy(pBytes, pOffset, buf, count, pLength);
-        count = newCount;
-    }
+  // Non-synchronized version of toByteArray
+  @Override
+  public byte[] toByteArray() {
+    byte newBuf[] = new byte[count];
+    System.arraycopy(buf, 0, newBuf, 0, count);
 
-    @Override
-    public void write(int pByte) {
-        int newCount = count + 1;
-        growIfNeeded(newCount);
-        buf[count] = (byte) pByte;
-        count = newCount;
-    }
+    return newBuf;
+  }
 
-    private void growIfNeeded(int pNewCount) {
-        if (pNewCount > buf.length) {
-            int newSize = Math.max(Math.min(buf.length << 1, buf.length + maxGrowSize), pNewCount);
-            byte newBuf[] = new byte[newSize];
-            System.arraycopy(buf, 0, newBuf, 0, count);
-            buf = newBuf;
-        }
-    }
-
-    // Non-synchronized version of writeTo
-    @Override
-    public void writeTo(OutputStream pOut) throws IOException {
-        pOut.write(buf, 0, count);
-    }
-
-    // Non-synchronized version of toByteArray
-    @Override
-    public byte[] toByteArray() {
-        byte newBuf[] = new byte[count];
-        System.arraycopy(buf, 0, newBuf, 0, count);
-
-        return newBuf;
-    }
-
-    /**
-     * Creates a {@code ByteArrayInputStream} that reads directly from this
-     * {@code FastByteArrayOutputStream}'s byte buffer.
-     * The buffer is not cloned, for maximum performance.
-     * <p/>
-     * Note that care needs to be taken to avoid writes to
-     * this output stream after the input stream is created.
-     * Failing to do so, may result in unpredictable behaviour.
-     *
-     * @return a new {@code ByteArrayInputStream}, reading from this stream's buffer.
-     */
-    public ByteArrayInputStream createInputStream() {
-        return new ByteArrayInputStream(buf, 0, count);
-    }
+  /**
+   * Creates a {@code ByteArrayInputStream} that reads directly from this {@code
+   * FastByteArrayOutputStream}'s byte buffer. The buffer is not cloned, for maximum performance.
+   *
+   * <p>Note that care needs to be taken to avoid writes to this output stream after the input
+   * stream is created. Failing to do so, may result in unpredictable behaviour.
+   *
+   * @return a new {@code ByteArrayInputStream}, reading from this stream's buffer.
+   */
+  public ByteArrayInputStream createInputStream() {
+    return new ByteArrayInputStream(buf, 0, count);
+  }
 }
