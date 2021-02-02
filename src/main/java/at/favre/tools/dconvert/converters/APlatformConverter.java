@@ -44,7 +44,7 @@ public abstract class APlatformConverter<T extends DensityDescriptor>
       ImageType imageType = Arguments.getImageType(srcImage);
       boolean isNinePatch =
           AndroidConverter.isNinePatch(srcImage) && getClass() == AndroidConverter.class;
-      boolean convertLarge = args.scale < Arguments.DEFAULT_SCALE;
+      boolean convertOriginal = args.scale == Arguments.DEFAULT_SCALE;
 
       StringBuilder log = new StringBuilder();
       log.append(getConverterName())
@@ -106,7 +106,7 @@ public abstract class APlatformConverter<T extends DensityDescriptor>
         }
       }
 
-      if (!args.dryRun && convertLarge) {
+      if (!args.dryRun && convertOriginal) {
         convertOriginal(args, imageData, targetImageFileName, isNinePatch, log, mainSubFolder);
       }
 
