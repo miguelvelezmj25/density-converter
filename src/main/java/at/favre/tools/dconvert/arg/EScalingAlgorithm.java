@@ -25,7 +25,6 @@ import com.mortennobel.imagescaling.ResampleFilters;
 import java.awt.*;
 import java.util.List;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /** Supported scaling algorithms in dconvert */
 public enum EScalingAlgorithm {
@@ -143,25 +142,33 @@ public enum EScalingAlgorithm {
   }
 
   public static Set<EScalingAlgorithm> getForType(Type type) {
-    return getAllEnabled().stream()
-        .filter(eScalingAlgorithm -> eScalingAlgorithm.getSupportedForType().contains(type))
-        .collect(Collectors.toSet());
+    Set<EScalingAlgorithm> algos = new HashSet<EScalingAlgorithm>();
+    for (EScalingAlgorithm eScalingAlgorithm : getAllEnabled()) {
+      if (eScalingAlgorithm.getSupportedForType().contains(type)) {
+        algos.add(eScalingAlgorithm);
+      }
+    }
+    return algos;
+    //    return getAllEnabled().stream()
+    //        .filter(eScalingAlgorithm -> eScalingAlgorithm.getSupportedForType().contains(type))
+    //        .collect(Collectors.toSet());
   }
 
   public static String getCliArgString(Type type) {
-    StringBuilder sb = new StringBuilder();
-    getAllEnabled().stream()
-        .filter(eScalingAlgorithm -> eScalingAlgorithm.getSupportedForType().contains(type))
-        .forEach(
-            eScalingAlgorithm -> {
-              sb.append(eScalingAlgorithm.getName()).append("|");
-            });
-    String argList = sb.toString();
-    return argList.substring(0, argList.length() - 1);
+    throw new UnsupportedOperationException("Java 1.6");
+    //    StringBuilder sb = new StringBuilder();
+    ////    getAllEnabled().stream()
+    ////        .filter(eScalingAlgorithm -> eScalingAlgorithm.getSupportedForType().contains(type))
+    ////        .forEach(
+    ////            eScalingAlgorithm -> {
+    ////              sb.append(eScalingAlgorithm.getName()).append("|");
+    ////            });
+    //    String argList = sb.toString();
+    //    return argList.substring(0, argList.length() - 1);
   }
 
   public static Set<EScalingAlgorithm> getAllEnabled() {
-    Set<EScalingAlgorithm> set = new HashSet<>();
+    Set<EScalingAlgorithm> set = new HashSet<EScalingAlgorithm>();
     for (EScalingAlgorithm eScalingAlgorithm : EScalingAlgorithm.values()) {
       if (eScalingAlgorithm.isEnabled()) {
         set.add(eScalingAlgorithm);

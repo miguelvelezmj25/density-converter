@@ -35,7 +35,7 @@ public class Arguments implements Serializable {
   public static final RoundingHandler.Strategy DEFAULT_ROUNDING_STRATEGY =
       RoundingHandler.Strategy.ROUND_HALF_UP;
   public static final Set<EPlatform> DEFAULT_PLATFORM =
-      new HashSet<>(Arrays.asList(EPlatform.ANDROID, EPlatform.IOS));
+      new HashSet<EPlatform>(Arrays.asList(EPlatform.ANDROID, EPlatform.IOS));
   public static final EOutputCompressionMode DEFAULT_OUT_COMPRESSION =
       EOutputCompressionMode.SAME_AS_INPUT_PREF_PNG;
   public static final EScaleMode DEFAULT_SCALE_TYPE = EScaleMode.FACTOR;
@@ -128,7 +128,7 @@ public class Arguments implements Serializable {
     this.guiAdvancedOptions = guiAdvancedOptions;
     this.clearDirBeforeConvert = clearDirBeforeConvert;
 
-    this.filesToProcess = new ArrayList<>();
+    this.filesToProcess = new ArrayList<File>();
 
     Set<String> supportedFileTypes = getSupportedFileTypes();
 
@@ -177,7 +177,7 @@ public class Arguments implements Serializable {
   }
 
   public static Set<String> getSupportedFileTypes() {
-    Set<String> set = new HashSet<>();
+    Set<String> set = new HashSet<String>();
     for (ImageType imageType : ImageType.values()) {
       if (imageType.supportRead) {
         set.addAll(Arrays.asList(imageType.extensions));
@@ -189,32 +189,35 @@ public class Arguments implements Serializable {
 
   public static ImageType getImageType(File srcFile) {
     String extension = MiscUtil.getFileExtensionLowerCase(srcFile);
-    switch (extension) {
-      case "jpg":
-      case "jpeg":
-        return ImageType.JPG;
-      case "png":
-        return ImageType.PNG;
-      case "svg":
-        return ImageType.SVG;
-      case "tif":
-      case "tiff":
-        return ImageType.TIFF;
-      case "psd":
-        return ImageType.PSD;
-      case "gif":
-        return ImageType.GIF;
-      case "bmp":
-        return ImageType.BMP;
-      default:
-        throw new IllegalArgumentException(
-            "unknown file extension " + extension + " in srcFile " + srcFile);
+    if (extension.equals("jpg") || extension.equals("jpeg")) {
+      return ImageType.JPG;
     }
+    if (extension.equals("png")) {
+      return ImageType.PNG;
+    }
+    if (extension.equals("svg")) {
+      return ImageType.SVG;
+    }
+    if (extension.equals("tif") || extension.equals("tiff")) {
+      return ImageType.TIFF;
+    }
+    if (extension.equals("psd")) {
+      return ImageType.PSD;
+    }
+    if (extension.equals("gif")) {
+      return ImageType.GIF;
+    }
+    if (extension.equals("bmp")) {
+      return ImageType.BMP;
+    }
+
+    throw new IllegalArgumentException(
+        "unknown file extension " + extension + " in srcFile " + srcFile);
   }
 
   public static List<ImageType.ECompression> getOutCompressionForType(
       EOutputCompressionMode type, ImageType imageType) {
-    List<ImageType.ECompression> list = new ArrayList<>(2);
+    List<ImageType.ECompression> list = new ArrayList<ImageType.ECompression>(2);
     switch (type) {
       case AS_GIF:
         list.add(ImageType.ECompression.GIF);
@@ -382,8 +385,8 @@ public class Arguments implements Serializable {
   }
 
   public static class Builder {
-    private File dst;
     private final float srcScale;
+    private File dst;
     private File src = null;
     private EScaleMode scaleType = DEFAULT_SCALE_TYPE;
     private Set<EPlatform> platform = DEFAULT_PLATFORM;

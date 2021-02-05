@@ -34,7 +34,7 @@ public class IOSConverter extends APlatformConverter<PostfixDescriptor> {
   private static final String IOS_FOLDER_NAME = "ios";
 
   public static List<PostfixDescriptor> getIosDescriptors() {
-    List<PostfixDescriptor> list = new ArrayList<>();
+    List<PostfixDescriptor> list = new ArrayList<PostfixDescriptor>();
     list.add(new PostfixDescriptor(1, "1x", ""));
     list.add(new PostfixDescriptor(2, "2x", "@2x"));
     list.add(new PostfixDescriptor(3, "3x", "@3x"));
@@ -123,9 +123,12 @@ public class IOSConverter extends APlatformConverter<PostfixDescriptor> {
     }
     contentJson.createNewFile();
 
-    try (PrintWriter out = new PrintWriter(contentJson)) {
-      out.println(createContentsJson(targetFileName, iosDensityDescriptions, compressions));
-    }
+    PrintWriter out = new PrintWriter(contentJson);
+    out.println(createContentsJson(targetFileName, iosDensityDescriptions, compressions));
+    out.close();
+    //    try (PrintWriter out = new PrintWriter(contentJson)) {
+    //      out.println(createContentsJson(targetFileName, iosDensityDescriptions, compressions));
+    //    }
   }
 
   private String createContentsJson(

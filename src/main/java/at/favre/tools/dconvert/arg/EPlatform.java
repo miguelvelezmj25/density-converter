@@ -18,11 +18,7 @@ package at.favre.tools.dconvert.arg;
 
 import at.favre.tools.dconvert.converters.*;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.*;
 
 /** Defines platforms to convert to */
 public enum EPlatform {
@@ -40,7 +36,7 @@ public enum EPlatform {
 
   public static Set<EPlatform> getAll() {
     if (ALL == null) {
-      Set<EPlatform> temp = new HashSet<>(EPlatform.values().length);
+      Set<EPlatform> temp = new HashSet<EPlatform>(EPlatform.values().length);
       for (EPlatform ePlatform : EPlatform.values()) {
         temp.add(ePlatform);
       }
@@ -50,7 +46,12 @@ public enum EPlatform {
   }
 
   public static List<IPlatformConverter> getAllConverters() {
-    return getAll().stream().map(EPlatform::getConverter).collect(Collectors.toList());
+    List<IPlatformConverter> all = new ArrayList<IPlatformConverter>();
+    for (EPlatform ePlatform : getAll()) {
+      all.add(ePlatform.getConverter());
+    }
+    return all;
+    //    return getAll().stream().map(EPlatform::getConverter).collect(Collectors.toList());
   }
 
   public IPlatformConverter getConverter() {

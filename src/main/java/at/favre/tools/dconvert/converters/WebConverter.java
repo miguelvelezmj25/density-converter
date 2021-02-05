@@ -32,7 +32,7 @@ public class WebConverter extends APlatformConverter<PostfixDescriptor> {
   private static final String WEB_FOLDER_NAME = "web";
 
   public static List<PostfixDescriptor> getWebDescriptors() {
-    List<PostfixDescriptor> list = new ArrayList<>();
+    List<PostfixDescriptor> list = new ArrayList<PostfixDescriptor>();
     list.add(new PostfixDescriptor(1, "1x", "-1x"));
     list.add(new PostfixDescriptor(2f, "2x", "-2x"));
     return list;

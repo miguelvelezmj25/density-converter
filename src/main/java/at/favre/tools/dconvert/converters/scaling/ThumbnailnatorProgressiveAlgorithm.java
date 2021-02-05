@@ -21,7 +21,7 @@ import net.coobird.thumbnailator.resizers.AbstractResizer;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 /** Algorithms from Thumbnailnator */
@@ -64,7 +64,7 @@ public class ThumbnailnatorProgressiveAlgorithm implements ScaleAlgorithm {
 
   public static class ProgressiveResizer extends AbstractResizer {
     public ProgressiveResizer(Object interpolationValue) {
-      this(interpolationValue, Collections.emptyMap());
+      this(interpolationValue, new HashMap<RenderingHints.Key, Object>());
     }
 
     public ProgressiveResizer(Object interpolationValue, Map<RenderingHints.Key, Object> hints) {

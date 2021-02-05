@@ -63,20 +63,29 @@ public final class DensityBucketUtil {
     int baseWidth = (int) args.round(scale);
     int baseHeight = (int) args.round(scaleFactor * (float) srcDimension.height);
 
-    Map<T, Dimension> bucketMap = new TreeMap<>();
-    densities.stream()
-        .filter(
-            density ->
-                (int) args.round(baseWidth * density.scale) <= srcDimension.width
-                    || !args.skipUpscaling)
-        .forEach(
-            density -> {
-              bucketMap.put(
-                  density,
-                  new Dimension(
-                      (int) args.round(baseWidth * density.scale),
-                      (int) args.round(baseHeight * density.scale)));
-            });
+    Map<T, Dimension> bucketMap = new TreeMap<T, Dimension>();
+    for (T density : densities) {
+      if (args.round(baseWidth * density.scale) <= srcDimension.width || !args.skipUpscaling) {
+        bucketMap.put(
+            density,
+            new Dimension(
+                (int) args.round(baseWidth * density.scale),
+                (int) args.round(baseHeight * density.scale)));
+      }
+    }
+    //    densities.stream()
+    //        .filter(
+    //            density ->
+    //                (int) args.round(baseWidth * density.scale) <= srcDimension.width
+    //                    || !args.skipUpscaling)
+    //        .forEach(
+    //            density -> {
+    //              bucketMap.put(
+    //                  density,
+    //                  new Dimension(
+    //                      (int) args.round(baseWidth * density.scale),
+    //                      (int) args.round(baseHeight * density.scale)));
+    //            });
     return bucketMap;
   }
 
@@ -88,20 +97,29 @@ public final class DensityBucketUtil {
     int baseWidth = (int) args.round(scaleFactor * (float) srcDimension.width);
     int baseHeight = (int) args.round(scale);
 
-    Map<T, Dimension> bucketMap = new TreeMap<>();
-    densities.stream()
-        .filter(
-            density ->
-                (int) args.round(baseHeight * density.scale) <= srcDimension.height
-                    || !args.skipUpscaling)
-        .forEach(
-            density -> {
-              bucketMap.put(
-                  density,
-                  new Dimension(
-                      (int) args.round(baseWidth * density.scale),
-                      (int) args.round(baseHeight * density.scale)));
-            });
+    Map<T, Dimension> bucketMap = new TreeMap<T, Dimension>();
+    for (T density : densities) {
+      if (args.round(baseHeight * density.scale) <= srcDimension.height || !args.skipUpscaling) {
+        bucketMap.put(
+            density,
+            new Dimension(
+                (int) args.round(baseWidth * density.scale),
+                (int) args.round(baseHeight * density.scale)));
+      }
+    }
+    //    densities.stream()
+    //        .filter(
+    //            density ->
+    //                (int) args.round(baseHeight * density.scale) <= srcDimension.height
+    //                    || !args.skipUpscaling)
+    //        .forEach(
+    //            density -> {
+    //              bucketMap.put(
+    //                  density,
+    //                  new Dimension(
+    //                      (int) args.round(baseWidth * density.scale),
+    //                      (int) args.round(baseHeight * density.scale)));
+    //            });
     return bucketMap;
   }
 
@@ -110,17 +128,26 @@ public final class DensityBucketUtil {
     double baseWidth = (double) srcDimension.width / scale;
     double baseHeight = (double) srcDimension.height / scale;
 
-    Map<T, Dimension> bucketMap = new TreeMap<>();
-    densities.stream()
-        .filter(density -> scale >= density.scale || !args.skipUpscaling)
-        .forEach(
-            density -> {
-              bucketMap.put(
-                  density,
-                  new Dimension(
-                      (int) args.round(baseWidth * density.scale),
-                      (int) args.round(baseHeight * density.scale)));
-            });
+    Map<T, Dimension> bucketMap = new TreeMap<T, Dimension>();
+    for (T density : densities) {
+      if (scale >= density.scale || !args.skipUpscaling) {
+        bucketMap.put(
+            density,
+            new Dimension(
+                (int) args.round(baseWidth * density.scale),
+                (int) args.round(baseHeight * density.scale)));
+      }
+    }
+    //    densities.stream()
+    //        .filter(density -> scale >= density.scale || !args.skipUpscaling)
+    //        .forEach(
+    //            density -> {
+    //              bucketMap.put(
+    //                  density,
+    //                  new Dimension(
+    //                      (int) args.round(baseWidth * density.scale),
+    //                      (int) args.round(baseHeight * density.scale)));
+    //            });
     return bucketMap;
   }
 

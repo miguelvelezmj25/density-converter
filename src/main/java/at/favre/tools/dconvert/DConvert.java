@@ -55,7 +55,7 @@ public class DConvert {
    * @param blockingWaitForFinish if true will block the thread until all threads are finished
    * @param callback main callback
    */
-  public void execute(Arguments args, boolean blockingWaitForFinish, HandlerCallback callback) {
+  public void execute(final Arguments args, boolean blockingWaitForFinish, HandlerCallback callback) {
     beginMs = System.currentTimeMillis();
     handlerCallback = callback;
 
@@ -67,8 +67,8 @@ public class DConvert {
     logStringBuilder.append("args: ").append(args).append("\n");
 
     if (!args.filesToProcess.isEmpty()) {
-      List<IPlatformConverter> converters = new ArrayList<>();
-      List<IPostProcessor> postProcessors = new ArrayList<>();
+      List<IPlatformConverter> converters = new ArrayList<IPlatformConverter>();
+      final List<IPostProcessor> postProcessors = new ArrayList<IPostProcessor>();
 
       for (EPlatform ePlatform : args.platform) {
         logStringBuilder
@@ -118,8 +118,8 @@ public class DConvert {
       int convertJobs = args.filesToProcess.size() * converters.size();
       int postProcessorJobs = convertJobs * postProcessors.size();
 
-      float convertPercentage = (float) convertJobs / (float) (convertJobs + postProcessorJobs);
-      float postProcessPercentage =
+      final float convertPercentage = (float) convertJobs / (float) (convertJobs + postProcessorJobs);
+      final float postProcessPercentage =
           (float) postProcessorJobs / (float) (convertJobs + postProcessorJobs);
 
       mainLatch = new CountDownLatch(1);
@@ -132,7 +132,7 @@ public class DConvert {
         }
       }
 
-      new WorkerHandler<>(
+      new WorkerHandler<IPlatformConverter>(
               converters,
               args,
               new WorkerHandler.Callback() {
@@ -152,7 +152,7 @@ public class DConvert {
                   if (haltedDuringProcessConverters) {
                     informFinished(finishedJobsConverters, exceptionsConverters, true);
                   } else {
-                    new WorkerHandler<>(
+                    new WorkerHandler<IPostProcessor>(
                             postProcessors,
                             args,
                             new WorkerHandler.Callback() {
@@ -192,7 +192,7 @@ public class DConvert {
       }
     } else {
       logStringBuilder.append("no files to convert\n");
-      informFinished(0, Collections.emptyList(), false);
+      informFinished(0, new ArrayList<Exception>(), false);
     }
   }
 

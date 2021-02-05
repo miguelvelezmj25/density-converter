@@ -32,7 +32,7 @@ public class WindowsConverter extends APlatformConverter<PostfixDescriptor> {
   private static final String WINDOWS_FOLDER_NAME = "windows";
 
   public static List<PostfixDescriptor> getWindowsDescriptors() {
-    List<PostfixDescriptor> list = new ArrayList<>();
+    List<PostfixDescriptor> list = new ArrayList<PostfixDescriptor>();
     list.add(new PostfixDescriptor(1, "100%", ".scale-100"));
     list.add(new PostfixDescriptor(1.4f, "140%", ".scale-140"));
     list.add(new PostfixDescriptor(1.8f, "180%", ".scale-180"));

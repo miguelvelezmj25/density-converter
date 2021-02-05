@@ -32,7 +32,7 @@ public class AndroidConverter extends APlatformConverter<AndroidDensityDescripto
   private static final String ANDROID_FOLDER_NAME = "android";
 
   public static List<AndroidDensityDescriptor> getAndroidDensityDescriptors(Arguments arguments) {
-    List<AndroidDensityDescriptor> list = new ArrayList<>();
+    List<AndroidDensityDescriptor> list = new ArrayList<AndroidDensityDescriptor>();
     String dirPrefix = arguments.createMipMapInsteadOfDrawableDir ? "mipmap" : "drawable";
     if (arguments.includeAndroidLdpiTvdpi) {
       list.add(new AndroidDensityDescriptor(0.75f, "ldpi", dirPrefix + "-ldpi"));
