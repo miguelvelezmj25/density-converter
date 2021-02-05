@@ -110,7 +110,7 @@ public final class MiscUtil {
   }
 
   public static <T> Set<T> toSet(T elem) {
-    Set<T> set = new HashSet<>(1);
+    Set<T> set = new HashSet<T>(1);
     set.add(elem);
     return set;
   }

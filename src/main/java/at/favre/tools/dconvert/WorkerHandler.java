@@ -23,7 +23,6 @@ import at.favre.tools.dconvert.converters.postprocessing.IPostProcessor;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ExecutorService;
@@ -47,7 +46,7 @@ public class WorkerHandler<T> {
             arguments.threadCount,
             5,
             TimeUnit.SECONDS,
-            new ArrayBlockingQueue<>(1024 * 10));
+            new ArrayBlockingQueue<Runnable>(1024 * 10));
     this.callback = callback;
     this.arguments = arguments;
   }
@@ -67,7 +66,7 @@ public class WorkerHandler<T> {
 
     if (jobCount == 0) {
       callback.onFinished(
-          0, Collections.emptyList(), new StringBuilder(), Collections.emptyList(), false);
+          0, new ArrayList<File>(), new StringBuilder(), new ArrayList<Exception>(), false);
     }
   }
 
@@ -111,12 +110,12 @@ public class WorkerHandler<T> {
   }
 
   private class InternalCallback {
-    private int currentJobCount = 0;
-    private final List<Exception> exceptionList = new ArrayList<>();
+    private final List<Exception> exceptionList = new ArrayList<Exception>();
     private final Callback callback;
     private final StringBuilder logBuilder = new StringBuilder();
+    private final List<File> files = new ArrayList<File>();
+    private int currentJobCount = 0;
     private boolean canceled = false;
-    private final List<File> files = new ArrayList<>();
 
     public InternalCallback(Callback callback) {
       this.callback = callback;

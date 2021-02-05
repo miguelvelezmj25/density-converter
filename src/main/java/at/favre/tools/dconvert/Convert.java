@@ -43,7 +43,7 @@ public final class Convert {
     boolean keepOriginalPostProcessedFiles = true;
     String outCompression = "jpg";
     String selectedPlatform = "android";
-    boolean postProcessorMozJpeg = true;
+    boolean postProcessorMozJpeg = false;
     boolean postProcessorPngCrush = false;
     boolean postProcessorWebp = false;
     String roundingMode = "floor";
@@ -63,7 +63,7 @@ public final class Convert {
     EScalingAlgorithm upScalingAlgorithm = EScalingAlgorithm.getByName(upScalingAlgo);
     RoundingHandler.Strategy roundingHandler = getRoundingHandler(roundingMode);
 
-    Arguments args =
+    final Arguments args =
         new Arguments(
             src,
             dst,
@@ -164,16 +164,16 @@ public final class Convert {
   }
 
   private static RoundingHandler.Strategy getRoundingHandler(String roundingMode) {
-    switch (roundingMode) {
-      case "round":
-        return RoundingHandler.Strategy.ROUND_HALF_UP;
-      case "ceil":
-        return RoundingHandler.Strategy.CEIL;
-      case "floor":
-        return RoundingHandler.Strategy.FLOOR;
-      default:
-        throw new RuntimeException("unknown mode: " + roundingMode);
+    if (roundingMode.equals("round")) {
+      return RoundingHandler.Strategy.ROUND_HALF_UP;
     }
+    if (roundingMode.equals("ceil")) {
+      return RoundingHandler.Strategy.CEIL;
+    }
+    if (roundingMode.equals("floor")) {
+      return RoundingHandler.Strategy.FLOOR;
+    }
+    throw new RuntimeException("unknown mode: " + roundingMode);
   }
 
   private static EScaleMode scaleMode(boolean dp, boolean scaleIsHeightDp) {
@@ -187,45 +187,43 @@ public final class Convert {
   }
 
   private static EOutputCompressionMode getOutCompression(String outCompression) {
-    switch (outCompression) {
-      case "strict":
-        return EOutputCompressionMode.SAME_AS_INPUT_STRICT;
-      case "png":
-        return EOutputCompressionMode.AS_PNG;
-      case "jpg":
-        return EOutputCompressionMode.AS_JPG;
-      case "gif":
-        return EOutputCompressionMode.AS_GIF;
-      case "bmp":
-        return EOutputCompressionMode.AS_BMP;
-      case "png+jpg":
-        return EOutputCompressionMode.AS_JPG_AND_PNG;
-      default:
-        throw new RuntimeException("unknown compression type: " + outCompression);
+    if (outCompression.equals("strict")) {
+      return EOutputCompressionMode.SAME_AS_INPUT_STRICT;
     }
+    if (outCompression.equals("png")) {
+      return EOutputCompressionMode.AS_PNG;
+    }
+    if (outCompression.equals("jpg")) {
+      return EOutputCompressionMode.AS_JPG;
+    }
+    if (outCompression.equals("gif")) {
+      return EOutputCompressionMode.AS_GIF;
+    }
+    if (outCompression.equals("bmp")) {
+      return EOutputCompressionMode.AS_BMP;
+    }
+    if (outCompression.equals("png+jpg")) {
+      return EOutputCompressionMode.AS_JPG_AND_PNG;
+    }
+
+    throw new RuntimeException("unknown compression type: " + outCompression);
   }
 
   private static Set<EPlatform> getPlatform(String platform) {
-    Set<EPlatform> platformSet = new HashSet<>();
+    Set<EPlatform> platformSet = new HashSet<EPlatform>();
 
-    switch (platform) {
-      case "all":
-        platformSet = EPlatform.getAll();
-        break;
-      case "android":
-        platformSet.add(EPlatform.ANDROID);
-        break;
-      case "ios":
-        platformSet.add(EPlatform.IOS);
-        break;
-      case "win":
-        platformSet.add(EPlatform.WINDOWS);
-        break;
-      case "web":
-        platformSet.add(EPlatform.WEB);
-        break;
-      default:
-        System.err.println("unknown mode: " + platform);
+    if (platform.equals("all")) {
+      platformSet = EPlatform.getAll();
+    } else if (platform.equals("android")) {
+      platformSet.add(EPlatform.ANDROID);
+    } else if (platform.equals("ios")) {
+      platformSet.add(EPlatform.IOS);
+    } else if (platform.equals("win")) {
+      platformSet.add(EPlatform.WINDOWS);
+    } else if (platform.equals("web")) {
+      platformSet.add(EPlatform.WEB);
+    } else {
+      System.err.println("unknown mode: " + platform);
     }
 
     return platformSet;

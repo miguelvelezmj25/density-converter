@@ -71,7 +71,7 @@ public abstract class APlatformConverter<T extends DensityDescriptor>
 
       onPreExecute(mainSubFolder, targetImageFileName, usedOutputDensities(args), imageType, args);
 
-      List<File> allResultingFiles = new ArrayList<>();
+      List<File> allResultingFiles = new ArrayList<File>();
 
       for (Map.Entry<T, Dimension> entry : densityMap.entrySet()) {
         File dstFolder =
@@ -117,7 +117,7 @@ public abstract class APlatformConverter<T extends DensityDescriptor>
       return new Result(log.toString(), allResultingFiles);
     } catch (Exception e) {
       e.printStackTrace();
-      return new Result(null, e, Collections.emptyList());
+      return new Result(null, e, new ArrayList<File>());
     }
   }
 

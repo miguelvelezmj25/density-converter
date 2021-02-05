@@ -38,7 +38,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /** Handles scaling and writing/compression images to disk */
 public class ImageHandler {
@@ -49,7 +48,7 @@ public class ImageHandler {
           ConvolveOp.EDGE_NO_OP,
           null);
   private static final Color DEFAULT_COLOR = Color.white;
-  public static Map<ScaleAlgorithm, Long> traceMap = new HashMap<>();
+  public static Map<ScaleAlgorithm, Long> traceMap = new HashMap<ScaleAlgorithm, Long>();
   private final Arguments args;
 
   public ImageHandler(Arguments args) {
@@ -60,7 +59,7 @@ public class ImageHandler {
       File targetFile, LoadedImage imageData, Dimension targetDimension, boolean isNinePatch)
       throws Exception {
 
-    List<File> files = new ArrayList<>(2);
+    List<File> files = new ArrayList<File>(2);
     List<ImageType.ECompression> compressionList =
         Arguments.getOutCompressionForType(
             args.outputCompressionMode, Arguments.getImageType(imageData.getSourceFile()));
@@ -139,10 +138,12 @@ public class ImageHandler {
       jpgWriteParam.setCompressionQuality(quality);
 
       ImageWriter writer = null;
-      try (ImageOutputStream outputStream = new FileImageOutputStream(targetFile)) {
+      try {
+        ImageOutputStream outputStream = new FileImageOutputStream(targetFile);
         writer = ImageIO.getImageWritersByFormatName("jpg").next();
         writer.setOutput(outputStream);
         writer.write(null, new IIOImage(bufferedImage, null, null), jpgWriteParam);
+        outputStream.close();
       } finally {
         if (writer != null) writer.dispose();
       }
@@ -166,10 +167,18 @@ public class ImageHandler {
   private List<ScaleAlgorithm> getScaleAlgorithm(
       EScalingAlgorithm algorithm, EScalingAlgorithm.Type type) {
     if (TEST_MODE) {
-      return EScalingAlgorithm.getAllEnabled().stream()
-          .filter(eScalingAlgorithm -> eScalingAlgorithm.getSupportedForType().contains(type))
-          .map(EScalingAlgorithm::getImplementation)
-          .collect(Collectors.toList());
+      List<ScaleAlgorithm> algos = new ArrayList<ScaleAlgorithm>();
+      for (EScalingAlgorithm eScalingAlgorithm : EScalingAlgorithm.getAllEnabled()) {
+        if (eScalingAlgorithm.getSupportedForType().contains(type)) {
+          algos.add(eScalingAlgorithm.getImplementation());
+        }
+      }
+      return algos;
+      //      return EScalingAlgorithm.getAllEnabled().stream()
+      //          .filter(eScalingAlgorithm ->
+      // eScalingAlgorithm.getSupportedForType().contains(type))
+      //          .map(EScalingAlgorithm::getImplementation)
+      //          .collect(Collectors.toList());
     } else {
       return Collections.singletonList(algorithm.getImplementation());
     }
@@ -208,8 +217,9 @@ public class ImageHandler {
 
   private ScaleAlgorithm getAsScalingAlgorithm(
       final ScaleAlgorithm algorithm, ImageType.ECompression compression) {
-    return (imageToScale, dWidth, dHeight) ->
-        ImageHandler.this.scale(
-            algorithm, imageToScale, dWidth, dHeight, compression, DEFAULT_COLOR);
+    throw new UnsupportedOperationException("Java 1.6");
+    //    return (imageToScale, dWidth, dHeight) ->
+    //        ImageHandler.this.scale(
+    //            algorithm, imageToScale, dWidth, dHeight, compression, DEFAULT_COLOR);
   }
 }

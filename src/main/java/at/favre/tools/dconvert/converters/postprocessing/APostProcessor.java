@@ -30,7 +30,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * processor can process a file at a time
  */
 public abstract class APostProcessor implements IPostProcessor {
-  private static final Map<File, ReentrantLock> lockMap = new ConcurrentHashMap<>();
+  private static final Map<File, ReentrantLock> lockMap = new ConcurrentHashMap<File, ReentrantLock>();
   private static final ReentrantLock administrationLock = new ReentrantLock(true);
 
   @Override

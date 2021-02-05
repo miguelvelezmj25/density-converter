@@ -65,14 +65,14 @@ public final class ImageUtil {
 
   private static CompoundDirectory readExif(File input) throws IOException {
     if (Arguments.getImageType(input) == ImageType.JPG) {
-      try (ImageInputStream stream = ImageIO.createImageInputStream(input)) {
+      try {
+        ImageInputStream stream = ImageIO.createImageInputStream(input);
         List<JPEGSegment> exifSegment = JPEGSegmentUtil.readSegments(stream, JPEG.APP1, "Exif");
         if (!exifSegment.isEmpty()) {
           InputStream exifData = exifSegment.get(0).data();
           exifData.read(); // Skip 0-pad for Exif in JFIF
-          try (ImageInputStream exifStream = ImageIO.createImageInputStream(exifData)) {
-            return (CompoundDirectory) new EXIFReader().read(exifStream);
-          }
+          ImageInputStream exifStream = ImageIO.createImageInputStream(exifData);
+          return (CompoundDirectory) new EXIFReader().read(exifStream);
         }
       } catch (Exception e) {
         System.err.println("could not read exif");
@@ -111,22 +111,23 @@ public final class ImageUtil {
 
   @Deprecated
   public static BufferedImage readSvg(File file, Dimension sourceDimension) throws Exception {
-    try (ImageInputStream input = ImageIO.createImageInputStream(file)) {
-      Iterator<ImageReader> readers = ImageIO.getImageReaders(input);
-      if (!readers.hasNext()) {
-        throw new IllegalArgumentException("No reader for: " + file);
-      }
-
-      ImageReader reader = readers.next();
-      try {
-        reader.setInput(input);
-        ImageReadParam param = reader.getDefaultReadParam();
-        param.setSourceRenderSize(sourceDimension);
-        return reader.read(0, param);
-      } finally {
-        reader.dispose();
-      }
-    }
+    throw new UnsupportedOperationException("Java 1.6");
+    //    try (ImageInputStream input = ImageIO.createImageInputStream(file)) {
+    //      Iterator<ImageReader> readers = ImageIO.getImageReaders(input);
+    //      if (!readers.hasNext()) {
+    //        throw new IllegalArgumentException("No reader for: " + file);
+    //      }
+    //
+    //      ImageReader reader = readers.next();
+    //      try {
+    //        reader.setInput(input);
+    //        ImageReadParam param = reader.getDefaultReadParam();
+    //        param.setSourceRenderSize(sourceDimension);
+    //        return reader.read(0, param);
+    //      } finally {
+    //        reader.dispose();
+    //      }
+    //    }
   }
 
   /**
