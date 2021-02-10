@@ -28,80 +28,80 @@ import java.util.List;
 
 /** Needed info to convert for Windows */
 public class WindowsConverter extends APlatformConverter<PostfixDescriptor> {
-  public static final String ROOT_FOLDER = "Assets";
-  private static final String WINDOWS_FOLDER_NAME = "windows";
+    public static final String ROOT_FOLDER = "Assets";
+    private static final String WINDOWS_FOLDER_NAME = "windows";
 
-  public static List<PostfixDescriptor> getWindowsDescriptors() {
-    List<PostfixDescriptor> list = new ArrayList<PostfixDescriptor>();
-    list.add(new PostfixDescriptor(1, "100%", ".scale-100"));
-    list.add(new PostfixDescriptor(1.4f, "140%", ".scale-140"));
-    list.add(new PostfixDescriptor(1.8f, "180%", ".scale-180"));
-    list.add(new PostfixDescriptor(2.4f, "240%", ".scale-240"));
-    return list;
-  }
-
-  @Override
-  public List<PostfixDescriptor> usedOutputDensities(Arguments arguments) {
-    return getWindowsDescriptors();
-  }
-
-  @Override
-  public PostfixDescriptor originalOutputDensities() {
-    return new PostfixDescriptor(1, "100%", ".scale-100");
-  }
-
-  @Override
-  public String getConverterName() {
-    return "windows-converter";
-  }
-
-  @Override
-  public File createMainSubFolder(
-      File destinationFolder, String targetImageFileName, Arguments arguments) {
-    if (arguments.platform.size() > 1) {
-      destinationFolder =
-          MiscUtil.createAndCheckFolder(
-              new File(destinationFolder, WINDOWS_FOLDER_NAME).getAbsolutePath(), arguments.dryRun);
+    public static List<PostfixDescriptor> getWindowsDescriptors() {
+        List<PostfixDescriptor> list = new ArrayList<PostfixDescriptor>();
+        list.add(new PostfixDescriptor(1, "100%", ".scale-100"));
+        list.add(new PostfixDescriptor(1.4f, "140%", ".scale-140"));
+        list.add(new PostfixDescriptor(1.8f, "180%", ".scale-180"));
+        list.add(new PostfixDescriptor(2.4f, "240%", ".scale-240"));
+        return list;
     }
-    return MiscUtil.createAndCheckFolder(
-        new File(destinationFolder, WindowsConverter.ROOT_FOLDER).getAbsolutePath(),
-        arguments.dryRun);
-  }
 
-  @Override
-  public File createFolderForOutputFile(
-      File mainSubFolder,
-      PostfixDescriptor density,
-      Dimension dimension,
-      String targetFileName,
-      Arguments arguments) {
-    return mainSubFolder;
-  }
-
-  @Override
-  public String createDestinationFileNameWithoutExtension(
-      PostfixDescriptor density, Dimension dimension, String targetFileName, Arguments arguments) {
-    return targetFileName + density.postFix;
-  }
-
-  @Override
-  public void onPreExecute(
-      File dstFolder,
-      String targetFileName,
-      List<PostfixDescriptor> densityDescriptions,
-      ImageType imageType,
-      Arguments arguments)
-      throws Exception {}
-
-  @Override
-  public void onPostExecute(Arguments arguments) {}
-
-  @Override
-  public void clean(Arguments arguments) {
-    if (arguments.platform.size() == 1) {
-      MiscUtil.deleteFolder(new File(arguments.dst, ROOT_FOLDER));
-    } else {
-      MiscUtil.deleteFolder(new File(new File(arguments.dst, WINDOWS_FOLDER_NAME), ROOT_FOLDER));
+    @Override
+    public List<PostfixDescriptor> usedOutputDensities(Arguments arguments) {
+        return getWindowsDescriptors();
     }
-  }
+
+    @Override
+    public PostfixDescriptor originalOutputDensities() {
+        return new PostfixDescriptor(1, "100%", ".scale-100");
+    }
+
+    @Override
+    public String getConverterName() {
+        return "windows-converter";
+    }
+
+    @Override
+    public File createMainSubFolder(
+            File destinationFolder, String targetImageFileName, Arguments arguments) {
+        if (arguments.platform.size() > 1) {
+            destinationFolder =
+                    MiscUtil.createAndCheckFolder(
+                            new File(destinationFolder, WINDOWS_FOLDER_NAME).getAbsolutePath(), arguments.dryRun);
+        }
+        return MiscUtil.createAndCheckFolder(
+                new File(destinationFolder, WindowsConverter.ROOT_FOLDER).getAbsolutePath(),
+                arguments.dryRun);
+    }
+
+    @Override
+    public File createFolderForOutputFile(
+            File mainSubFolder,
+            PostfixDescriptor density,
+            Dimension dimension,
+            String targetFileName,
+            Arguments arguments) {
+        return mainSubFolder;
+    }
+
+    @Override
+    public String createDestinationFileNameWithoutExtension(
+            PostfixDescriptor density, Dimension dimension, String targetFileName, Arguments arguments) {
+        return targetFileName + density.postFix;
+    }
+
+    @Override
+    public void onPreExecute(
+            File dstFolder,
+            String targetFileName,
+            List<PostfixDescriptor> densityDescriptions,
+            ImageType imageType,
+            Arguments arguments)
+            throws Exception {}
+
+    @Override
+    public void onPostExecute(Arguments arguments) {}
+
+    @Override
+    public void clean(Arguments arguments) {
+        if (arguments.platform.size() == 1) {
+            MiscUtil.deleteFolder(new File(arguments.dst, ROOT_FOLDER));
+        } else {
+            MiscUtil.deleteFolder(new File(new File(arguments.dst, WINDOWS_FOLDER_NAME), ROOT_FOLDER));
+        }
+    }
 }
