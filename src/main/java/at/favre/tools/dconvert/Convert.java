@@ -36,7 +36,7 @@ public final class Convert {
     boolean antiAliasing = false;
     boolean clean = true;
     float compressionQuality = 0.9f;
-    String downScalingAlgo = EScalingAlgorithm.MITCHELL.getName();
+    EScalingAlgorithm downScalingAlgorithm = EScalingAlgorithm.MITCHELL;
     boolean dryRun = false;
     boolean haltOnError = false;
     boolean iosCreateImagesetFolders = false;
@@ -51,7 +51,7 @@ public final class Convert {
     boolean scaleIsHeightDp = false;
     boolean skipExisting = true;
     boolean skipUpscaling = false;
-    String upScalingAlgo = EScalingAlgorithm.MITCHELL.getName();
+    EScalingAlgorithm upScalingAlgorithm = EScalingAlgorithm.MITCHELL;
     boolean VERBOSE = true;
 
     File src = new File("./pictures/person.jpg");
@@ -59,8 +59,6 @@ public final class Convert {
     Set<EPlatform> platform = getPlatform(selectedPlatform);
     EOutputCompressionMode outputCompressionMode = getOutCompression(outCompression);
     EScaleMode scaleMode = scaleMode(false, scaleIsHeightDp);
-    EScalingAlgorithm downScalingAlgorithm = EScalingAlgorithm.getByName(downScalingAlgo);
-    EScalingAlgorithm upScalingAlgorithm = EScalingAlgorithm.getByName(upScalingAlgo);
     RoundingHandler.Strategy roundingHandler = getRoundingHandler(roundingMode);
 
     final Arguments args =
