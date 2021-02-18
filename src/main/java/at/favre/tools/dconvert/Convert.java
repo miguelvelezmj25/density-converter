@@ -30,12 +30,16 @@ public final class Convert {
 
   private Convert() {}
 
+  private static float getFloat(float number) {
+    return number;
+  }
+
   public static void main(String[] rawArgs) {
     boolean androidIncludeLdpiTvdpi = false;
     boolean androidMipmapInsteadOfDrawable = false;
     boolean antiAliasing = false;
     boolean clean = true;
-    float compressionQuality = 0.9f;
+    float compressionQuality = getFloat(0.9f);
     EScalingAlgorithm downScalingAlgorithm = EScalingAlgorithm.MITCHELL;
     boolean dryRun = false;
     boolean haltOnError = false;
@@ -47,7 +51,7 @@ public final class Convert {
     boolean postProcessorPngCrush = false;
     boolean postProcessorWebp = false;
     String roundingMode = "floor";
-    float scale = 1;
+    float scale = getFloat(1);
     boolean scaleIsHeightDp = false;
     boolean skipExisting = true;
     boolean skipUpscaling = false;
