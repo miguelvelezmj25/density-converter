@@ -19,24 +19,9 @@ import java.util.List;
 
 /** @author Morten Nobel-Joergensen */
 public abstract class AdvancedResizeOp implements BufferedImageOp {
-  public static enum UnsharpenMask {
-    None(0),
-    Soft(0.15f),
-    Normal(0.3f),
-    VerySharp(0.45f),
-    Oversharpened(0.60f);
-    private final float factor;
-
-    UnsharpenMask(float factor) {
-      this.factor = factor;
-    }
-  }
-
-  private List<ProgressListener> listeners = new ArrayList<ProgressListener>();
-
   private final DimensionConstrain dimensionConstrain;
+  private List<ProgressListener> listeners = new ArrayList<ProgressListener>();
   private UnsharpenMask unsharpenMask = UnsharpenMask.None;
-
   public AdvancedResizeOp(DimensionConstrain dimensionConstrain) {
     this.dimensionConstrain = dimensionConstrain;
   }
@@ -70,13 +55,13 @@ public abstract class AdvancedResizeOp implements BufferedImageOp {
     int dstHeight = dstDimension.height;
     BufferedImage bufferedImage = doFilter(src, dest, dstWidth, dstHeight);
 
-//    if (unsharpenMask != UnsharpenMask.None) {
-//      UnsharpFilter unsharpFilter = new UnsharpFilter();
-//      unsharpFilter.setRadius(2f);
-//      unsharpFilter.setAmount(unsharpenMask.factor);
-//      unsharpFilter.setThreshold(10);
-//      return unsharpFilter.filter(bufferedImage, null);
-//    }
+    if (unsharpenMask != UnsharpenMask.None) {
+      UnsharpFilter unsharpFilter = new UnsharpFilter();
+      unsharpFilter.setRadius(2f);
+      unsharpFilter.setAmount(unsharpenMask.factor);
+      unsharpFilter.setThreshold(10);
+      return unsharpFilter.filter(bufferedImage, null);
+    }
 
     return bufferedImage;
   }
@@ -109,5 +94,18 @@ public abstract class AdvancedResizeOp implements BufferedImageOp {
   /** {@inheritDoc} */
   public final RenderingHints getRenderingHints() {
     return null;
+  }
+
+  public static enum UnsharpenMask {
+    None(0),
+    Soft(0.15f),
+    Normal(0.3f),
+    VerySharp(0.45f),
+    Oversharpened(0.60f);
+    private final float factor;
+
+    UnsharpenMask(float factor) {
+      this.factor = factor;
+    }
   }
 }
