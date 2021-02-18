@@ -318,6 +318,7 @@ public class ResampleOp extends AdvancedResizeOp {
       return;
     }
     boolean useChannel3 = nrChannels > 3;
+    System.out.println(dstWidth);
     for (int x = start; x < dstWidth; x += delta) {
       final int xLocation = x * nrChannels;
       for (int y = dstHeight - 1; y >= 0; y--) {
