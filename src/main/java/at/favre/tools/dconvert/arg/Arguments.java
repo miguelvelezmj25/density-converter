@@ -250,139 +250,139 @@ public class Arguments implements Serializable {
     return new RoundingHandler(roundingHandler).round(raw);
   }
 
-  @Override
-  public String toString() {
-    return "Arguments{"
-        + "src="
-        + src
-        + ", dst="
-        + dst
-        + ", scale="
-        + scale
-        + ", platform="
-        + platform
-        + ", outputCompressionMode="
-        + outputCompressionMode
-        + ", scaleMode="
-        + scaleMode
-        + ", downScalingAlgorithm="
-        + downScalingAlgorithm
-        + ", upScalingAlgorithm="
-        + upScalingAlgorithm
-        + ", compressionQuality="
-        + compressionQuality
-        + ", threadCount="
-        + threadCount
-        + ", skipExistingFiles="
-        + skipExistingFiles
-        + ", skipUpscaling="
-        + skipUpscaling
-        + ", verboseLog="
-        + verboseLog
-        + ", includeAndroidLdpiTvdpi="
-        + includeAndroidLdpiTvdpi
-        + ", haltOnError="
-        + haltOnError
-        + ", createMipMapInsteadOfDrawableDir="
-        + createMipMapInsteadOfDrawableDir
-        + ", enablePngCrush="
-        + enablePngCrush
-        + ", enableMozJpeg="
-        + enableMozJpeg
-        + ", postConvertWebp="
-        + postConvertWebp
-        + ", enableAntiAliasing="
-        + enableAntiAliasing
-        + ", dryRun="
-        + dryRun
-        + ", keepUnoptimizedFilesPostProcessor="
-        + keepUnoptimizedFilesPostProcessor
-        + ", roundingHandler="
-        + roundingHandler
-        + ", iosCreateImagesetFolders="
-        + iosCreateImagesetFolders
-        + ", guiAdvancedOptions="
-        + guiAdvancedOptions
-        + ", clearDirBeforeConvert="
-        + clearDirBeforeConvert
-        + ", filesToProcess="
-        + filesToProcess
-        + '}';
-  }
+//  @Override
+//  public String toString() {
+//    return "Arguments{"
+//        + "src="
+//        + src
+//        + ", dst="
+//        + dst
+//        + ", scale="
+//        + scale
+//        + ", platform="
+//        + platform
+//        + ", outputCompressionMode="
+//        + outputCompressionMode
+//        + ", scaleMode="
+//        + scaleMode
+//        + ", downScalingAlgorithm="
+//        + downScalingAlgorithm
+//        + ", upScalingAlgorithm="
+//        + upScalingAlgorithm
+//        + ", compressionQuality="
+//        + compressionQuality
+//        + ", threadCount="
+//        + threadCount
+//        + ", skipExistingFiles="
+//        + skipExistingFiles
+//        + ", skipUpscaling="
+//        + skipUpscaling
+//        + ", verboseLog="
+//        + verboseLog
+//        + ", includeAndroidLdpiTvdpi="
+//        + includeAndroidLdpiTvdpi
+//        + ", haltOnError="
+//        + haltOnError
+//        + ", createMipMapInsteadOfDrawableDir="
+//        + createMipMapInsteadOfDrawableDir
+//        + ", enablePngCrush="
+//        + enablePngCrush
+//        + ", enableMozJpeg="
+//        + enableMozJpeg
+//        + ", postConvertWebp="
+//        + postConvertWebp
+//        + ", enableAntiAliasing="
+//        + enableAntiAliasing
+//        + ", dryRun="
+//        + dryRun
+//        + ", keepUnoptimizedFilesPostProcessor="
+//        + keepUnoptimizedFilesPostProcessor
+//        + ", roundingHandler="
+//        + roundingHandler
+//        + ", iosCreateImagesetFolders="
+//        + iosCreateImagesetFolders
+//        + ", guiAdvancedOptions="
+//        + guiAdvancedOptions
+//        + ", clearDirBeforeConvert="
+//        + clearDirBeforeConvert
+//        + ", filesToProcess="
+//        + filesToProcess
+//        + '}';
+//  }
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+//  @Override
+//  public boolean equals(Object o) {
+//    if (this == o) return true;
+//    if (o == null || getClass() != o.getClass()) return false;
+//
+//    Arguments arguments = (Arguments) o;
+//
+//    if (Float.compare(arguments.scale, scale) != 0) return false;
+//    if (Float.compare(arguments.compressionQuality, compressionQuality) != 0) return false;
+//    if (threadCount != arguments.threadCount) return false;
+//    if (skipExistingFiles != arguments.skipExistingFiles) return false;
+//    if (skipUpscaling != arguments.skipUpscaling) return false;
+//    if (verboseLog != arguments.verboseLog) return false;
+//    if (includeAndroidLdpiTvdpi != arguments.includeAndroidLdpiTvdpi) return false;
+//    if (haltOnError != arguments.haltOnError) return false;
+//    if (createMipMapInsteadOfDrawableDir != arguments.createMipMapInsteadOfDrawableDir)
+//      return false;
+//    if (enablePngCrush != arguments.enablePngCrush) return false;
+//    if (enableMozJpeg != arguments.enableMozJpeg) return false;
+//    if (postConvertWebp != arguments.postConvertWebp) return false;
+//    if (enableAntiAliasing != arguments.enableAntiAliasing) return false;
+//    if (dryRun != arguments.dryRun) return false;
+//    if (keepUnoptimizedFilesPostProcessor != arguments.keepUnoptimizedFilesPostProcessor)
+//      return false;
+//    if (iosCreateImagesetFolders != arguments.iosCreateImagesetFolders) return false;
+//    if (guiAdvancedOptions != arguments.guiAdvancedOptions) return false;
+//    if (clearDirBeforeConvert != arguments.clearDirBeforeConvert) return false;
+//    if (src != null ? !src.equals(arguments.src) : arguments.src != null) return false;
+//    if (dst != null ? !dst.equals(arguments.dst) : arguments.dst != null) return false;
+//    if (platform != null ? !platform.equals(arguments.platform) : arguments.platform != null)
+//      return false;
+//    if (outputCompressionMode != arguments.outputCompressionMode) return false;
+//    if (scaleMode != arguments.scaleMode) return false;
+//    if (downScalingAlgorithm != arguments.downScalingAlgorithm) return false;
+//    if (upScalingAlgorithm != arguments.upScalingAlgorithm) return false;
+//    if (roundingHandler != arguments.roundingHandler) return false;
+//    return filesToProcess != null
+//        ? filesToProcess.equals(arguments.filesToProcess)
+//        : arguments.filesToProcess == null;
+//  }
 
-    Arguments arguments = (Arguments) o;
-
-    if (Float.compare(arguments.scale, scale) != 0) return false;
-    if (Float.compare(arguments.compressionQuality, compressionQuality) != 0) return false;
-    if (threadCount != arguments.threadCount) return false;
-    if (skipExistingFiles != arguments.skipExistingFiles) return false;
-    if (skipUpscaling != arguments.skipUpscaling) return false;
-    if (verboseLog != arguments.verboseLog) return false;
-    if (includeAndroidLdpiTvdpi != arguments.includeAndroidLdpiTvdpi) return false;
-    if (haltOnError != arguments.haltOnError) return false;
-    if (createMipMapInsteadOfDrawableDir != arguments.createMipMapInsteadOfDrawableDir)
-      return false;
-    if (enablePngCrush != arguments.enablePngCrush) return false;
-    if (enableMozJpeg != arguments.enableMozJpeg) return false;
-    if (postConvertWebp != arguments.postConvertWebp) return false;
-    if (enableAntiAliasing != arguments.enableAntiAliasing) return false;
-    if (dryRun != arguments.dryRun) return false;
-    if (keepUnoptimizedFilesPostProcessor != arguments.keepUnoptimizedFilesPostProcessor)
-      return false;
-    if (iosCreateImagesetFolders != arguments.iosCreateImagesetFolders) return false;
-    if (guiAdvancedOptions != arguments.guiAdvancedOptions) return false;
-    if (clearDirBeforeConvert != arguments.clearDirBeforeConvert) return false;
-    if (src != null ? !src.equals(arguments.src) : arguments.src != null) return false;
-    if (dst != null ? !dst.equals(arguments.dst) : arguments.dst != null) return false;
-    if (platform != null ? !platform.equals(arguments.platform) : arguments.platform != null)
-      return false;
-    if (outputCompressionMode != arguments.outputCompressionMode) return false;
-    if (scaleMode != arguments.scaleMode) return false;
-    if (downScalingAlgorithm != arguments.downScalingAlgorithm) return false;
-    if (upScalingAlgorithm != arguments.upScalingAlgorithm) return false;
-    if (roundingHandler != arguments.roundingHandler) return false;
-    return filesToProcess != null
-        ? filesToProcess.equals(arguments.filesToProcess)
-        : arguments.filesToProcess == null;
-  }
-
-  @Override
-  public int hashCode() {
-    int result = src != null ? src.hashCode() : 0;
-    result = 31 * result + (dst != null ? dst.hashCode() : 0);
-    result = 31 * result + (scale != +0.0f ? Float.floatToIntBits(scale) : 0);
-    result = 31 * result + (platform != null ? platform.hashCode() : 0);
-    result = 31 * result + (outputCompressionMode != null ? outputCompressionMode.hashCode() : 0);
-    result = 31 * result + (scaleMode != null ? scaleMode.hashCode() : 0);
-    result = 31 * result + (downScalingAlgorithm != null ? downScalingAlgorithm.hashCode() : 0);
-    result = 31 * result + (upScalingAlgorithm != null ? upScalingAlgorithm.hashCode() : 0);
-    result =
-        31 * result + (compressionQuality != +0.0f ? Float.floatToIntBits(compressionQuality) : 0);
-    result = 31 * result + threadCount;
-    result = 31 * result + (skipExistingFiles ? 1 : 0);
-    result = 31 * result + (skipUpscaling ? 1 : 0);
-    result = 31 * result + (verboseLog ? 1 : 0);
-    result = 31 * result + (includeAndroidLdpiTvdpi ? 1 : 0);
-    result = 31 * result + (haltOnError ? 1 : 0);
-    result = 31 * result + (createMipMapInsteadOfDrawableDir ? 1 : 0);
-    result = 31 * result + (enablePngCrush ? 1 : 0);
-    result = 31 * result + (enableMozJpeg ? 1 : 0);
-    result = 31 * result + (postConvertWebp ? 1 : 0);
-    result = 31 * result + (enableAntiAliasing ? 1 : 0);
-    result = 31 * result + (dryRun ? 1 : 0);
-    result = 31 * result + (keepUnoptimizedFilesPostProcessor ? 1 : 0);
-    result = 31 * result + (roundingHandler != null ? roundingHandler.hashCode() : 0);
-    result = 31 * result + (iosCreateImagesetFolders ? 1 : 0);
-    result = 31 * result + (guiAdvancedOptions ? 1 : 0);
-    result = 31 * result + (clearDirBeforeConvert ? 1 : 0);
-    result = 31 * result + (filesToProcess != null ? filesToProcess.hashCode() : 0);
-    return result;
-  }
+//  @Override
+//  public int hashCode() {
+//    int result = src != null ? src.hashCode() : 0;
+//    result = 31 * result + (dst != null ? dst.hashCode() : 0);
+//    result = 31 * result + (scale != +0.0f ? Float.floatToIntBits(scale) : 0);
+//    result = 31 * result + (platform != null ? platform.hashCode() : 0);
+//    result = 31 * result + (outputCompressionMode != null ? outputCompressionMode.hashCode() : 0);
+//    result = 31 * result + (scaleMode != null ? scaleMode.hashCode() : 0);
+//    result = 31 * result + (downScalingAlgorithm != null ? downScalingAlgorithm.hashCode() : 0);
+//    result = 31 * result + (upScalingAlgorithm != null ? upScalingAlgorithm.hashCode() : 0);
+//    result =
+//        31 * result + (compressionQuality != +0.0f ? Float.floatToIntBits(compressionQuality) : 0);
+//    result = 31 * result + threadCount;
+//    result = 31 * result + (skipExistingFiles ? 1 : 0);
+//    result = 31 * result + (skipUpscaling ? 1 : 0);
+//    result = 31 * result + (verboseLog ? 1 : 0);
+//    result = 31 * result + (includeAndroidLdpiTvdpi ? 1 : 0);
+//    result = 31 * result + (haltOnError ? 1 : 0);
+//    result = 31 * result + (createMipMapInsteadOfDrawableDir ? 1 : 0);
+//    result = 31 * result + (enablePngCrush ? 1 : 0);
+//    result = 31 * result + (enableMozJpeg ? 1 : 0);
+//    result = 31 * result + (postConvertWebp ? 1 : 0);
+//    result = 31 * result + (enableAntiAliasing ? 1 : 0);
+//    result = 31 * result + (dryRun ? 1 : 0);
+//    result = 31 * result + (keepUnoptimizedFilesPostProcessor ? 1 : 0);
+//    result = 31 * result + (roundingHandler != null ? roundingHandler.hashCode() : 0);
+//    result = 31 * result + (iosCreateImagesetFolders ? 1 : 0);
+//    result = 31 * result + (guiAdvancedOptions ? 1 : 0);
+//    result = 31 * result + (clearDirBeforeConvert ? 1 : 0);
+//    result = 31 * result + (filesToProcess != null ? filesToProcess.hashCode() : 0);
+//    return result;
+//  }
 
   public static class Builder {
     private final float srcScale;

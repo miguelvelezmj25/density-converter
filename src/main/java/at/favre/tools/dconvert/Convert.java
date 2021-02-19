@@ -30,6 +30,10 @@ public final class Convert {
 
   private Convert() {}
 
+  private static boolean getBoolean(boolean b) {
+    return b;
+  }
+
   private static float getFloat(float number) {
     return number;
   }
@@ -38,8 +42,8 @@ public final class Convert {
     boolean androidIncludeLdpiTvdpi = false;
     boolean androidMipmapInsteadOfDrawable = false;
     boolean antiAliasing = false;
-    boolean clean = true;
-    float compressionQuality = getFloat(0.9f);
+    boolean clean = getBoolean(true);
+    float compressionQuality = 0.9f;
     EScalingAlgorithm downScalingAlgorithm = EScalingAlgorithm.MITCHELL;
     boolean dryRun = false;
     boolean haltOnError = false;
@@ -56,7 +60,7 @@ public final class Convert {
     boolean skipExisting = true;
     boolean skipUpscaling = false;
     EScalingAlgorithm upScalingAlgorithm = EScalingAlgorithm.MITCHELL;
-    boolean VERBOSE = true;
+    boolean verbose = true;
 
     File src = new File("./pictures/person.jpg");
     File dst = new File("./output");
@@ -79,7 +83,7 @@ public final class Convert {
             1,
             skipExisting,
             skipUpscaling,
-            VERBOSE,
+            verbose,
             androidIncludeLdpiTvdpi,
             haltOnError,
             androidMipmapInsteadOfDrawable,
@@ -229,9 +233,5 @@ public final class Convert {
     }
 
     return platformSet;
-  }
-
-  private static boolean postProcess(boolean option) {
-    return false;
   }
 }

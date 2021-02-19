@@ -137,39 +137,39 @@ public class ResampleOp extends AdvancedResizeOp {
 
     final BufferedImage scrImgCopy = srcImg;
     final byte[][] workPixelsCopy = workPixels;
-    Thread[] threads = new Thread[numberOfThreads - 1];
-    for (int i = 1; i < numberOfThreads; i++) {
-      final int finalI = i;
-      threads[i - 1] =
-          new Thread(
-              new Runnable() {
-                public void run() {
-                  horizontallyFromSrcToWork(scrImgCopy, workPixelsCopy, finalI, numberOfThreads);
-                }
-              });
-      threads[i - 1].start();
-    }
+//    Thread[] threads = new Thread[numberOfThreads - 1];
+//    for (int i = 1; i < numberOfThreads; i++) {
+//      final int finalI = i;
+//      threads[i - 1] =
+//          new Thread(
+//              new Runnable() {
+//                public void run() {
+//                  horizontallyFromSrcToWork(scrImgCopy, workPixelsCopy, finalI, numberOfThreads);
+//                }
+//              });
+//      threads[i - 1].start();
+//    }
     horizontallyFromSrcToWork(scrImgCopy, workPixelsCopy, 0, numberOfThreads);
-    waitForAllThreads(threads);
+//    waitForAllThreads(threads);
 
     byte[] outPixels = new byte[dstWidth * dstHeight * nrChannels];
     // --------------------------------------------------
     // Apply filter to sample vertically from Work to Dst
     // --------------------------------------------------
     final byte[] outPixelsCopy = outPixels;
-    for (int i = 1; i < numberOfThreads; i++) {
-      final int finalI = i;
-      threads[i - 1] =
-          new Thread(
-              new Runnable() {
-                public void run() {
-                  verticalFromWorkToDst(workPixelsCopy, outPixelsCopy, finalI, numberOfThreads);
-                }
-              });
-      threads[i - 1].start();
-    }
+//    for (int i = 1; i < numberOfThreads; i++) {
+//      final int finalI = i;
+//      threads[i - 1] =
+//          new Thread(
+//              new Runnable() {
+//                public void run() {
+//                  verticalFromWorkToDst(workPixelsCopy, outPixelsCopy, finalI, numberOfThreads);
+//                }
+//              });
+//      threads[i - 1].start();
+//    }
     verticalFromWorkToDst(workPixelsCopy, outPixelsCopy, 0, numberOfThreads);
-    waitForAllThreads(threads);
+//    waitForAllThreads(threads);
 
     //noinspection UnusedAssignment
     workPixels = null; // free memory
@@ -318,10 +318,9 @@ public class ResampleOp extends AdvancedResizeOp {
       return;
     }
     boolean useChannel3 = nrChannels > 3;
-    System.out.println(dstWidth);
-    for (int x = start; x < dstWidth; x += delta) {
+    for (int x = start; x < edu.cmu.cs.mvelezce.optionhotspot.targets.Targets.dstWidth(dstWidth); x += delta) {
       final int xLocation = x * nrChannels;
-      for (int y = dstHeight - 1; y >= 0; y--) {
+      for (int y = edu.cmu.cs.mvelezce.optionhotspot.targets.Targets.dstHeight(dstHeight) - 1; y >= 0; y--) {
         final int yTimesNumContributors = y * verticalSubsamplingData.numContributors;
         final int max = verticalSubsamplingData.arrN[y];
         final int sampleLocation = (y * dstWidth + x) * nrChannels;

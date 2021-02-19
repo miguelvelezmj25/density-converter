@@ -44,7 +44,7 @@ public abstract class APlatformConverter<T extends DensityDescriptor>
       ImageType imageType = Arguments.getImageType(srcImage);
       boolean isNinePatch =
           AndroidConverter.isNinePatch(srcImage) && getClass() == AndroidConverter.class;
-      boolean outputLargerDef = args.scale < Arguments.DEFAULT_SCALE;
+      boolean outputLargerThanDefault = args.scale < Arguments.DEFAULT_SCALE;
 
       StringBuilder log = new StringBuilder();
       log.append(getConverterName())
@@ -106,8 +106,8 @@ public abstract class APlatformConverter<T extends DensityDescriptor>
         }
       }
 
-      if (!args.dryRun && outputLargerDef) {
-        outputLargerDef(args, imageData, targetImageFileName, isNinePatch, log, mainSubFolder);
+      if (!args.dryRun && edu.cmu.cs.mvelezce.optionhotspot.targets.Targets.outputLargerThanDefault(outputLargerThanDefault)) {
+        outputLargerThanDef(args, imageData, targetImageFileName, isNinePatch, log, mainSubFolder);
       }
 
       onPostExecute(args);
@@ -121,7 +121,7 @@ public abstract class APlatformConverter<T extends DensityDescriptor>
     }
   }
 
-  private void outputLargerDef(
+  private void outputLargerThanDef(
       Arguments args,
       LoadedImage imageData,
       String targetImageFileName,

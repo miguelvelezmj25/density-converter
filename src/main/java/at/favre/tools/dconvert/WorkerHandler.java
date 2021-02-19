@@ -56,13 +56,29 @@ public class WorkerHandler<T> {
 
     InternalCallback internalCallback = new InternalCallback(callback);
 
+    //    for (T processor : processors) {
+    //      for (File fileToProcess : allFiles) {
+    ////        threadPool.execute(new Worker(fileToProcess, processor, arguments,
+    // internalCallback));
+    //        ((IPlatformConverter) processor).convert(fileToProcess, arguments);
+    //      }
+    //    }
+
     for (T processor : processors) {
       for (File fileToProcess : allFiles) {
-        threadPool.execute(new Worker(fileToProcess, processor, arguments, internalCallback));
+        Result result = null;
+        if (processor instanceof IPostProcessor) {
+          result =
+              ((IPostProcessor) processor)
+                  .process(fileToProcess, arguments.keepUnoptimizedFilesPostProcessor);
+        } else if (processor instanceof IPlatformConverter) {
+          result = ((IPlatformConverter) processor).convert(fileToProcess, arguments);
+        }
+//        internalCallback.onJobFinished(result);
       }
     }
 
-    threadPool.shutdown();
+//    threadPool.shutdown();
 
     if (jobCount == 0) {
       callback.onFinished(

@@ -131,7 +131,7 @@ public class ImageHandler {
   public void compressJpeg(
       BufferedImage bufferedImage, CompoundDirectory exif, float quality, File targetFile)
       throws IOException {
-    if (bufferedImage.hasTileWriters()) {
+    if (edu.cmu.cs.mvelezce.optionhotspot.targets.Targets.bufferedImage(bufferedImage).hasTileWriters()) {
       ImageWriter jpgWriter = ImageIO.getImageWritersByFormatName("jpg").next();
       ImageWriteParam jpgWriteParam = jpgWriter.getDefaultWriteParam();
       jpgWriteParam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
