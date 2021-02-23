@@ -106,7 +106,7 @@ public abstract class APlatformConverter<T extends DensityDescriptor>
         }
       }
 
-      if (!args.dryRun && edu.cmu.cs.mvelezce.optionhotspot.targets.Targets.outputLargerThanDefault(outputLargerThanDefault)) {
+      if (!args.dryRun && outputLargerThanDefault) {
         outputLargerThanDef(args, imageData, targetImageFileName, isNinePatch, log, mainSubFolder);
       }
 
