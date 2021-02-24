@@ -102,7 +102,7 @@ public abstract class APlatformConverter<T extends DensityDescriptor>
                 args, imageData, isNinePatch, log, allResultingFiles, entry.getValue(), imageFile);
           }
         } else {
-          throw new IllegalStateException("could not create " + dstFolder);
+          //          throw new IllegalStateException("could not create " + dstFolder);
         }
       }
 

@@ -30,19 +30,11 @@ public final class Convert {
 
   private Convert() {}
 
-  private static boolean getBoolean(boolean b) {
-    return b;
-  }
-
-  private static float getFloat(float number) {
-    return number;
-  }
-
   public static void main(String[] rawArgs) {
     boolean androidIncludeLdpiTvdpi = false;
     boolean androidMipmapInsteadOfDrawable = false;
     boolean antiAliasing = false;
-    boolean clean = getBoolean(true);
+    boolean clean = edu.cmu.cs.mvelezce.optionhotspot.sources.Sources.getClean(true);
     float compressionQuality = 0.9f;
     EScalingAlgorithm downScalingAlgorithm = EScalingAlgorithm.MITCHELL;
     boolean dryRun = false;
@@ -55,7 +47,7 @@ public final class Convert {
     boolean postProcessorPngCrush = false;
     boolean postProcessorWebp = false;
     String roundingMode = "floor";
-    float scale = getFloat(1);
+    float scale = edu.cmu.cs.mvelezce.optionhotspot.sources.Sources.getScale(1);
     boolean scaleIsHeightDp = false;
     boolean skipExisting = true;
     boolean skipUpscaling = false;

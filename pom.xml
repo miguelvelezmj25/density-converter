@@ -265,28 +265,28 @@
         </dependency>
 
         <!-- hq image scaling -->
-        <dependency>
-            <groupId>org.imgscalr</groupId>
-            <artifactId>imgscalr-lib</artifactId>
-            <version>4.2</version>
-        </dependency>
-        <dependency>
-            <groupId>net.coobird</groupId>
-            <artifactId>thumbnailator</artifactId>
-            <version>0.4.8</version>
-        </dependency>
-<!--        <dependency>-->
-<!--            <groupId>com.mortennobel</groupId>-->
-<!--            <artifactId>java-image-scaling</artifactId>-->
-<!--            <version>0.8.6</version>-->
-<!--            <scope>system</scope>-->
-<!--            <systemPath>${project.basedir}/lib/java-image-scaling-0.8.6.jar</systemPath>-->
-<!--        </dependency>-->
-        <dependency>
-            <groupId>com.jhlabs</groupId>
-            <artifactId>filters</artifactId>
-            <version>2.0.235</version>
-        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>org.imgscalr</groupId>-->
+        <!--            <artifactId>imgscalr-lib</artifactId>-->
+        <!--            <version>4.2</version>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>net.coobird</groupId>-->
+        <!--            <artifactId>thumbnailator</artifactId>-->
+        <!--            <version>0.4.8</version>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>com.mortennobel</groupId>-->
+        <!--            <artifactId>java-image-scaling</artifactId>-->
+        <!--            <version>0.8.6</version>-->
+        <!--            <scope>system</scope>-->
+        <!--            <systemPath>${project.basedir}/lib/java-image-scaling-0.8.6.jar</systemPath>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>com.jhlabs</groupId>-->
+        <!--            <artifactId>filters</artifactId>-->
+        <!--            <version>2.0.235</version>-->
+        <!--        </dependency>-->
 
         <!-- native interop (for e.g. win) -->
         <dependency>
@@ -297,31 +297,31 @@
 
 
         <!-- supported reading/writing image types -->
-        <dependency>
-            <groupId>com.twelvemonkeys.imageio</groupId>
-            <artifactId>imageio-jpeg</artifactId>
-            <version>${imageiodep.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.twelvemonkeys.imageio</groupId>
-            <artifactId>imageio-tiff</artifactId>
-            <version>${imageiodep.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.twelvemonkeys.imageio</groupId>
-            <artifactId>imageio-psd</artifactId>
-            <version>${imageiodep.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.twelvemonkeys.imageio</groupId>
-            <artifactId>imageio-bmp</artifactId>
-            <version>${imageiodep.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.twelvemonkeys.imageio</groupId>
-            <artifactId>imageio-batik</artifactId> <!-- svg -->
-            <version>${imageiodep.version}</version>
-        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>com.twelvemonkeys.imageio</groupId>-->
+        <!--            <artifactId>imageio-jpeg</artifactId>-->
+        <!--            <version>${imageiodep.version}</version>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>com.twelvemonkeys.imageio</groupId>-->
+        <!--            <artifactId>imageio-tiff</artifactId>-->
+        <!--            <version>${imageiodep.version}</version>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>com.twelvemonkeys.imageio</groupId>-->
+        <!--            <artifactId>imageio-psd</artifactId>-->
+        <!--            <version>${imageiodep.version}</version>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>com.twelvemonkeys.imageio</groupId>-->
+        <!--            <artifactId>imageio-bmp</artifactId>-->
+        <!--            <version>${imageiodep.version}</version>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>com.twelvemonkeys.imageio</groupId>-->
+        <!--            <artifactId>imageio-batik</artifactId> &lt;!&ndash; svg &ndash;&gt;-->
+        <!--            <version>${imageiodep.version}</version>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>jmagick</groupId>
             <artifactId>jmagick</artifactId>
