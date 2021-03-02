@@ -112,7 +112,7 @@ By default, it will convert to png except if the source compression is jpeg.
 Can be "all", "android", "ios", "win" or "web". 
 Sets the formats of the converted images.
 E.g., set "android" if you only want to convert to android format. 
-Default is [IOS, ANDROID].
+Default is "android".
 
 ### POST_PROCESSOR_MOZ_JPEG
 Whether to post-process all jpegs with mozJpegs lossless compressor.
