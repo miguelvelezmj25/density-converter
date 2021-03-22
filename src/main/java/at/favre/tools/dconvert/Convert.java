@@ -31,64 +31,64 @@ public final class Convert {
   private Convert() {}
 
   public static void main(String[] rawArgs) {
-    boolean androidIncludeLdpiTvdpi = false;
-    boolean androidMipmapInsteadOfDrawable = false;
-    boolean antiAliasing = false;
-    boolean clean = edu.cmu.cs.mvelezce.optionhotspot.sources.Sources.getClean(true);
-    float compressionQuality = 0.9f;
-    EScalingAlgorithm downScalingAlgorithm = EScalingAlgorithm.MITCHELL;
-    boolean dryRun = false;
-    boolean haltOnError = false;
-    boolean iosCreateImagesetFolders = false;
-    boolean keepOriginalPostProcessedFiles = true;
-    String outCompression = "jpg";
-    String selectedPlatform = "android";
-    boolean postProcessorMozJpeg = false;
-    boolean postProcessorPngCrush = false;
-    boolean postProcessorWebp = false;
-    String roundingMode = "floor";
-    float scale = edu.cmu.cs.mvelezce.optionhotspot.sources.Sources.getScale(1);
-    boolean scaleIsHeightDp = false;
-    boolean skipExisting = true;
-    boolean skipUpscaling = false;
-    EScalingAlgorithm upScalingAlgorithm = EScalingAlgorithm.MITCHELL;
-    boolean verbose = true;
+    boolean ANDROID_INCLUDE_LDPI_TVDPI = false;
+    boolean ANDROID_MIPMAP_INSTEAD_OF_DRAWABLE = false;
+    boolean ANTI_ALIASING = false;
+    boolean CLEAN = true;
+    float COMPRESSION_QUALITY = 0.9f;
+    EScalingAlgorithm DOWNSCALING_ALGO = EScalingAlgorithm.MITCHELL;
+    boolean DRY_RUN = false;
+    boolean HALT_ON_ERROR = false;
+    boolean IOS_CREATE_IMAGESET_FOLDERS = false;
+    boolean KEEP_ORIGINAL_POST_PROCESSED_FILES = true;
+    String OUT_COMPRESSION = "jpg";
+    String PLATFORM = "android";
+    boolean POST_PROCESSOR_MOZ_JPEG = true;
+    boolean POST_PROCESSOR_PNG_CRUSH = false;
+    boolean POST_PROCESSOR_WEBP = false;
+    String ROUNDING_MODE = "floor";
+    float SCALE = 1;
+    boolean SCALE_IS_HEIGHT_DP = false;
+    boolean SKIP_EXISTING = true;
+    boolean SKIP_UPSCALING = false;
+    EScalingAlgorithm UPSCALING_ALGO = EScalingAlgorithm.MITCHELL;
+    boolean VERBOSE = true;
 
     File src = new File("./pictures/person.jpg");
     File dst = new File("./output");
-    Set<EPlatform> platform = getPlatform(selectedPlatform);
-    EOutputCompressionMode outputCompressionMode = getOutCompression(outCompression);
-    EScaleMode scaleMode = scaleMode(false, scaleIsHeightDp);
-    RoundingHandler.Strategy roundingHandler = getRoundingHandler(roundingMode);
+    Set<EPlatform> platform = getPlatform(PLATFORM);
+    EOutputCompressionMode outputCompressionMode = getOutCompression(OUT_COMPRESSION);
+    EScaleMode scaleMode = scaleMode(false, SCALE_IS_HEIGHT_DP);
+    RoundingHandler.Strategy roundingHandler = getRoundingHandler(ROUNDING_MODE);
 
     final Arguments args =
         new Arguments(
             src,
             dst,
-            scale,
+            SCALE,
             platform,
             outputCompressionMode,
             scaleMode,
-            downScalingAlgorithm,
-            upScalingAlgorithm,
-            compressionQuality,
+            DOWNSCALING_ALGO,
+            UPSCALING_ALGO,
+            COMPRESSION_QUALITY,
             1,
-            skipExisting,
-            skipUpscaling,
-            verbose,
-            androidIncludeLdpiTvdpi,
-            haltOnError,
-            androidMipmapInsteadOfDrawable,
-            iosCreateImagesetFolders,
-            postProcessorPngCrush,
-            postProcessorMozJpeg,
-            postProcessorWebp,
-            antiAliasing,
-            dryRun,
-            keepOriginalPostProcessedFiles,
+            SKIP_EXISTING,
+            SKIP_UPSCALING,
+            VERBOSE,
+            ANDROID_INCLUDE_LDPI_TVDPI,
+            HALT_ON_ERROR,
+            ANDROID_MIPMAP_INSTEAD_OF_DRAWABLE,
+            IOS_CREATE_IMAGESET_FOLDERS,
+            POST_PROCESSOR_PNG_CRUSH,
+            POST_PROCESSOR_MOZ_JPEG,
+            POST_PROCESSOR_WEBP,
+            ANTI_ALIASING,
+            DRY_RUN,
+            KEEP_ORIGINAL_POST_PROCESSED_FILES,
             roundingHandler,
             false,
-            clean);
+            CLEAN);
 
     //        if (rawArgs.length < 1) {
     //            new GUI().launchApp(rawArgs);
