@@ -44,7 +44,7 @@ public abstract class APlatformConverter<T extends DensityDescriptor>
       ImageType imageType = Arguments.getImageType(srcImage);
       boolean isNinePatch =
           AndroidConverter.isNinePatch(srcImage) && getClass() == AndroidConverter.class;
-      boolean outputLargerThanDefault = args.scale < Arguments.DEFAULT_SCALE;
+      boolean outputLargerDimension = args.scale < Arguments.DEFAULT_SCALE;
 
       StringBuilder log = new StringBuilder();
       log.append(getConverterName())
@@ -102,12 +102,12 @@ public abstract class APlatformConverter<T extends DensityDescriptor>
                 args, imageData, isNinePatch, log, allResultingFiles, entry.getValue(), imageFile);
           }
         } else {
-          //          throw new IllegalStateException("could not create " + dstFolder);
+                    throw new IllegalStateException("could not create " + dstFolder);
         }
       }
 
-      if (!args.dryRun && outputLargerThanDefault) {
-        outputLargerThanDef(args, imageData, targetImageFileName, isNinePatch, log, mainSubFolder);
+      if (!args.dryRun && outputLargerDimension) {
+        outputLargerDimension(args, imageData, targetImageFileName, isNinePatch, log, mainSubFolder);
       }
 
       onPostExecute(args);
@@ -121,7 +121,7 @@ public abstract class APlatformConverter<T extends DensityDescriptor>
     }
   }
 
-  private void outputLargerThanDef(
+  private void outputLargerDimension(
       Arguments args,
       LoadedImage imageData,
       String targetImageFileName,
