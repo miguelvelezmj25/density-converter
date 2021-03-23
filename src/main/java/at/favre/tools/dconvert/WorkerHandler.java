@@ -74,7 +74,7 @@ public class WorkerHandler<T> {
         } else if (processor instanceof IPlatformConverter) {
           result = ((IPlatformConverter) processor).convert(fileToProcess, arguments);
         }
-//        internalCallback.onJobFinished(result);
+        internalCallback.onJobFinished(result);
       }
     }
 

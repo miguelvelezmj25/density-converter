@@ -97,8 +97,8 @@
                 <configuration>
                     <!--                    <compilerId>javac-with-errorprone</compilerId>-->
                     <!--                    <forceJavacCompilerUse>true</forceJavacCompilerUse>-->
-                    <source>6</source>
-                    <target>6</target>
+                    <source>7</source>
+                    <target>7</target>
                 </configuration>
                 <!--                <dependencies>-->
                 <!--                    <dependency>-->

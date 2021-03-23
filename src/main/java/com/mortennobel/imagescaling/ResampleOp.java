@@ -137,20 +137,20 @@ public class ResampleOp extends AdvancedResizeOp {
 
     final BufferedImage scrImgCopy = srcImg;
     final byte[][] workPixelsCopy = workPixels;
-//    Thread[] threads = new Thread[numberOfThreads - 1];
+    Thread[] threads = new Thread[numberOfThreads - 1];
     for (int i = 1; i < numberOfThreads; i++) {
       final int finalI = i;
-//      threads[i - 1] =
-//          new Thread(
-//              new Runnable() {
-//                public void run() {
+      threads[i - 1] =
+          new Thread(
+              new Runnable() {
+                public void run() {
                   horizontallyFromSrcToWork(scrImgCopy, workPixelsCopy, finalI, numberOfThreads);
-//                }
-//              });
-//      threads[i - 1].start();
+                }
+              });
+      threads[i - 1].start();
     }
     horizontallyFromSrcToWork(scrImgCopy, workPixelsCopy, 0, numberOfThreads);
-//    waitForAllThreads(threads);
+    waitForAllThreads(threads);
 
     byte[] outPixels = new byte[dstWidth * dstHeight * nrChannels];
     // --------------------------------------------------
@@ -159,17 +159,17 @@ public class ResampleOp extends AdvancedResizeOp {
     final byte[] outPixelsCopy = outPixels;
     for (int i = 1; i < numberOfThreads; i++) {
       final int finalI = i;
-//      threads[i - 1] =
-//          new Thread(
-//              new Runnable() {
-//                public void run() {
+      threads[i - 1] =
+          new Thread(
+              new Runnable() {
+                public void run() {
                   verticalFromWorkToDst(workPixelsCopy, outPixelsCopy, finalI, numberOfThreads);
-//                }
-//              });
-//      threads[i - 1].start();
+                }
+              });
+      threads[i - 1].start();
     }
     verticalFromWorkToDst(workPixelsCopy, outPixelsCopy, 0, numberOfThreads);
-//    waitForAllThreads(threads);
+    waitForAllThreads(threads);
 
     //noinspection UnusedAssignment
     workPixels = null; // free memory
