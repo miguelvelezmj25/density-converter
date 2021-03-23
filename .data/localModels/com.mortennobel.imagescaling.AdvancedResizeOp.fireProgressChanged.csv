@@ -1,0 +1,16 @@
+"SCALE(3-1),SKIP_UPSCALING(false-true)",-,2.31
+SCALE(3-1),+,1.77
+"DRY_RUN(false-true),SCALE(3-1)",-,1.77
+"PLATFORM(android-ios),SCALE(3-1)",-,1.34
+"ANDROID_MIPMAP_INSTEAD_OF_DRAWABLE(false-true),SCALE(3-1)",-,1.01
+"ANDROID_INCLUDE_LDPI_TVDPI(false-true),SCALE(3-1)",-,0.93
+DRY_RUN(false-true),-,0.83
+PLATFORM(android-ios),-,0.61
+"DRY_RUN(false-true),PLATFORM(android-ios)",+,0.61
+ANDROID_INCLUDE_LDPI_TVDPI(false-true),+,0.43
+"ANDROID_INCLUDE_LDPI_TVDPI(false-true),PLATFORM(android-ios)",-,0.43
+"ANDROID_INCLUDE_LDPI_TVDPI(false-true),DRY_RUN(false-true)",-,0.43
+SKIP_UPSCALING(false-true),-,0.30
+"PLATFORM(android-ios),SKIP_UPSCALING(false-true)",+,0.30
+"DRY_RUN(false-true),SKIP_UPSCALING(false-true)",+,0.30
+"ANDROID_MIPMAP_INSTEAD_OF_DRAWABLE(false-true),SKIP_UPSCALING(false-true)",-,0.12

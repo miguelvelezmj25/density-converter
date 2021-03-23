@@ -1,0 +1,13 @@
+at.favre.tools.dconvert.converters.scaling.ImageHandler.compressJpeg,134
+at.favre.tools.dconvert.converters.scaling.ImageHandler.scale,197
+com.mortennobel.imagescaling.AdvancedResizeOp.fireProgressChanged,38
+com.mortennobel.imagescaling.ImageUtils.getPixelsBGR,117
+com.mortennobel.imagescaling.ImageUtils.setBGRPixels,166
+com.mortennobel.imagescaling.ResampleOp.createSubSampling,221
+com.mortennobel.imagescaling.ResampleOp.doFilter,102
+com.mortennobel.imagescaling.ResampleOp.doFilter,114
+com.mortennobel.imagescaling.ResampleOp.doFilter,177
+com.mortennobel.imagescaling.ResampleOp.horizontallyFromSrcToWork,407
+com.mortennobel.imagescaling.ResampleOp.horizontallyFromSrcToWork,410
+com.mortennobel.imagescaling.ResampleOp.verticalFromWorkToDst,321
+com.mortennobel.imagescaling.ResampleOp.verticalFromWorkToDst,323
