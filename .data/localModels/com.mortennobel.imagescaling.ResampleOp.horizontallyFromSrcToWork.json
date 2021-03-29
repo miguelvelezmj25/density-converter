@@ -1,0 +1,592 @@
+{
+  "models": [
+    {
+      "terms": [
+        {
+          "options": [],
+          "time": 7.38
+        },
+        {
+          "options": [
+            {
+              "from": "false",
+              "to": "true",
+              "option": "DRY_RUN"
+            },
+            {
+              "from": "android",
+              "to": "ios",
+              "option": "PLATFORM"
+            }
+          ],
+          "time": 4.01
+        },
+        {
+          "options": [
+            {
+              "from": "false",
+              "to": "true",
+              "option": "ANDROID_INCLUDE_LDPI_TVDPI"
+            },
+            {
+              "from": "3",
+              "to": "1",
+              "option": "SCALE"
+            }
+          ],
+          "time": 1.9299999999999997
+        },
+        {
+          "options": [
+            {
+              "from": "false",
+              "to": "true",
+              "option": "SKIP_UPSCALING"
+            },
+            {
+              "from": "false",
+              "to": "true",
+              "option": "ANDROID_INCLUDE_LDPI_TVDPI"
+            }
+          ],
+          "time": -8.881784197001252E-16
+        },
+        {
+          "options": [
+            {
+              "from": "android",
+              "to": "ios",
+              "option": "PLATFORM"
+            },
+            {
+              "from": "false",
+              "to": "true",
+              "option": "SKIP_UPSCALING"
+            }
+          ],
+          "time": 2.6399999999999997
+        },
+        {
+          "options": [
+            {
+              "from": "false",
+              "to": "true",
+              "option": "ANDROID_MIPMAP_INSTEAD_OF_DRAWABLE"
+            }
+          ],
+          "time": 0.0
+        },
+        {
+          "options": [
+            {
+              "from": "android",
+              "to": "ios",
+              "option": "PLATFORM"
+            },
+            {
+              "from": "3",
+              "to": "1",
+              "option": "SCALE"
+            }
+          ],
+          "time": -4.87
+        },
+        {
+          "options": [
+            {
+              "from": "false",
+              "to": "true",
+              "option": "DRY_RUN"
+            },
+            {
+              "from": "false",
+              "to": "true",
+              "option": "ANDROID_MIPMAP_INSTEAD_OF_DRAWABLE"
+            }
+          ],
+          "time": 0.0
+        },
+        {
+          "options": [
+            {
+              "from": "false",
+              "to": "true",
+              "option": "ANDROID_INCLUDE_LDPI_TVDPI"
+            },
+            {
+              "from": "false",
+              "to": "true",
+              "option": "ANDROID_MIPMAP_INSTEAD_OF_DRAWABLE"
+            }
+          ],
+          "time": 0.0
+        },
+        {
+          "options": [
+            {
+              "from": "false",
+              "to": "true",
+              "option": "DRY_RUN"
+            }
+          ],
+          "time": -7.38
+        },
+        {
+          "options": [
+            {
+              "from": "android",
+              "to": "ios",
+              "option": "PLATFORM"
+            }
+          ],
+          "time": -4.01
+        },
+        {
+          "options": [
+            {
+              "from": "false",
+              "to": "true",
+              "option": "ANDROID_MIPMAP_INSTEAD_OF_DRAWABLE"
+            },
+            {
+              "from": "3",
+              "to": "1",
+              "option": "SCALE"
+            }
+          ],
+          "time": 0.75
+        },
+        {
+          "options": [
+            {
+              "from": "false",
+              "to": "true",
+              "option": "SKIP_UPSCALING"
+            },
+            {
+              "from": "false",
+              "to": "true",
+              "option": "ANDROID_MIPMAP_INSTEAD_OF_DRAWABLE"
+            }
+          ],
+          "time": 0.0
+        },
+        {
+          "options": [
+            {
+              "from": "false",
+              "to": "true",
+              "option": "SKIP_UPSCALING"
+            },
+            {
+              "from": "3",
+              "to": "1",
+              "option": "SCALE"
+            }
+          ],
+          "time": -15.78
+        },
+        {
+          "options": [
+            {
+              "from": "android",
+              "to": "ios",
+              "option": "PLATFORM"
+            },
+            {
+              "from": "false",
+              "to": "true",
+              "option": "ANDROID_INCLUDE_LDPI_TVDPI"
+            }
+          ],
+          "time": -2.7700000000000005
+        },
+        {
+          "options": [
+            {
+              "from": "false",
+              "to": "true",
+              "option": "SKIP_UPSCALING"
+            }
+          ],
+          "time": -2.6399999999999997
+        },
+        {
+          "options": [
+            {
+              "from": "false",
+              "to": "true",
+              "option": "ANDROID_INCLUDE_LDPI_TVDPI"
+            }
+          ],
+          "time": 2.7700000000000005
+        },
+        {
+          "options": [
+            {
+              "from": "false",
+              "to": "true",
+              "option": "DRY_RUN"
+            },
+            {
+              "from": "3",
+              "to": "1",
+              "option": "SCALE"
+            }
+          ],
+          "time": -11.04
+        },
+        {
+          "options": [
+            {
+              "from": "3",
+              "to": "1",
+              "option": "SCALE"
+            }
+          ],
+          "time": 11.04
+        },
+        {
+          "options": [
+            {
+              "from": "android",
+              "to": "ios",
+              "option": "PLATFORM"
+            },
+            {
+              "from": "false",
+              "to": "true",
+              "option": "ANDROID_MIPMAP_INSTEAD_OF_DRAWABLE"
+            }
+          ],
+          "time": 0.0
+        },
+        {
+          "options": [
+            {
+              "from": "false",
+              "to": "true",
+              "option": "DRY_RUN"
+            },
+            {
+              "from": "false",
+              "to": "true",
+              "option": "ANDROID_INCLUDE_LDPI_TVDPI"
+            }
+          ],
+          "time": -2.7700000000000005
+        },
+        {
+          "options": [
+            {
+              "from": "false",
+              "to": "true",
+              "option": "DRY_RUN"
+            },
+            {
+              "from": "false",
+              "to": "true",
+              "option": "SKIP_UPSCALING"
+            }
+          ],
+          "time": 2.6399999999999997
+        }
+      ],
+      "name": "default"
+    },
+    {
+      "terms": [
+        {
+          "options": [
+            {
+              "from": "1",
+              "to": "3",
+              "option": "SCALE"
+            }
+          ],
+          "time": -11.04
+        },
+        {
+          "options": [
+            {
+              "from": "android",
+              "to": "ios",
+              "option": "PLATFORM"
+            },
+            {
+              "from": "false",
+              "to": "true",
+              "option": "SKIP_UPSCALING"
+            }
+          ],
+          "time": 8.879999999999999
+        },
+        {
+          "options": [
+            {
+              "from": "false",
+              "to": "true",
+              "option": "DRY_RUN"
+            },
+            {
+              "from": "false",
+              "to": "true",
+              "option": "ANDROID_MIPMAP_INSTEAD_OF_DRAWABLE"
+            }
+          ],
+          "time": 0.0
+        },
+        {
+          "options": [
+            {
+              "from": "android",
+              "to": "ios",
+              "option": "PLATFORM"
+            },
+            {
+              "from": "false",
+              "to": "true",
+              "option": "ANDROID_MIPMAP_INSTEAD_OF_DRAWABLE"
+            }
+          ],
+          "time": 0.0
+        },
+        {
+          "options": [
+            {
+              "from": "false",
+              "to": "true",
+              "option": "DRY_RUN"
+            },
+            {
+              "from": "false",
+              "to": "true",
+              "option": "SKIP_UPSCALING"
+            }
+          ],
+          "time": 18.419999999999998
+        },
+        {
+          "options": [
+            {
+              "from": "false",
+              "to": "true",
+              "option": "ANDROID_INCLUDE_LDPI_TVDPI"
+            }
+          ],
+          "time": 4.699999999999999
+        },
+        {
+          "options": [
+            {
+              "from": "false",
+              "to": "true",
+              "option": "DRY_RUN"
+            },
+            {
+              "from": "android",
+              "to": "ios",
+              "option": "PLATFORM"
+            }
+          ],
+          "time": 8.879999999999999
+        },
+        {
+          "options": [
+            {
+              "from": "false",
+              "to": "true",
+              "option": "SKIP_UPSCALING"
+            },
+            {
+              "from": "false",
+              "to": "true",
+              "option": "ANDROID_MIPMAP_INSTEAD_OF_DRAWABLE"
+            }
+          ],
+          "time": -0.010000000000001563
+        },
+        {
+          "options": [
+            {
+              "from": "android",
+              "to": "ios",
+              "option": "PLATFORM"
+            }
+          ],
+          "time": -8.879999999999999
+        },
+        {
+          "options": [
+            {
+              "from": "false",
+              "to": "true",
+              "option": "ANDROID_MIPMAP_INSTEAD_OF_DRAWABLE"
+            },
+            {
+              "from": "1",
+              "to": "3",
+              "option": "SCALE"
+            }
+          ],
+          "time": -0.75
+        },
+        {
+          "options": [
+            {
+              "from": "false",
+              "to": "true",
+              "option": "ANDROID_INCLUDE_LDPI_TVDPI"
+            },
+            {
+              "from": "false",
+              "to": "true",
+              "option": "ANDROID_MIPMAP_INSTEAD_OF_DRAWABLE"
+            }
+          ],
+          "time": 0.0
+        },
+        {
+          "options": [
+            {
+              "from": "false",
+              "to": "true",
+              "option": "ANDROID_MIPMAP_INSTEAD_OF_DRAWABLE"
+            }
+          ],
+          "time": 0.75
+        },
+        {
+          "options": [
+            {
+              "from": "android",
+              "to": "ios",
+              "option": "PLATFORM"
+            },
+            {
+              "from": "1",
+              "to": "3",
+              "option": "SCALE"
+            }
+          ],
+          "time": 4.870000000000001
+        },
+        {
+          "options": [
+            {
+              "from": "false",
+              "to": "true",
+              "option": "DRY_RUN"
+            },
+            {
+              "from": "1",
+              "to": "3",
+              "option": "SCALE"
+            }
+          ],
+          "time": 11.04
+        },
+        {
+          "options": [
+            {
+              "from": "false",
+              "to": "true",
+              "option": "SKIP_UPSCALING"
+            }
+          ],
+          "time": -18.419999999999998
+        },
+        {
+          "options": [
+            {
+              "from": "android",
+              "to": "ios",
+              "option": "PLATFORM"
+            },
+            {
+              "from": "false",
+              "to": "true",
+              "option": "ANDROID_INCLUDE_LDPI_TVDPI"
+            }
+          ],
+          "time": -2.7699999999999996
+        },
+        {
+          "options": [
+            {
+              "from": "false",
+              "to": "true",
+              "option": "DRY_RUN"
+            },
+            {
+              "from": "false",
+              "to": "true",
+              "option": "ANDROID_INCLUDE_LDPI_TVDPI"
+            }
+          ],
+          "time": -2.7699999999999996
+        },
+        {
+          "options": [
+            {
+              "from": "false",
+              "to": "true",
+              "option": "SKIP_UPSCALING"
+            },
+            {
+              "from": "1",
+              "to": "3",
+              "option": "SCALE"
+            }
+          ],
+          "time": 15.78
+        },
+        {
+          "options": [
+            {
+              "from": "false",
+              "to": "true",
+              "option": "DRY_RUN"
+            }
+          ],
+          "time": -18.419999999999998
+        },
+        {
+          "options": [
+            {
+              "from": "false",
+              "to": "true",
+              "option": "ANDROID_INCLUDE_LDPI_TVDPI"
+            },
+            {
+              "from": "1",
+              "to": "3",
+              "option": "SCALE"
+            }
+          ],
+          "time": -1.929999999999998
+        },
+        {
+          "options": [
+            {
+              "from": "false",
+              "to": "true",
+              "option": "SKIP_UPSCALING"
+            },
+            {
+              "from": "false",
+              "to": "true",
+              "option": "ANDROID_INCLUDE_LDPI_TVDPI"
+            }
+          ],
+          "time": -0.010000000000001563
+        },
+        {
+          "options": [],
+          "time": 18.419999999999998
+        }
+      ],
+      "name": "user"
+    }
+  ]
+}

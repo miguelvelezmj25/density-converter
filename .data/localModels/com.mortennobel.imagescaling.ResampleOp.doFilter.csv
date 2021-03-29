@@ -1,6 +1,0 @@
-"SCALE(3-1),SKIP_UPSCALING(false-true)",-,0.26
-SCALE(3-1),+,0.20
-"PLATFORM(android-ios),SCALE(3-1)",-,0.20
-"DRY_RUN(false-true),SCALE(3-1)",-,0.20
-"ANDROID_INCLUDE_LDPI_TVDPI(false-true),SCALE(3-1)",-,0.12
-"ANDROID_MIPMAP_INSTEAD_OF_DRAWABLE(false-true),SCALE(3-1)",-,0.12
