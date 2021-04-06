@@ -146,35 +146,35 @@ public class Arguments implements Serializable {
     }
   }
 
-  public Arguments() {
-    this(
-        null,
-        null,
-        DEFAULT_SCALE,
-        DEFAULT_PLATFORM,
-        DEFAULT_OUT_COMPRESSION,
-        DEFAULT_SCALE_TYPE,
-        DEFAULT_DOWNSCALING_QUALITY,
-        DEFAULT_UPSCALING_QUALITY,
-        DEFAULT_COMPRESSION_QUALITY,
-        DEFAULT_THREAD_COUNT,
-        false,
-        false,
-        true,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        DEFAULT_ROUNDING_STRATEGY,
-        false,
-        false);
-  }
+//  public Arguments() {
+//    this(
+//        null,
+//        null,
+//        DEFAULT_SCALE,
+//        DEFAULT_PLATFORM,
+//        DEFAULT_OUT_COMPRESSION,
+//        DEFAULT_SCALE_TYPE,
+//        DEFAULT_DOWNSCALING_QUALITY,
+//        DEFAULT_UPSCALING_QUALITY,
+//        DEFAULT_COMPRESSION_QUALITY,
+//        DEFAULT_THREAD_COUNT,
+//        false,
+//        false,
+//        true,
+//        false,
+//        false,
+//        false,
+//        false,
+//        false,
+//        false,
+//        false,
+//        false,
+//        false,
+//        false,
+//        DEFAULT_ROUNDING_STRATEGY,
+//        false,
+//        false);
+//  }
 
   public static Set<String> getSupportedFileTypes() {
     Set<String> set = new HashSet<String>();
