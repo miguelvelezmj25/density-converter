@@ -5,12 +5,6 @@ Program to convert images to specific formats, dimensions, and sizes.
 
 **Output:** Converted image files in specific formats and sizes.
 
-## Run
-
-* Run the main method in `at.favre.tools.dconvert.Convert` from your IDE.
-    * Make sure that you can debug the program from your IDE.
-    * You can change the configuration options in the main method.
-
 ## Performance bug report
 I am using your program to convert an image (found in ./pictures), but it is taking quite some time to execute (about 150 seconds). 
 This is the configuration that I used:
@@ -44,12 +38,6 @@ Could you please take a look at why the program is taking so long to convert ima
 
 ## Task
 **Address the bug report**. Specifically, **answer the question** in the bug report **"why is the system taking so long to execute?"**?.
-
-## Assumptions
-
-* The input image is valid.
-* You have successfully reproduced the bug report and confirmed the performance behavior.
-That is, executing the program multiple times with different images, but with the same configuration, takes a long time.
 
 ## Docs
 

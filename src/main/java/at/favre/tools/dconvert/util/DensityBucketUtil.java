@@ -46,9 +46,9 @@ public final class DensityBucketUtil {
 
     switch (args.scaleMode) {
       case DP_WIDTH:
-        //        return getDensityBucketsWithDpScale(densities, srcDimension, args, scale);
+        return getDensityBucketsWithDpScale(densities, srcDimension, args, scale);
       case DP_HEIGHT:
-        //        return getDensityBucketsHeightDpScale(densities, srcDimension, args, scale);
+        return getDensityBucketsHeightDpScale(densities, srcDimension, args, scale);
       default:
       case FACTOR:
         return getDensityBucketsWithFactorScale(densities, srcDimension, args, scale);
