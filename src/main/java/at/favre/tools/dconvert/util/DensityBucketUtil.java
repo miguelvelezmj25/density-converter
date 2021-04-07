@@ -17,9 +17,11 @@
 package at.favre.tools.dconvert.util;
 
 import at.favre.tools.dconvert.arg.Arguments;
+import at.favre.tools.dconvert.arg.EScaleMode;
 import at.favre.tools.dconvert.converters.descriptors.DensityDescriptor;
 
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 import java.util.TreeMap;
@@ -31,12 +33,12 @@ public final class DensityBucketUtil {
   private DensityBucketUtil() {}
 
   public static <T extends DensityDescriptor> Map<T, Dimension> getDensityBuckets(
-      java.util.List<T> densities,
-      Dimension srcDimension,
-      Arguments args,
-      float fraction,
-      boolean isNinePatch)
-      throws IOException {
+          java.util.List<T> densities,
+          Dimension srcDimension,
+          Arguments args,
+          float fraction,
+          boolean isNinePatch)
+          throws IOException {
 
     if (isNinePatch) {
       srcDimension.setSize(srcDimension.getWidth() - 2, srcDimension.getHeight() - 2);
@@ -54,8 +56,8 @@ public final class DensityBucketUtil {
   }
 
   private static <T extends DensityDescriptor> Map<T, Dimension> getDensityBucketsWithDpScale(
-      java.util.List<T> densities, Dimension srcDimension, Arguments args, float fraction)
-      throws IOException {
+          java.util.List<T> densities, Dimension srcDimension, Arguments args, float fraction)
+          throws IOException {
     float scaleFactor = fraction / (float) srcDimension.width;
 
     int baseWidth = (int) args.round(fraction);
@@ -65,10 +67,10 @@ public final class DensityBucketUtil {
     for (T density : densities) {
       if (args.round(baseWidth * density.scale) <= srcDimension.width || !args.skipUpscaling) {
         bucketMap.put(
-            density,
-            new Dimension(
-                (int) args.round(baseWidth * density.scale),
-                (int) args.round(baseHeight * density.scale)));
+                density,
+                new Dimension(
+                        (int) args.round(baseWidth * density.scale),
+                        (int) args.round(baseHeight * density.scale)));
       }
     }
     //    densities.stream()
@@ -88,8 +90,8 @@ public final class DensityBucketUtil {
   }
 
   private static <T extends DensityDescriptor> Map<T, Dimension> getDensityBucketsHeightDpScale(
-      java.util.List<T> densities, Dimension srcDimension, Arguments args, float fraction)
-      throws IOException {
+          java.util.List<T> densities, Dimension srcDimension, Arguments args, float fraction)
+          throws IOException {
     float scaleFactor = fraction / (float) srcDimension.height;
 
     int baseWidth = (int) args.round(scaleFactor * (float) srcDimension.width);
@@ -99,10 +101,10 @@ public final class DensityBucketUtil {
     for (T density : densities) {
       if (args.round(baseHeight * density.scale) <= srcDimension.height || !args.skipUpscaling) {
         bucketMap.put(
-            density,
-            new Dimension(
-                (int) args.round(baseWidth * density.scale),
-                (int) args.round(baseHeight * density.scale)));
+                density,
+                new Dimension(
+                        (int) args.round(baseWidth * density.scale),
+                        (int) args.round(baseHeight * density.scale)));
       }
     }
     //    densities.stream()
@@ -122,7 +124,7 @@ public final class DensityBucketUtil {
   }
 
   private static <T extends DensityDescriptor> Map<T, Dimension> getDensityBucketsWithFractionScale(
-      java.util.List<T> densities, Dimension srcDimension, Arguments args, float fraction) {
+          java.util.List<T> densities, Dimension srcDimension, Arguments args, float fraction) {
     double baseWidth = (double) srcDimension.width / fraction;
     double baseHeight = (double) srcDimension.height / fraction;
 
@@ -130,10 +132,10 @@ public final class DensityBucketUtil {
     for (T density : densities) {
       if (fraction >= density.scale || !args.skipUpscaling) {
         bucketMap.put(
-            density,
-            new Dimension(
-                (int) args.round(baseWidth * density.scale),
-                (int) args.round(baseHeight * density.scale)));
+                density,
+                new Dimension(
+                        (int) args.round(baseWidth * density.scale),
+                        (int) args.round(baseHeight * density.scale)));
       }
     }
     //    densities.stream()
@@ -152,25 +154,25 @@ public final class DensityBucketUtil {
 //  private static Dimension getHqDimension(File image, Arguments args) throws IOException {
 //    Dimension srcDimension = ImageUtil.getImageDimension(image);
 //    Dimension hqDimension;
-//    if (args.scaleMode == EScaleMode.FACTOR && args.quality < SVG_UPSCALE_FACTOR) {
+//    if (args.scaleMode == EScaleMode.FACTOR && args.fraction < SVG_UPSCALE_FACTOR) {
 //      hqDimension =
-//          new Dimension(
-//              (int) args.round(SVG_UPSCALE_FACTOR / args.quality * (float) srcDimension.width),
-//              (int) args.round(SVG_UPSCALE_FACTOR / args.quality * (float) srcDimension.width));
+//              new Dimension(
+//                      (int) args.round(SVG_UPSCALE_FACTOR / args.fraction * (float) srcDimension.width),
+//                      (int) args.round(SVG_UPSCALE_FACTOR / args.fraction * (float) srcDimension.width));
 //    } else if (args.scaleMode == EScaleMode.DP_WIDTH
-//        && (args.quality * SVG_UPSCALE_FACTOR < srcDimension.width)) {
-//      float scaleFactor = args.quality / (float) srcDimension.width * SVG_UPSCALE_FACTOR;
+//            && (args.fraction * SVG_UPSCALE_FACTOR < srcDimension.width)) {
+//      float scaleFactor = args.fraction / (float) srcDimension.width * SVG_UPSCALE_FACTOR;
 //      hqDimension =
-//          new Dimension(
-//              (int) args.round(scaleFactor * (float) srcDimension.width),
-//              (int) args.round(scaleFactor * (float) srcDimension.height));
+//              new Dimension(
+//                      (int) args.round(scaleFactor * (float) srcDimension.width),
+//                      (int) args.round(scaleFactor * (float) srcDimension.height));
 //    } else if (args.scaleMode == EScaleMode.DP_HEIGHT
-//        && (args.quality * SVG_UPSCALE_FACTOR < srcDimension.height)) {
-//      float scaleFactor = args.quality / (float) srcDimension.height * SVG_UPSCALE_FACTOR;
+//            && (args.fraction * SVG_UPSCALE_FACTOR < srcDimension.height)) {
+//      float scaleFactor = args.fraction / (float) srcDimension.height * SVG_UPSCALE_FACTOR;
 //      hqDimension =
-//          new Dimension(
-//              (int) args.round(scaleFactor * (float) srcDimension.width),
-//              (int) args.round(scaleFactor * (float) srcDimension.height));
+//              new Dimension(
+//                      (int) args.round(scaleFactor * (float) srcDimension.width),
+//                      (int) args.round(scaleFactor * (float) srcDimension.height));
 //    } else {
 //      hqDimension = srcDimension;
 //    }
