@@ -38,7 +38,6 @@ public final class Convert {
     float COMPRESSION_QUALITY = 0.9f;
     EScalingAlgorithm DOWNSCALING_ALGO = EScalingAlgorithm.MITCHELL;
     boolean DRY_RUN = false;
-    float FRACTION = 0.2f;
     boolean HALT_ON_ERROR = false;
     boolean IOS_CREATE_IMAGESET_FOLDERS = false;
     boolean KEEP_ORIGINAL_POST_PROCESSED_FILES = true;
@@ -48,6 +47,7 @@ public final class Convert {
     boolean POST_PROCESSOR_PNG_CRUSH = false;
     boolean POST_PROCESSOR_WEBP = false;
     String ROUNDING_MODE = "floor";
+    float FRACTION = 0.2f;
     boolean SCALE_IS_HEIGHT_DP = false;
     boolean SKIP_EXISTING = true;
     boolean SKIP_UPSCALING = false;
