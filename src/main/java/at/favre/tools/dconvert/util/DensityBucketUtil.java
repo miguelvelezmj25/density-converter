@@ -17,11 +17,9 @@
 package at.favre.tools.dconvert.util;
 
 import at.favre.tools.dconvert.arg.Arguments;
-import at.favre.tools.dconvert.arg.EScaleMode;
 import at.favre.tools.dconvert.converters.descriptors.DensityDescriptor;
 
 import java.awt.*;
-import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 import java.util.TreeMap;
@@ -36,7 +34,7 @@ public final class DensityBucketUtil {
       java.util.List<T> densities,
       Dimension srcDimension,
       Arguments args,
-      float scale,
+      float fraction,
       boolean isNinePatch)
       throws IOException {
 
@@ -46,21 +44,21 @@ public final class DensityBucketUtil {
 
     switch (args.scaleMode) {
       case DP_WIDTH:
-        return getDensityBucketsWithDpScale(densities, srcDimension, args, scale);
+        return getDensityBucketsWithDpScale(densities, srcDimension, args, fraction);
       case DP_HEIGHT:
-        return getDensityBucketsHeightDpScale(densities, srcDimension, args, scale);
+        return getDensityBucketsHeightDpScale(densities, srcDimension, args, fraction);
       default:
       case FACTOR:
-        return getDensityBucketsWithFactorScale(densities, srcDimension, args, scale);
+        return getDensityBucketsWithFractionScale(densities, srcDimension, args, fraction);
     }
   }
 
   private static <T extends DensityDescriptor> Map<T, Dimension> getDensityBucketsWithDpScale(
-      java.util.List<T> densities, Dimension srcDimension, Arguments args, float scale)
+      java.util.List<T> densities, Dimension srcDimension, Arguments args, float fraction)
       throws IOException {
-    float scaleFactor = scale / (float) srcDimension.width;
+    float scaleFactor = fraction / (float) srcDimension.width;
 
-    int baseWidth = (int) args.round(scale);
+    int baseWidth = (int) args.round(fraction);
     int baseHeight = (int) args.round(scaleFactor * (float) srcDimension.height);
 
     Map<T, Dimension> bucketMap = new TreeMap<T, Dimension>();
@@ -76,26 +74,26 @@ public final class DensityBucketUtil {
     //    densities.stream()
     //        .filter(
     //            density ->
-    //                (int) args.round(baseWidth * density.scale) <= srcDimension.width
+    //                (int) args.round(baseWidth * density.fraction) <= srcDimension.width
     //                    || !args.skipUpscaling)
     //        .forEach(
     //            density -> {
     //              bucketMap.put(
     //                  density,
     //                  new Dimension(
-    //                      (int) args.round(baseWidth * density.scale),
-    //                      (int) args.round(baseHeight * density.scale)));
+    //                      (int) args.round(baseWidth * density.fraction),
+    //                      (int) args.round(baseHeight * density.fraction)));
     //            });
     return bucketMap;
   }
 
   private static <T extends DensityDescriptor> Map<T, Dimension> getDensityBucketsHeightDpScale(
-      java.util.List<T> densities, Dimension srcDimension, Arguments args, float scale)
+      java.util.List<T> densities, Dimension srcDimension, Arguments args, float fraction)
       throws IOException {
-    float scaleFactor = scale / (float) srcDimension.height;
+    float scaleFactor = fraction / (float) srcDimension.height;
 
     int baseWidth = (int) args.round(scaleFactor * (float) srcDimension.width);
-    int baseHeight = (int) args.round(scale);
+    int baseHeight = (int) args.round(fraction);
 
     Map<T, Dimension> bucketMap = new TreeMap<T, Dimension>();
     for (T density : densities) {
@@ -110,27 +108,27 @@ public final class DensityBucketUtil {
     //    densities.stream()
     //        .filter(
     //            density ->
-    //                (int) args.round(baseHeight * density.scale) <= srcDimension.height
+    //                (int) args.round(baseHeight * density.fraction) <= srcDimension.height
     //                    || !args.skipUpscaling)
     //        .forEach(
     //            density -> {
     //              bucketMap.put(
     //                  density,
     //                  new Dimension(
-    //                      (int) args.round(baseWidth * density.scale),
-    //                      (int) args.round(baseHeight * density.scale)));
+    //                      (int) args.round(baseWidth * density.fraction),
+    //                      (int) args.round(baseHeight * density.fraction)));
     //            });
     return bucketMap;
   }
 
-  private static <T extends DensityDescriptor> Map<T, Dimension> getDensityBucketsWithFactorScale(
-      java.util.List<T> densities, Dimension srcDimension, Arguments args, float scale) {
-    double baseWidth = (double) srcDimension.width / scale;
-    double baseHeight = (double) srcDimension.height / scale;
+  private static <T extends DensityDescriptor> Map<T, Dimension> getDensityBucketsWithFractionScale(
+      java.util.List<T> densities, Dimension srcDimension, Arguments args, float fraction) {
+    double baseWidth = (double) srcDimension.width / fraction;
+    double baseHeight = (double) srcDimension.height / fraction;
 
     Map<T, Dimension> bucketMap = new TreeMap<T, Dimension>();
     for (T density : densities) {
-      if (scale >= density.scale || !args.skipUpscaling) {
+      if (fraction >= density.scale || !args.skipUpscaling) {
         bucketMap.put(
             density,
             new Dimension(
@@ -139,43 +137,43 @@ public final class DensityBucketUtil {
       }
     }
     //    densities.stream()
-    //        .filter(density -> scale >= density.scale || !args.skipUpscaling)
+    //        .filter(density -> fraction >= density.fraction || !args.skipUpscaling)
     //        .forEach(
     //            density -> {
     //              bucketMap.put(
     //                  density,
     //                  new Dimension(
-    //                      (int) args.round(baseWidth * density.scale),
-    //                      (int) args.round(baseHeight * density.scale)));
+    //                      (int) args.round(baseWidth * density.fraction),
+    //                      (int) args.round(baseHeight * density.fraction)));
     //            });
     return bucketMap;
   }
 
-  private static Dimension getHqDimension(File image, Arguments args) throws IOException {
-    Dimension srcDimension = ImageUtil.getImageDimension(image);
-    Dimension hqDimension;
-    if (args.scaleMode == EScaleMode.FACTOR && args.scale < SVG_UPSCALE_FACTOR) {
-      hqDimension =
-          new Dimension(
-              (int) args.round(SVG_UPSCALE_FACTOR / args.scale * (float) srcDimension.width),
-              (int) args.round(SVG_UPSCALE_FACTOR / args.scale * (float) srcDimension.width));
-    } else if (args.scaleMode == EScaleMode.DP_WIDTH
-        && (args.scale * SVG_UPSCALE_FACTOR < srcDimension.width)) {
-      float scaleFactor = args.scale / (float) srcDimension.width * SVG_UPSCALE_FACTOR;
-      hqDimension =
-          new Dimension(
-              (int) args.round(scaleFactor * (float) srcDimension.width),
-              (int) args.round(scaleFactor * (float) srcDimension.height));
-    } else if (args.scaleMode == EScaleMode.DP_HEIGHT
-        && (args.scale * SVG_UPSCALE_FACTOR < srcDimension.height)) {
-      float scaleFactor = args.scale / (float) srcDimension.height * SVG_UPSCALE_FACTOR;
-      hqDimension =
-          new Dimension(
-              (int) args.round(scaleFactor * (float) srcDimension.width),
-              (int) args.round(scaleFactor * (float) srcDimension.height));
-    } else {
-      hqDimension = srcDimension;
-    }
-    return hqDimension;
-  }
+//  private static Dimension getHqDimension(File image, Arguments args) throws IOException {
+//    Dimension srcDimension = ImageUtil.getImageDimension(image);
+//    Dimension hqDimension;
+//    if (args.scaleMode == EScaleMode.FACTOR && args.quality < SVG_UPSCALE_FACTOR) {
+//      hqDimension =
+//          new Dimension(
+//              (int) args.round(SVG_UPSCALE_FACTOR / args.quality * (float) srcDimension.width),
+//              (int) args.round(SVG_UPSCALE_FACTOR / args.quality * (float) srcDimension.width));
+//    } else if (args.scaleMode == EScaleMode.DP_WIDTH
+//        && (args.quality * SVG_UPSCALE_FACTOR < srcDimension.width)) {
+//      float scaleFactor = args.quality / (float) srcDimension.width * SVG_UPSCALE_FACTOR;
+//      hqDimension =
+//          new Dimension(
+//              (int) args.round(scaleFactor * (float) srcDimension.width),
+//              (int) args.round(scaleFactor * (float) srcDimension.height));
+//    } else if (args.scaleMode == EScaleMode.DP_HEIGHT
+//        && (args.quality * SVG_UPSCALE_FACTOR < srcDimension.height)) {
+//      float scaleFactor = args.quality / (float) srcDimension.height * SVG_UPSCALE_FACTOR;
+//      hqDimension =
+//          new Dimension(
+//              (int) args.round(scaleFactor * (float) srcDimension.width),
+//              (int) args.round(scaleFactor * (float) srcDimension.height));
+//    } else {
+//      hqDimension = srcDimension;
+//    }
+//    return hqDimension;
+//  }
 }

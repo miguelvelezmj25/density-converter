@@ -35,7 +35,7 @@ public abstract class AdvancedResizeOp implements BufferedImageOp {
   }
 
   protected void fireProgressChanged(float fraction) {
-    for (ProgressListener progressListener : listeners) { // Influenced by: SCALE
+    for (ProgressListener progressListener : listeners) { // Influenced by: FRACTION
       progressListener.notifyProgress(fraction);
     }
   }

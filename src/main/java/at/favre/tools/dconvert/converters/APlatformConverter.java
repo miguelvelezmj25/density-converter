@@ -44,7 +44,7 @@ public abstract class APlatformConverter<T extends DensityDescriptor>
       ImageType imageType = Arguments.getImageType(srcImage);
       boolean isNinePatch =
           AndroidConverter.isNinePatch(srcImage) && getClass() == AndroidConverter.class;
-      boolean outputLargerDimension = args.scale < Arguments.DEFAULT_SCALE;
+      boolean outputStdDimension = args.fraction < Arguments.DEFAULT_FRACTION;
 
       StringBuilder log = new StringBuilder();
       log.append(getConverterName())
@@ -55,7 +55,7 @@ public abstract class APlatformConverter<T extends DensityDescriptor>
           .append("x")
           .append(imageData.getImage().getHeight())
           .append(" (")
-          .append(args.scale)
+          .append(args.fraction)
           .append(args.scaleMode == EScaleMode.FACTOR ? "x" : "dp")
           .append(")\n");
 
@@ -64,7 +64,7 @@ public abstract class APlatformConverter<T extends DensityDescriptor>
               usedOutputDensities(args),
               new Dimension(imageData.getImage().getWidth(), imageData.getImage().getHeight()),
               args,
-              args.scale,
+              args.fraction,
               isNinePatch);
 
       File mainSubFolder = createMainSubFolder(destinationFolder, targetImageFileName, args);
@@ -106,8 +106,8 @@ public abstract class APlatformConverter<T extends DensityDescriptor>
         }
       }
 
-      if (!args.dryRun && outputLargerDimension) {
-        outputLargerDimension(args, imageData, targetImageFileName, isNinePatch, log, mainSubFolder);
+      if (!args.dryRun && outputStdDimension) {
+        stdDimension(args, imageData, targetImageFileName, isNinePatch, log, mainSubFolder);
       }
 
       onPostExecute(args);
@@ -121,7 +121,7 @@ public abstract class APlatformConverter<T extends DensityDescriptor>
     }
   }
 
-  private void outputLargerDimension(
+  private void stdDimension(
       Arguments args,
       LoadedImage imageData,
       String targetImageFileName,

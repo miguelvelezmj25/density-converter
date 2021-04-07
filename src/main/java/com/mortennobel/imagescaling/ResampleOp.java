@@ -99,7 +99,7 @@ public class ResampleOp extends AdvancedResizeOp {
     this.dstWidth = dstWidth;
     this.dstHeight = dstHeight;
 
-    if (dstWidth < 3 || dstHeight < 3) { // Influenced by: SCALE
+    if (dstWidth < 3 || dstHeight < 3) { // Influenced by: FRACTION
       throw new RuntimeException(
           "Error doing rescale. Target size was "
               + dstWidth
@@ -111,7 +111,7 @@ public class ResampleOp extends AdvancedResizeOp {
     assert multipleInvocationLock.incrementAndGet() == 1
         : "Multiple concurrent invocations detected";
 
-    if (srcImg.getType() == BufferedImage.TYPE_BYTE_BINARY // Influenced by: SCALE
+    if (srcImg.getType() == BufferedImage.TYPE_BYTE_BINARY // Influenced by: FRACTION
         || srcImg.getType() == BufferedImage.TYPE_BYTE_INDEXED
         || srcImg.getType() == BufferedImage.TYPE_CUSTOM)
       srcImg =
@@ -174,7 +174,7 @@ public class ResampleOp extends AdvancedResizeOp {
     //noinspection UnusedAssignment
     workPixels = null; // free memory
     BufferedImage out;
-    if (dest != null && dstWidth == dest.getWidth() && dstHeight == dest.getHeight()) { // Influenced by: SCALE
+    if (dest != null && dstWidth == dest.getWidth() && dstHeight == dest.getHeight()) { // Influenced by: FRACTION
       out = dest;
       int nrDestChannels = ImageUtils.nrChannels(dest);
       if (nrDestChannels != nrChannels) {
@@ -218,7 +218,7 @@ public class ResampleOp extends AdvancedResizeOp {
 
     float centerOffset = 0.5f / scale;
 
-    if (scale < 1.0f) { // Influenced by: SCALE
+    if (scale < 1.0f) { // Influenced by: FRACTION
       final float width = fwidth / scale;
       numContributors = (int) (width * 2.0f + 2); // Heinz: added 1 to be save with the ceilling
       arrWeight = new float[dstSize * numContributors];
@@ -318,9 +318,9 @@ public class ResampleOp extends AdvancedResizeOp {
       return;
     }
     boolean useChannel3 = nrChannels > 3;
-    for (int x = start; x < dstWidth; x += delta) { // Influenced by: SCALE
+    for (int x = start; x < dstWidth; x += delta) { // Influenced by: FRACTION
       final int xLocation = x * nrChannels;
-      for (int y = dstHeight - 1; y >= 0; y--) { // Influenced by: SCALE
+      for (int y = dstHeight - 1; y >= 0; y--) { // Influenced by: FRACTION
         final int yTimesNumContributors = y * verticalSubsamplingData.numContributors;
         final int max = verticalSubsamplingData.arrN[y];
         final int sampleLocation = (y * dstWidth + x) * nrChannels;
@@ -404,10 +404,10 @@ public class ResampleOp extends AdvancedResizeOp {
         new byte[srcWidth * nrChannels]; // create reusable row to minimize memory overhead
     final boolean useChannel3 = nrChannels > 3;
 
-    for (int k = start; k < srcHeight; k = k + delta) { // Influenced by: SCALE
+    for (int k = start; k < srcHeight; k = k + delta) { // Influenced by: FRACTION
       ImageUtils.getPixelsBGR(srcImg, k, srcWidth, srcPixels, tempPixels);
 
-      for (int i = dstWidth - 1; i >= 0; i--) { // Influenced by: SCALE
+      for (int i = dstWidth - 1; i >= 0; i--) { // Influenced by: FRACTION
         int sampleLocation = i * nrChannels;
         final int max = horizontalSubsamplingData.arrN[i];
 

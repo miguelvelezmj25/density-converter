@@ -26,7 +26,7 @@ import java.util.*;
 
 /** Handles all the arguments that can be set in the dconvert */
 public class Arguments implements Serializable {
-  public static final float DEFAULT_SCALE = 3f;
+  public static final float DEFAULT_FRACTION = 0.9f;
   public static final float DEFAULT_COMPRESSION_QUALITY = 0.9f;
   //    public static final int DEFAULT_THREAD_COUNT = 4;
   public static final int DEFAULT_THREAD_COUNT = 1;
@@ -48,7 +48,7 @@ public class Arguments implements Serializable {
   private static final long serialVersionUID = 7;
   public final File src;
   public final File dst;
-  public final float scale;
+  public final float fraction;
   public final Set<EPlatform> platform;
   public final EOutputCompressionMode outputCompressionMode;
   public final EScaleMode scaleMode;
@@ -77,7 +77,7 @@ public class Arguments implements Serializable {
   public Arguments(
       File src,
       File dst,
-      float scale,
+      float fraction,
       Set<EPlatform> platform,
       EOutputCompressionMode outputCompressionMode,
       EScaleMode scaleMode,
@@ -103,7 +103,7 @@ public class Arguments implements Serializable {
       boolean clearDirBeforeConvert) {
     this.dst = dst;
     this.src = src;
-    this.scale = scale;
+    this.fraction = fraction;
     this.platform = platform;
     this.outputCompressionMode = outputCompressionMode;
     this.scaleMode = scaleMode;

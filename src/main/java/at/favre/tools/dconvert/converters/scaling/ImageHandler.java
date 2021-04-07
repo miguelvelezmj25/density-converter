@@ -131,7 +131,7 @@ public class ImageHandler {
   public void compressJpeg(
       BufferedImage bufferedImage, CompoundDirectory exif, float quality, File targetFile)
       throws IOException {
-    if (bufferedImage.hasTileWriters()) { // Influenced by: SCALE
+    if (bufferedImage.hasTileWriters()) { // Influenced by: FRACTION
       ImageWriter jpgWriter = ImageIO.getImageWritersByFormatName("jpg").next();
       ImageWriteParam jpgWriteParam = jpgWriter.getDefaultWriteParam();
       jpgWriteParam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
@@ -194,7 +194,7 @@ public class ImageHandler {
 
     BufferedImage scaledImage;
 
-    if (dWidth == imageToScale.getWidth() && dHeight == imageToScale.getHeight()) { // Influenced by: SCALE
+    if (dWidth == imageToScale.getWidth() && dHeight == imageToScale.getHeight()) { // Influenced by: FRACTION
       scaledImage = imageToScale;
     } else {
       scaledImage = scaleAlgorithm.scale(imageToScale, dWidth, dHeight);
