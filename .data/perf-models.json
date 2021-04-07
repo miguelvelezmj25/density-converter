@@ -4,7 +4,7 @@
       "terms": [
         {
           "options": [],
-          "time": 19.939999999999998
+          "time": 17.64
         },
         {
           "options": [
@@ -14,7 +14,7 @@
               "option": "DRY_RUN"
             }
           ],
-          "time": -19.419999999999998
+          "time": -17.220000000000002
         },
         {
           "options": [
@@ -59,27 +59,17 @@
         {
           "options": [
             {
-              "from": "3",
-              "to": "1",
-              "option": "SCALE"
-            }
-          ],
-          "time": 133.45000000000002
-        },
-        {
-          "options": [
-            {
-              "from": "false",
-              "to": "true",
-              "option": "ANDROID_MIPMAP_INSTEAD_OF_DRAWABLE"
+              "from": "android",
+              "to": "ios",
+              "option": "PLATFORM"
             },
             {
-              "from": "3",
-              "to": "1",
-              "option": "SCALE"
+              "from": "0.9",
+              "to": "0.5",
+              "option": "FRACTION"
             }
           ],
-          "time": 7.93999999999999
+          "time": -65.86000000000003
         },
         {
           "options": [
@@ -105,6 +95,21 @@
             }
           ],
           "time": -0.13999999999999968
+        },
+        {
+          "options": [
+            {
+              "from": "false",
+              "to": "true",
+              "option": "DRY_RUN"
+            },
+            {
+              "from": "0.9",
+              "to": "0.5",
+              "option": "FRACTION"
+            }
+          ],
+          "time": -134.58
         },
         {
           "options": [
@@ -164,22 +169,22 @@
               "option": "ANDROID_INCLUDE_LDPI_TVDPI"
             }
           ],
-          "time": 4.87
+          "time": 4.869999999999999
         },
         {
           "options": [
             {
-              "from": "false",
-              "to": "true",
-              "option": "DRY_RUN"
+              "from": "0.9",
+              "to": "0.5",
+              "option": "FRACTION"
             },
             {
-              "from": "3",
-              "to": "1",
-              "option": "SCALE"
+              "from": "false",
+              "to": "true",
+              "option": "ANTI_ALIASING"
             }
           ],
-          "time": -133.45000000000002
+          "time": 13.409999999999998
         },
         {
           "options": [
@@ -216,21 +221,6 @@
             {
               "from": "false",
               "to": "true",
-              "option": "ANTI_ALIASING"
-            },
-            {
-              "from": "3",
-              "to": "1",
-              "option": "SCALE"
-            }
-          ],
-          "time": 13.409999999999997
-        },
-        {
-          "options": [
-            {
-              "from": "false",
-              "to": "true",
               "option": "ANDROID_MIPMAP_INSTEAD_OF_DRAWABLE"
             },
             {
@@ -239,7 +229,7 @@
               "option": "ANDROID_INCLUDE_LDPI_TVDPI"
             }
           ],
-          "time": -0.07000000000000017
+          "time": -0.1999999999999984
         },
         {
           "options": [
@@ -254,7 +244,7 @@
               "option": "DRY_RUN"
             }
           ],
-          "time": 0.87
+          "time": 4.62
         },
         {
           "options": [
@@ -269,7 +259,22 @@
               "option": "ANDROID_MIPMAP_INSTEAD_OF_DRAWABLE"
             }
           ],
-          "time": 0.0
+          "time": 0.13
+        },
+        {
+          "options": [
+            {
+              "from": "0.9",
+              "to": "0.5",
+              "option": "FRACTION"
+            },
+            {
+              "from": "false",
+              "to": "true",
+              "option": "ANDROID_INCLUDE_LDPI_TVDPI"
+            }
+          ],
+          "time": 48.430000000000014
         },
         {
           "options": [
@@ -299,7 +304,7 @@
               "option": "ANDROID_INCLUDE_LDPI_TVDPI"
             }
           ],
-          "time": -4.87
+          "time": -4.869999999999999
         },
         {
           "options": [
@@ -314,22 +319,17 @@
               "option": "ANDROID_INCLUDE_LDPI_TVDPI"
             }
           ],
-          "time": -9.992007221626409E-16
+          "time": 3.3306690738754696E-16
         },
         {
           "options": [
             {
-              "from": "false",
-              "to": "true",
-              "option": "ANDROID_INCLUDE_LDPI_TVDPI"
-            },
-            {
-              "from": "3",
-              "to": "1",
-              "option": "SCALE"
+              "from": "0.9",
+              "to": "0.5",
+              "option": "FRACTION"
             }
           ],
-          "time": 48.43000000000002
+          "time": 134.58
         },
         {
           "options": [
@@ -344,22 +344,22 @@
               "option": "ANDROID_INCLUDE_LDPI_TVDPI"
             }
           ],
-          "time": -4.87
+          "time": -4.869999999999999
         },
         {
           "options": [
             {
-              "from": "android",
-              "to": "ios",
-              "option": "PLATFORM"
+              "from": "0.9",
+              "to": "0.5",
+              "option": "FRACTION"
             },
             {
-              "from": "3",
-              "to": "1",
-              "option": "SCALE"
+              "from": "false",
+              "to": "true",
+              "option": "SKIP_UPSCALING"
             }
           ],
-          "time": -65.89000000000001
+          "time": -139.07000000000005
         },
         {
           "options": [
@@ -389,22 +389,22 @@
               "option": "PLATFORM"
             }
           ],
-          "time": 12.54
+          "time": 8.79
         },
         {
           "options": [
             {
-              "from": "false",
-              "to": "true",
-              "option": "SKIP_UPSCALING"
+              "from": "0.9",
+              "to": "0.5",
+              "option": "FRACTION"
             },
             {
-              "from": "3",
-              "to": "1",
-              "option": "SCALE"
+              "from": "false",
+              "to": "true",
+              "option": "ANDROID_MIPMAP_INSTEAD_OF_DRAWABLE"
             }
           ],
-          "time": -139.89000000000004
+          "time": 7.8800000000000034
         }
       ],
       "name": "default"
@@ -419,11 +419,11 @@
               "option": "DRY_RUN"
             }
           ],
-          "time": -152.87
+          "time": -151.79999999999998
         },
         {
           "options": [],
-          "time": 153.39000000000001
+          "time": 152.22000000000003
         },
         {
           "options": [
@@ -463,32 +463,22 @@
               "option": "ANDROID_MIPMAP_INSTEAD_OF_DRAWABLE"
             }
           ],
-          "time": 8.079999999999991
+          "time": 8.020000000000005
         },
         {
           "options": [
             {
-              "from": "1",
-              "to": "3",
-              "option": "SCALE"
-            }
-          ],
-          "time": -133.45000000000002
-        },
-        {
-          "options": [
-            {
-              "from": "false",
-              "to": "true",
-              "option": "ANDROID_MIPMAP_INSTEAD_OF_DRAWABLE"
+              "from": "android",
+              "to": "ios",
+              "option": "PLATFORM"
             },
             {
-              "from": "1",
-              "to": "3",
-              "option": "SCALE"
+              "from": "0.5",
+              "to": "0.9",
+              "option": "FRACTION"
             }
           ],
-          "time": -7.93999999999999
+          "time": 65.86000000000003
         },
         {
           "options": [
@@ -513,7 +503,22 @@
               "option": "ANDROID_MIPMAP_INSTEAD_OF_DRAWABLE"
             }
           ],
-          "time": 0.2600000000000033
+          "time": 0.2100000000000028
+        },
+        {
+          "options": [
+            {
+              "from": "false",
+              "to": "true",
+              "option": "DRY_RUN"
+            },
+            {
+              "from": "0.5",
+              "to": "0.9",
+              "option": "FRACTION"
+            }
+          ],
+          "time": 134.58
         },
         {
           "options": [
@@ -523,7 +528,7 @@
               "option": "SKIP_UPSCALING"
             }
           ],
-          "time": -150.07
+          "time": -149.25000000000003
         },
         {
           "options": [
@@ -533,7 +538,7 @@
               "option": "PLATFORM"
             }
           ],
-          "time": -79.3
+          "time": -79.27
         },
         {
           "options": [
@@ -548,7 +553,7 @@
               "option": "ANDROID_MIPMAP_INSTEAD_OF_DRAWABLE"
             }
           ],
-          "time": 1.079999999999993
+          "time": 0.3199999999999942
         },
         {
           "options": [
@@ -563,7 +568,7 @@
               "option": "ANDROID_INCLUDE_LDPI_TVDPI"
             }
           ],
-          "time": 2.6645352591003757E-15
+          "time": -8.881784197001252E-16
         },
         {
           "options": [
@@ -578,17 +583,17 @@
         {
           "options": [
             {
-              "from": "false",
-              "to": "true",
-              "option": "DRY_RUN"
+              "from": "0.5",
+              "to": "0.9",
+              "option": "FRACTION"
             },
             {
-              "from": "1",
-              "to": "3",
-              "option": "SCALE"
+              "from": "false",
+              "to": "true",
+              "option": "ANTI_ALIASING"
             }
           ],
-          "time": 133.45000000000002
+          "time": -13.409999999999998
         },
         {
           "options": [
@@ -618,22 +623,7 @@
               "option": "SKIP_UPSCALING"
             }
           ],
-          "time": 77.42
-        },
-        {
-          "options": [
-            {
-              "from": "false",
-              "to": "true",
-              "option": "ANTI_ALIASING"
-            },
-            {
-              "from": "1",
-              "to": "3",
-              "option": "SCALE"
-            }
-          ],
-          "time": -13.409999999999997
+          "time": 77.33999999999999
         },
         {
           "options": [
@@ -648,7 +638,7 @@
               "option": "ANDROID_INCLUDE_LDPI_TVDPI"
             }
           ],
-          "time": -0.07000000000001716
+          "time": -0.20000000000003126
         },
         {
           "options": [
@@ -663,7 +653,7 @@
               "option": "DRY_RUN"
             }
           ],
-          "time": 2.33
+          "time": 10.870000000000001
         },
         {
           "options": [
@@ -678,7 +668,22 @@
               "option": "ANDROID_MIPMAP_INSTEAD_OF_DRAWABLE"
             }
           ],
-          "time": 7.105427357601002E-15
+          "time": 0.13000000000000722
+        },
+        {
+          "options": [
+            {
+              "from": "0.5",
+              "to": "0.9",
+              "option": "FRACTION"
+            },
+            {
+              "from": "false",
+              "to": "true",
+              "option": "ANDROID_INCLUDE_LDPI_TVDPI"
+            }
+          ],
+          "time": -48.43000000000001
         },
         {
           "options": [
@@ -693,7 +698,7 @@
               "option": "SKIP_UPSCALING"
             }
           ],
-          "time": 149.7
+          "time": 148.90999999999997
         },
         {
           "options": [
@@ -708,7 +713,7 @@
               "option": "ANDROID_INCLUDE_LDPI_TVDPI"
             }
           ],
-          "time": -13.230000000000015
+          "time": -15.080000000000009
         },
         {
           "options": [
@@ -723,22 +728,17 @@
               "option": "ANDROID_INCLUDE_LDPI_TVDPI"
             }
           ],
-          "time": 0.589999999999984
+          "time": -0.2500000000000052
         },
         {
           "options": [
             {
-              "from": "false",
-              "to": "true",
-              "option": "ANDROID_INCLUDE_LDPI_TVDPI"
-            },
-            {
-              "from": "1",
-              "to": "3",
-              "option": "SCALE"
+              "from": "0.5",
+              "to": "0.9",
+              "option": "FRACTION"
             }
           ],
-          "time": -48.43000000000002
+          "time": -134.58
         },
         {
           "options": [
@@ -753,22 +753,22 @@
               "option": "ANDROID_INCLUDE_LDPI_TVDPI"
             }
           ],
-          "time": -4.549999999999998
+          "time": -4.599999999999998
         },
         {
           "options": [
             {
-              "from": "android",
-              "to": "ios",
-              "option": "PLATFORM"
+              "from": "0.5",
+              "to": "0.9",
+              "option": "FRACTION"
             },
             {
-              "from": "1",
-              "to": "3",
-              "option": "SCALE"
+              "from": "false",
+              "to": "true",
+              "option": "SKIP_UPSCALING"
             }
           ],
-          "time": 65.89
+          "time": 139.07000000000005
         },
         {
           "options": [
@@ -783,7 +783,22 @@
               "option": "ANDROID_MIPMAP_INSTEAD_OF_DRAWABLE"
             }
           ],
-          "time": -6.349999999999999
+          "time": -7.1499999999999995
+        },
+        {
+          "options": [
+            {
+              "from": "0.5",
+              "to": "0.9",
+              "option": "FRACTION"
+            },
+            {
+              "from": "false",
+              "to": "true",
+              "option": "ANDROID_MIPMAP_INSTEAD_OF_DRAWABLE"
+            }
+          ],
+          "time": -7.8800000000000034
         },
         {
           "options": [
@@ -798,22 +813,7 @@
               "option": "PLATFORM"
             }
           ],
-          "time": 77.1
-        },
-        {
-          "options": [
-            {
-              "from": "false",
-              "to": "true",
-              "option": "SKIP_UPSCALING"
-            },
-            {
-              "from": "1",
-              "to": "3",
-              "option": "SCALE"
-            }
-          ],
-          "time": 139.89000000000004
+          "time": 68.45
         }
       ],
       "name": "user"

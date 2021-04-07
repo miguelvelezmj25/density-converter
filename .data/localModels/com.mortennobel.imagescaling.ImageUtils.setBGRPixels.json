@@ -1,1 +1,282 @@
-{"models":[{"terms":[{"options":[],"time":0.05},{"options":[{"from":"false","to":"true","option":"DRY_RUN"}],"time":0.0},{"options":[{"from":"false","to":"true","option":"ANDROID_INCLUDE_LDPI_TVDPI"},{"from":"3","to":"1","option":"SCALE"}],"time":0.1100000000000001},{"options":[{"from":"false","to":"true","option":"SKIP_UPSCALING"},{"from":"false","to":"true","option":"ANDROID_INCLUDE_LDPI_TVDPI"}],"time":0.0},{"options":[{"from":"false","to":"true","option":"SKIP_UPSCALING"},{"from":"3","to":"1","option":"SCALE"}],"time":-1.21},{"options":[{"from":"false","to":"true","option":"SKIP_UPSCALING"}],"time":0.0},{"options":[{"from":"false","to":"true","option":"ANDROID_INCLUDE_LDPI_TVDPI"}],"time":0.0},{"options":[{"from":"false","to":"true","option":"DRY_RUN"},{"from":"3","to":"1","option":"SCALE"}],"time":-1.4},{"options":[{"from":"3","to":"1","option":"SCALE"}],"time":1.4},{"options":[{"from":"false","to":"true","option":"DRY_RUN"},{"from":"false","to":"true","option":"ANDROID_INCLUDE_LDPI_TVDPI"}],"time":0.0},{"options":[{"from":"false","to":"true","option":"DRY_RUN"},{"from":"false","to":"true","option":"SKIP_UPSCALING"}],"time":0.0}],"name":"default"},{"terms":[{"options":[{"from":"1","to":"3","option":"SCALE"}],"time":-1.4},{"options":[{"from":"false","to":"true","option":"DRY_RUN"},{"from":"1","to":"3","option":"SCALE"}],"time":1.4},{"options":[{"from":"false","to":"true","option":"DRY_RUN"},{"from":"false","to":"true","option":"SKIP_UPSCALING"}],"time":1.16},{"options":[{"from":"false","to":"true","option":"ANDROID_INCLUDE_LDPI_TVDPI"}],"time":0.1100000000000001},{"options":[{"from":"false","to":"true","option":"SKIP_UPSCALING"}],"time":-1.21},{"options":[{"from":"false","to":"true","option":"DRY_RUN"},{"from":"false","to":"true","option":"ANDROID_INCLUDE_LDPI_TVDPI"}],"time":0.0},{"options":[{"from":"false","to":"true","option":"SKIP_UPSCALING"},{"from":"1","to":"3","option":"SCALE"}],"time":1.21},{"options":[{"from":"false","to":"true","option":"DRY_RUN"}],"time":-1.4},{"options":[{"from":"false","to":"true","option":"ANDROID_INCLUDE_LDPI_TVDPI"},{"from":"1","to":"3","option":"SCALE"}],"time":-0.1100000000000001},{"options":[{"from":"false","to":"true","option":"SKIP_UPSCALING"},{"from":"false","to":"true","option":"ANDROID_INCLUDE_LDPI_TVDPI"}],"time":-2.220446049250313E-16},{"options":[],"time":1.45}],"name":"user"}]}
+{
+  "models": [
+    {
+      "terms": [
+        {
+          "options": [],
+          "time": 0.07
+        },
+        {
+          "options": [
+            {
+              "from": "false",
+              "to": "true",
+              "option": "DRY_RUN"
+            }
+          ],
+          "time": 0.0
+        },
+        {
+          "options": [
+            {
+              "from": "0.9",
+              "to": "0.5",
+              "option": "FRACTION"
+            }
+          ],
+          "time": 1.4
+        },
+        {
+          "options": [
+            {
+              "from": "false",
+              "to": "true",
+              "option": "DRY_RUN"
+            },
+            {
+              "from": "0.9",
+              "to": "0.5",
+              "option": "FRACTION"
+            }
+          ],
+          "time": -1.4
+        },
+        {
+          "options": [
+            {
+              "from": "false",
+              "to": "true",
+              "option": "SKIP_UPSCALING"
+            },
+            {
+              "from": "false",
+              "to": "true",
+              "option": "ANDROID_INCLUDE_LDPI_TVDPI"
+            }
+          ],
+          "time": 0.0
+        },
+        {
+          "options": [
+            {
+              "from": "0.9",
+              "to": "0.5",
+              "option": "FRACTION"
+            },
+            {
+              "from": "false",
+              "to": "true",
+              "option": "SKIP_UPSCALING"
+            }
+          ],
+          "time": -1.21
+        },
+        {
+          "options": [
+            {
+              "from": "0.9",
+              "to": "0.5",
+              "option": "FRACTION"
+            },
+            {
+              "from": "false",
+              "to": "true",
+              "option": "ANDROID_INCLUDE_LDPI_TVDPI"
+            }
+          ],
+          "time": 0.10999999999999988
+        },
+        {
+          "options": [
+            {
+              "from": "false",
+              "to": "true",
+              "option": "SKIP_UPSCALING"
+            }
+          ],
+          "time": 0.0
+        },
+        {
+          "options": [
+            {
+              "from": "false",
+              "to": "true",
+              "option": "ANDROID_INCLUDE_LDPI_TVDPI"
+            }
+          ],
+          "time": 0.0
+        },
+        {
+          "options": [
+            {
+              "from": "false",
+              "to": "true",
+              "option": "DRY_RUN"
+            },
+            {
+              "from": "false",
+              "to": "true",
+              "option": "ANDROID_INCLUDE_LDPI_TVDPI"
+            }
+          ],
+          "time": 0.0
+        },
+        {
+          "options": [
+            {
+              "from": "false",
+              "to": "true",
+              "option": "DRY_RUN"
+            },
+            {
+              "from": "false",
+              "to": "true",
+              "option": "SKIP_UPSCALING"
+            }
+          ],
+          "time": 0.0
+        }
+      ],
+      "name": "default"
+    },
+    {
+      "terms": [
+        {
+          "options": [
+            {
+              "from": "0.5",
+              "to": "0.9",
+              "option": "FRACTION"
+            }
+          ],
+          "time": -1.4
+        },
+        {
+          "options": [
+            {
+              "from": "false",
+              "to": "true",
+              "option": "DRY_RUN"
+            },
+            {
+              "from": "0.5",
+              "to": "0.9",
+              "option": "FRACTION"
+            }
+          ],
+          "time": 1.4
+        },
+        {
+          "options": [],
+          "time": 1.47
+        },
+        {
+          "options": [
+            {
+              "from": "false",
+              "to": "true",
+              "option": "DRY_RUN"
+            }
+          ],
+          "time": -1.4
+        },
+        {
+          "options": [
+            {
+              "from": "false",
+              "to": "true",
+              "option": "SKIP_UPSCALING"
+            },
+            {
+              "from": "false",
+              "to": "true",
+              "option": "ANDROID_INCLUDE_LDPI_TVDPI"
+            }
+          ],
+          "time": 2.220446049250313E-16
+        },
+        {
+          "options": [
+            {
+              "from": "false",
+              "to": "true",
+              "option": "DRY_RUN"
+            },
+            {
+              "from": "false",
+              "to": "true",
+              "option": "ANDROID_INCLUDE_LDPI_TVDPI"
+            }
+          ],
+          "time": 2.220446049250313E-16
+        },
+        {
+          "options": [
+            {
+              "from": "false",
+              "to": "true",
+              "option": "DRY_RUN"
+            },
+            {
+              "from": "false",
+              "to": "true",
+              "option": "SKIP_UPSCALING"
+            }
+          ],
+          "time": 1.14
+        },
+        {
+          "options": [
+            {
+              "from": "false",
+              "to": "true",
+              "option": "SKIP_UPSCALING"
+            }
+          ],
+          "time": -1.21
+        },
+        {
+          "options": [
+            {
+              "from": "false",
+              "to": "true",
+              "option": "ANDROID_INCLUDE_LDPI_TVDPI"
+            }
+          ],
+          "time": 0.10999999999999988
+        },
+        {
+          "options": [
+            {
+              "from": "0.5",
+              "to": "0.9",
+              "option": "FRACTION"
+            },
+            {
+              "from": "false",
+              "to": "true",
+              "option": "SKIP_UPSCALING"
+            }
+          ],
+          "time": 1.21
+        },
+        {
+          "options": [
+            {
+              "from": "0.5",
+              "to": "0.9",
+              "option": "FRACTION"
+            },
+            {
+              "from": "false",
+              "to": "true",
+              "option": "ANDROID_INCLUDE_LDPI_TVDPI"
+            }
+          ],
+          "time": -0.10999999999999988
+        }
+      ],
+      "name": "user"
+    }
+  ]
+}

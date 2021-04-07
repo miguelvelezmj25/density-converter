@@ -6,7 +6,7 @@ Program to convert images to specific formats, dimensions, and sizes.
 **Output:** Converted image files in specific formats and sizes.
 
 ## Performance bug report
-I am using your program to convert an image (found in ./pictures), but it is taking quite some time to execute (about 150 seconds). 
+I am using your program to convert an image (found in ./pictures), but it is taking quite some time to execute (about 152 seconds). 
 This is the configuration that I used:
 
 * `ANDROID_INCLUDE_LDPI_TVDPI = false`  
@@ -16,6 +16,7 @@ This is the configuration that I used:
 * `COMPRESSION_QUALITY = 0.9` 
 * `DOWNSCALING_ALGO = "MITCHELL"` 
 * `DRY_RUN = false`  
+* `FRACTION = 0.2`
 * `HALT_ON_ERROR = false` 
 * `IOS_CREATE_IMAGESET_FOLDERS = false`  
 * `KEEP_ORIGINAL_POST_PROCESSED_FILES = true`  
@@ -24,8 +25,7 @@ This is the configuration that I used:
 * `POST_PROCESSOR_MOZ_JPEG = true`  
 * `POST_PROCESSOR_PNG_CRUSH = false`  
 * `POST_PROCESSOR_WEBP = false`  
-* `ROUNDING_MODE = "floor"` 
-* `SCALE = 1`
+* `ROUNDING_MODE = "floor"`
 * `SCALE_IS_HEIGHT_DP = false` 
 * `SKIP_EXISTING = true` 
 * `SKIP_UPSCALING = false` 
@@ -74,6 +74,10 @@ Whether to not create any images or folders.
 Useful as a fast preview in a log of what images and in what resolutions would be created.
 Default = false
 
+### FRACTION
+Fraction [0-1.0] of the original image to use when converting images.
+Default = 0.9
+
 ### HALT_ON_ERROR
 Whether to stop the process if an error occurred during conversion.
 Default = false
@@ -118,10 +122,6 @@ Default = false
 Defines the rounding mode when scaling the dimensions. 
 Possibles are "round" (rounds up of >= 0.5), "floor" (rounds down), and "ceil" (rounds up). 
 Default is "round".
-
-### SCALE
-Scale factor of the original image to use when converting images.
-Default = 3
 
 ### SCALE_IS_HEIGHT_DP
 Whether to interpret the scale as fixed height and not as width, if the scale is in dp.

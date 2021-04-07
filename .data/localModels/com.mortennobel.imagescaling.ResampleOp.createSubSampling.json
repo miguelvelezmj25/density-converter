@@ -1,1 +1,92 @@
-{"models":[{"terms":[{"options":[],"time":0.09},{"options":[{"from":"false","to":"true","option":"ANDROID_MIPMAP_INSTEAD_OF_DRAWABLE"},{"from":"3","to":"1","option":"SCALE"}],"time":0.16},{"options":[{"from":"false","to":"true","option":"ANDROID_MIPMAP_INSTEAD_OF_DRAWABLE"}],"time":0.0},{"options":[{"from":"3","to":"1","option":"SCALE"}],"time":0.0}],"name":"default"},{"terms":[{"options":[{"from":"false","to":"true","option":"ANDROID_MIPMAP_INSTEAD_OF_DRAWABLE"}],"time":0.16},{"options":[{"from":"1","to":"3","option":"SCALE"}],"time":0.0},{"options":[{"from":"false","to":"true","option":"ANDROID_MIPMAP_INSTEAD_OF_DRAWABLE"},{"from":"1","to":"3","option":"SCALE"}],"time":-0.16},{"options":[],"time":0.09}],"name":"user"}]}
+{
+  "models": [
+    {
+      "terms": [
+        {
+          "options": [],
+          "time": 0.08
+        },
+        {
+          "options": [
+            {
+              "from": "0.9",
+              "to": "0.5",
+              "option": "FRACTION"
+            }
+          ],
+          "time": 0.0
+        },
+        {
+          "options": [
+            {
+              "from": "false",
+              "to": "true",
+              "option": "ANDROID_MIPMAP_INSTEAD_OF_DRAWABLE"
+            }
+          ],
+          "time": 0.0
+        },
+        {
+          "options": [
+            {
+              "from": "0.9",
+              "to": "0.5",
+              "option": "FRACTION"
+            },
+            {
+              "from": "false",
+              "to": "true",
+              "option": "ANDROID_MIPMAP_INSTEAD_OF_DRAWABLE"
+            }
+          ],
+          "time": 0.09999999999999999
+        }
+      ],
+      "name": "default"
+    },
+    {
+      "terms": [
+        {
+          "options": [
+            {
+              "from": "0.5",
+              "to": "0.9",
+              "option": "FRACTION"
+            }
+          ],
+          "time": 0.0
+        },
+        {
+          "options": [],
+          "time": 0.08
+        },
+        {
+          "options": [
+            {
+              "from": "0.5",
+              "to": "0.9",
+              "option": "FRACTION"
+            },
+            {
+              "from": "false",
+              "to": "true",
+              "option": "ANDROID_MIPMAP_INSTEAD_OF_DRAWABLE"
+            }
+          ],
+          "time": -0.09999999999999999
+        },
+        {
+          "options": [
+            {
+              "from": "false",
+              "to": "true",
+              "option": "ANDROID_MIPMAP_INSTEAD_OF_DRAWABLE"
+            }
+          ],
+          "time": 0.09999999999999999
+        }
+      ],
+      "name": "user"
+    }
+  ]
+}
