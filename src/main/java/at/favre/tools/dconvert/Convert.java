@@ -47,7 +47,7 @@ public final class Convert {
     boolean POST_PROCESSOR_PNG_CRUSH = false;
     boolean POST_PROCESSOR_WEBP = false;
     String ROUNDING_MODE = "floor";
-    float FRACTION = 0.2f;
+    float FRACTION = 0.5f;
     boolean SCALE_IS_HEIGHT_DP = false;
     boolean SKIP_EXISTING = true;
     boolean SKIP_UPSCALING = false;

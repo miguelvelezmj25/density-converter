@@ -99,7 +99,7 @@ public class ResampleOp extends AdvancedResizeOp {
     this.dstWidth = dstWidth;
     this.dstHeight = dstHeight;
 
-    if (dstWidth < 3 || dstHeight < 3) { // Influenced by: FRACTION
+    if (dstWidth < 3 || dstHeight < 3) {
       throw new RuntimeException(
           "Error doing rescale. Target size was "
               + dstWidth
@@ -111,7 +111,7 @@ public class ResampleOp extends AdvancedResizeOp {
     assert multipleInvocationLock.incrementAndGet() == 1
         : "Multiple concurrent invocations detected";
 
-    if (srcImg.getType() == BufferedImage.TYPE_BYTE_BINARY // Influenced by: FRACTION
+    if (srcImg.getType() == BufferedImage.TYPE_BYTE_BINARY
         || srcImg.getType() == BufferedImage.TYPE_BYTE_INDEXED
         || srcImg.getType() == BufferedImage.TYPE_CUSTOM)
       srcImg =
@@ -174,7 +174,7 @@ public class ResampleOp extends AdvancedResizeOp {
     //noinspection UnusedAssignment
     workPixels = null; // free memory
     BufferedImage out;
-    if (dest != null && dstWidth == dest.getWidth() && dstHeight == dest.getHeight()) { // Influenced by: FRACTION
+    if (dest != null && dstWidth == dest.getWidth() && dstHeight == dest.getHeight()) {
       out = dest;
       int nrDestChannels = ImageUtils.nrChannels(dest);
       if (nrDestChannels != nrChannels) {
@@ -218,7 +218,7 @@ public class ResampleOp extends AdvancedResizeOp {
 
     float centerOffset = 0.5f / scale;
 
-    if (scale < 1.0f) { // Influenced by: FRACTION
+    if (scale < 1.0f) {
       final float width = fwidth / scale;
       numContributors = (int) (width * 2.0f + 2); // Heinz: added 1 to be save with the ceilling
       arrWeight = new float[dstSize * numContributors];
@@ -404,10 +404,10 @@ public class ResampleOp extends AdvancedResizeOp {
         new byte[srcWidth * nrChannels]; // create reusable row to minimize memory overhead
     final boolean useChannel3 = nrChannels > 3;
 
-    for (int k = start; k < srcHeight; k = k + delta) { // Influenced by: FRACTION
+    for (int k = start; k < srcHeight; k = k + delta) {
       ImageUtils.getPixelsBGR(srcImg, k, srcWidth, srcPixels, tempPixels);
 
-      for (int i = dstWidth - 1; i >= 0; i--) { // Influenced by: FRACTION
+      for (int i = dstWidth - 1; i >= 0; i--) {
         int sampleLocation = i * nrChannels;
         final int max = horizontalSubsamplingData.arrN[i];
 

@@ -114,7 +114,7 @@ public class ImageUtils {
 
     int imageType = img.getType();
     Raster raster;
-    switch (imageType) { // Influenced by: FRACTION
+    switch (imageType) {
       case BufferedImage.TYPE_3BYTE_BGR:
       case BufferedImage.TYPE_4BYTE_ABGR:
       case BufferedImage.TYPE_4BYTE_ABGR_PRE:
@@ -163,7 +163,7 @@ public class ImageUtils {
     int imageType = img.getType();
     WritableRaster raster = img.getRaster();
     // int ttype= raster.getTransferType();
-    if (imageType == BufferedImage.TYPE_3BYTE_BGR // Influenced by: FRACTION
+    if (imageType == BufferedImage.TYPE_3BYTE_BGR
         || imageType == BufferedImage.TYPE_4BYTE_ABGR
         || imageType == BufferedImage.TYPE_4BYTE_ABGR_PRE
         || imageType == BufferedImage.TYPE_BYTE_GRAY) {

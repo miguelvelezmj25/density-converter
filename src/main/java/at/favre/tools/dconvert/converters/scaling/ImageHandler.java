@@ -194,7 +194,7 @@ public class ImageHandler {
 
     BufferedImage scaledImage;
 
-    if (dWidth == imageToScale.getWidth() && dHeight == imageToScale.getHeight()) { // Influenced by: FRACTION
+    if (dWidth == imageToScale.getWidth() && dHeight == imageToScale.getHeight()) {
       scaledImage = imageToScale;
     } else {
       scaledImage = scaleAlgorithm.scale(imageToScale, dWidth, dHeight);

@@ -1,13 +1,3 @@
 at.favre.tools.dconvert.converters.scaling.ImageHandler.compressJpeg,at/favre/tools/dconvert/converters/scaling/ImageHandler.java:134
-at.favre.tools.dconvert.converters.scaling.ImageHandler.scale,at/favre/tools/dconvert/converters/scaling/ImageHandler.java:197
-com.mortennobel.imagescaling.AdvancedResizeOp.fireProgressChanged,com/mortennobel/imagescaling/AdvancedResizeOp.java:38
-com.mortennobel.imagescaling.ImageUtils.getPixelsBGR,com/mortennobel/imagescaling/ImageUtils.java:117
-com.mortennobel.imagescaling.ImageUtils.setBGRPixels,com/mortennobel/imagescaling/ImageUtils.java:166
-com.mortennobel.imagescaling.ResampleOp.createSubSampling,com/mortennobel/imagescaling/ResampleOp.java:221
-com.mortennobel.imagescaling.ResampleOp.doFilter,com/mortennobel/imagescaling/ResampleOp.java:102
-com.mortennobel.imagescaling.ResampleOp.doFilter,com/mortennobel/imagescaling/ResampleOp.java:114
-com.mortennobel.imagescaling.ResampleOp.doFilter,com/mortennobel/imagescaling/ResampleOp.java:177
-com.mortennobel.imagescaling.ResampleOp.horizontallyFromSrcToWork,com/mortennobel/imagescaling/ResampleOp.java:407
-com.mortennobel.imagescaling.ResampleOp.horizontallyFromSrcToWork,com/mortennobel/imagescaling/ResampleOp.java:410
 com.mortennobel.imagescaling.ResampleOp.verticalFromWorkToDst,com/mortennobel/imagescaling/ResampleOp.java:321
 com.mortennobel.imagescaling.ResampleOp.verticalFromWorkToDst,com/mortennobel/imagescaling/ResampleOp.java:323

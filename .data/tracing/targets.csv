@@ -1,13 +1,3 @@
 at.favre.tools.dconvert.converters.scaling.ImageHandler,134
-at.favre.tools.dconvert.converters.scaling.ImageHandler,197
-com.mortennobel.imagescaling.AdvancedResizeOp,38
-com.mortennobel.imagescaling.ImageUtils,117
-com.mortennobel.imagescaling.ImageUtils,166
-com.mortennobel.imagescaling.ResampleOp,221
-com.mortennobel.imagescaling.ResampleOp,102
-com.mortennobel.imagescaling.ResampleOp,114
-com.mortennobel.imagescaling.ResampleOp,177
-com.mortennobel.imagescaling.ResampleOp,407
-com.mortennobel.imagescaling.ResampleOp,410
 com.mortennobel.imagescaling.ResampleOp,321
 com.mortennobel.imagescaling.ResampleOp,323
