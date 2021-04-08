@@ -50,7 +50,7 @@ public abstract class AdvancedResizeOp implements BufferedImageOp {
 
   public final BufferedImage filter(BufferedImage src, BufferedImage dest) {
     Dimension dstDimension =
-        dimensionConstrain.getDimension(new Dimension(src.getWidth(), src.getHeight()));
+        dimensionConstrain.getDimension(new Dimension());
     int dstWidth = dstDimension.width;
     int dstHeight = dstDimension.height;
     BufferedImage bufferedImage = doFilter(src, dest, dstWidth, dstHeight);
