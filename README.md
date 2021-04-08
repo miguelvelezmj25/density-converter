@@ -32,8 +32,6 @@ This is the configuration that I used:
 * `UPSCALING_ALGO = "MITCHELL"` 
 * `VERBOSE = true`   
 
-I tried converting the same image multiple times with the same configuration, and I observed the same execution time. 
-I even tried converting other images with the same configuration, executing the program multiple times, and the program still took quite some time. 
 Could you please take a look at why the program is taking so long to convert images?
 
 ## Task
