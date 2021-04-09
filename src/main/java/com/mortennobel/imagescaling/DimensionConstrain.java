@@ -11,19 +11,19 @@ import java.awt.*;
 /**
  * This class let you create dimension constrains based on a actual image.
  *
- * <p>Class may be subclassed to create user defined behavior. To do this you need to overwrite the
- * method getDimension(Dimension).
  */
 public class DimensionConstrain {
-  protected DimensionConstrain() {}
+  private Dimension dimension;
+
+  protected DimensionConstrain(Dimension dimension) { this.dimension = dimension; }
 
   /**
    * Will always return a dimension with positive width and height;
    *
-   * @param dimension of the unscaled image
+   *
    * @return the dimension of the scaled image
    */
-  public Dimension getDimension(Dimension dimension) {
+  public Dimension getDimension() {
     return dimension;
   }
 
@@ -36,11 +36,7 @@ public class DimensionConstrain {
    */
   public static DimensionConstrain createAbsolutionDimension(final int width, final int height) {
     assert width > 0 && height > 0 : "Dimension must be a positive integer";
-    return new DimensionConstrain() {
-      public Dimension getDimension(Dimension dimension) {
-        return new Dimension(width, height);
-      }
-    };
+    return new DimensionConstrain(new Dimension(width, height));
   }
 
   /**
@@ -63,13 +59,14 @@ public class DimensionConstrain {
   public static DimensionConstrain createRelativeDimension(
       final float fractionWidth, final float fractionHeight) {
     assert fractionHeight > 0 && fractionWidth > 0 : "Fractions must be larger than 0.0";
-    return new DimensionConstrain() {
-      public Dimension getDimension(Dimension dimension) {
-        int width = Math.max(1, Math.round(fractionWidth * dimension.width));
-        int height = Math.max(1, Math.round(fractionHeight * dimension.height));
-        return new Dimension(width, height);
-      }
-    };
+//    return new DimensionConstrain() {
+//      public Dimension getDimension(Dimension dimension) {
+//        int width = Math.max(1, Math.round(fractionWidth * dimension.width));
+//        int height = Math.max(1, Math.round(fractionHeight * dimension.height));
+//        return new Dimension(width, height);
+//      }
+//    };
+    throw new UnsupportedOperationException();
   }
 
   /**
@@ -95,23 +92,24 @@ public class DimensionConstrain {
       final int width, final int height, final boolean neverEnlargeImage) {
     assert width > 0 && height > 0 : "Dimension must be larger that 0";
     final double scaleFactor = width / (double) height;
-    return new DimensionConstrain() {
-      public Dimension getDimension(Dimension dimension) {
-        double srcScaleFactor = dimension.width / (double) dimension.height;
-        double scale;
-        if (srcScaleFactor > scaleFactor) {
-          scale = width / (double) dimension.width;
-        } else {
-          scale = height / (double) dimension.height;
-        }
-        if (neverEnlargeImage) {
-          scale = Math.min(scale, 1);
-        }
-        int dstWidth = (int) Math.round(dimension.width * scale);
-        int dstHeight = (int) Math.round(dimension.height * scale);
-        return new Dimension(dstWidth, dstHeight);
-      }
-    };
+//    return new DimensionConstrain() {
+//      public Dimension getDimension(Dimension dimension) {
+//        double srcScaleFactor = dimension.width / (double) dimension.height;
+//        double scale;
+//        if (srcScaleFactor > scaleFactor) {
+//          scale = width / (double) dimension.width;
+//        } else {
+//          scale = height / (double) dimension.height;
+//        }
+//        if (neverEnlargeImage) {
+//          scale = Math.min(scale, 1);
+//        }
+//        int dstWidth = (int) Math.round(dimension.width * scale);
+//        int dstHeight = (int) Math.round(dimension.height * scale);
+//        return new Dimension(dstWidth, dstHeight);
+//      }
+//    };
+    throw new UnsupportedOperationException();
   }
 
   /**
@@ -145,34 +143,35 @@ public class DimensionConstrain {
       final int length1, final int length2, final boolean neverEnlargeImage) {
     assert length1 > 0 && length2 > 0 : "Dimension must be larger that 0";
     final double scaleFactor = length1 / (double) length2;
-    return new DimensionConstrain() {
-      public Dimension getDimension(Dimension dimension) {
-        double srcScaleFactor = dimension.width / (double) dimension.height;
-        int width;
-        int height;
-        // swap length1 and length2
-        if (srcScaleFactor > scaleFactor) {
-          width = length1;
-          height = length2;
-        } else {
-          width = length2;
-          height = length1;
-        }
-
-        final double scaleFactor = width / (double) height;
-        double scale;
-        if (srcScaleFactor > scaleFactor) {
-          scale = width / (double) dimension.width;
-        } else {
-          scale = height / (double) dimension.height;
-        }
-        if (neverEnlargeImage) {
-          scale = Math.min(scale, 1);
-        }
-        int dstWidth = (int) Math.round(dimension.width * scale);
-        int dstHeight = (int) Math.round(dimension.height * scale);
-        return new Dimension(dstWidth, dstHeight);
-      }
-    };
+//    return new DimensionConstrain() {
+//      public Dimension getDimension(Dimension dimension) {
+//        double srcScaleFactor = dimension.width / (double) dimension.height;
+//        int width;
+//        int height;
+//        // swap length1 and length2
+//        if (srcScaleFactor > scaleFactor) {
+//          width = length1;
+//          height = length2;
+//        } else {
+//          width = length2;
+//          height = length1;
+//        }
+//
+//        final double scaleFactor = width / (double) height;
+//        double scale;
+//        if (srcScaleFactor > scaleFactor) {
+//          scale = width / (double) dimension.width;
+//        } else {
+//          scale = height / (double) dimension.height;
+//        }
+//        if (neverEnlargeImage) {
+//          scale = Math.min(scale, 1);
+//        }
+//        int dstWidth = (int) Math.round(dimension.width * scale);
+//        int dstHeight = (int) Math.round(dimension.height * scale);
+//        return new Dimension(dstWidth, dstHeight);
+//      }
+//    };
+    throw new UnsupportedOperationException();
   }
 }
