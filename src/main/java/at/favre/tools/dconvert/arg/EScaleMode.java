@@ -18,7 +18,7 @@ package at.favre.tools.dconvert.arg;
 
 /** How the scale attribute should be interpreted */
 public enum EScaleMode {
-  FACTOR,
+  FRACTION,
   DP_WIDTH,
   DP_HEIGHT
 }

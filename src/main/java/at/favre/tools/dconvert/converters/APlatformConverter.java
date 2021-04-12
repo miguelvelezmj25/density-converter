@@ -56,7 +56,7 @@ public abstract class APlatformConverter<T extends DensityDescriptor>
           .append(imageData.getImage().getHeight())
           .append(" (")
           .append(args.fraction)
-          .append(args.scaleMode == EScaleMode.FACTOR ? "x" : "dp")
+          .append(args.scaleMode == EScaleMode.FRACTION ? "x" : "dp")
           .append(")\n");
 
       Map<T, Dimension> densityMap =

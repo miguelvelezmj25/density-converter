@@ -24,7 +24,7 @@ public class DimensionConstrain {
    * @return the dimension of the scaled image
    */
   public Dimension getDimension() {
-    return dimension;
+    return this.dimension;
   }
 
   /**

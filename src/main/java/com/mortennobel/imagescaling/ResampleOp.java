@@ -71,12 +71,12 @@ public class ResampleOp extends AdvancedResizeOp {
   private ResampleFilter filter = ResampleFilters.getLanczos3Filter();
 
   public ResampleOp(int destWidth, int destHeight) {
-    this(DimensionConstrain.createAbsolutionDimension(destWidth, destHeight));
+    super(DimensionConstrain.createAbsolutionDimension(destWidth, destHeight));
   }
 
-  public ResampleOp(DimensionConstrain dimensionConstrain) {
-    super(dimensionConstrain);
-  }
+
+
+
 
   public ResampleFilter getFilter() {
     return filter;
@@ -318,9 +318,9 @@ public class ResampleOp extends AdvancedResizeOp {
       return;
     }
     boolean useChannel3 = nrChannels > 3;
-    for (int x = start; x < dstWidth; x += delta) { // Influenced by: FRACTION
+    for (int x = start; x < this.dstWidth; x += delta) { // Influenced by: FRACTION
       final int xLocation = x * nrChannels;
-      for (int y = dstHeight - 1; y >= 0; y--) { // Influenced by: FRACTION
+      for (int y = this.dstHeight - 1; y >= 0; y--) { // Influenced by: FRACTION
         final int yTimesNumContributors = y * verticalSubsamplingData.numContributors;
         final int max = verticalSubsamplingData.arrN[y];
         final int sampleLocation = (y * dstWidth + x) * nrChannels;

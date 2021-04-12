@@ -50,7 +50,7 @@ public final class DensityBucketUtil {
       case DP_HEIGHT:
         return getDensityBucketsHeightDpScale(densities, srcDimension, args, fraction);
       default:
-      case FACTOR:
+      case FRACTION:
         return getDensityBucketsWithFractionScale(densities, srcDimension, args, fraction);
     }
   }

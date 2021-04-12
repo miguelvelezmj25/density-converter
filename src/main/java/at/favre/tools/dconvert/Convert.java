@@ -180,7 +180,7 @@ public final class Convert {
     } else if (dp && !scaleIsHeightDp) {
       return EScaleMode.DP_WIDTH;
     } else {
-      return EScaleMode.FACTOR;
+      return EScaleMode.FRACTION;
     }
   }
 

@@ -38,7 +38,7 @@ public class Arguments implements Serializable {
       new HashSet<EPlatform>(Arrays.asList(EPlatform.ANDROID, EPlatform.IOS));
   public static final EOutputCompressionMode DEFAULT_OUT_COMPRESSION =
       EOutputCompressionMode.SAME_AS_INPUT_PREF_PNG;
-  public static final EScaleMode DEFAULT_SCALE_TYPE = EScaleMode.FACTOR;
+  public static final EScaleMode DEFAULT_SCALE_TYPE = EScaleMode.FRACTION;
   public static final EScalingAlgorithm DEFAULT_UPSCALING_QUALITY = EScalingAlgorithm.LANCZOS3;
   public static final EScalingAlgorithm DEFAULT_DOWNSCALING_QUALITY = EScalingAlgorithm.LANCZOS3;
   public static final Arguments START_GUI =
@@ -579,7 +579,7 @@ public class Arguments implements Serializable {
         }
 
         switch (scaleType) {
-          case FACTOR:
+          case FRACTION:
             if (srcScale <= 0 || srcScale >= 100) {
               throw new InvalidArgumentException(
                   MessageFormat.format(bundle.getString("error.invalid.factorscale"), srcScale));
