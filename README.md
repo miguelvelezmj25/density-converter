@@ -16,7 +16,7 @@ This is the configuration that I used:
 * `COMPRESSION_QUALITY = 0.9` 
 * `DOWNSCALING_ALGO = "MITCHELL"` 
 * `DRY_RUN = false`  
-* `FRACTION = 0.2`
+* `FRACTION = 0.5`
 * `HALT_ON_ERROR = false` 
 * `IOS_CREATE_IMAGESET_FOLDERS = false`  
 * `KEEP_ORIGINAL_POST_PROCESSED_FILES = true`  
