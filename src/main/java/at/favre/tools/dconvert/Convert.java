@@ -18,6 +18,8 @@ package at.favre.tools.dconvert;
 
 import at.favre.tools.dconvert.arg.*;
 import at.favre.tools.dconvert.util.MiscUtil;
+import edu.cmu.cs.mvelezce.analysis.option.Sources;
+import edu.columbia.cs.psl.phosphor.runtime.MultiTainter;
 
 import java.io.File;
 import java.io.IOException;
@@ -47,12 +49,17 @@ public final class Convert {
     boolean postProcessorPngCrush = false;
     boolean postProcessorWebp = false;
     String roundingMode = "floor";
-    float scale = 1;
+    float scale = Sources.SCALE_0(Integer.parseInt(rawArgs[0]));
     boolean scaleIsHeightDp = false;
     boolean skipExisting = true;
     boolean skipUpscaling = false;
     String upScalingAlgo = EScalingAlgorithm.MITCHELL.getName();
     boolean VERBOSE = true;
+
+    boolean convertLarge = scale > Arguments.DEFAULT_SCALE;
+    System.out.println("scale " + MultiTainter.getTaint(scale));
+    System.out.println("DEFAULT_SCALE " + MultiTainter.getTaint(Arguments.DEFAULT_SCALE));
+    System.out.println(MultiTainter.getTaint(convertLarge));
 
     File src = new File("./pictures/person.jpg");
     File dst = new File("./output");

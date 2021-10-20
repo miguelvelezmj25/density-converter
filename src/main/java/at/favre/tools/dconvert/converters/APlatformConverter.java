@@ -25,6 +25,7 @@ import at.favre.tools.dconvert.util.DensityBucketUtil;
 import at.favre.tools.dconvert.util.ImageUtil;
 import at.favre.tools.dconvert.util.LoadedImage;
 import at.favre.tools.dconvert.util.MiscUtil;
+import edu.columbia.cs.psl.phosphor.runtime.MultiTainter;
 
 import java.awt.*;
 import java.io.File;
@@ -44,7 +45,10 @@ public abstract class APlatformConverter<T extends DensityDescriptor>
       ImageType imageType = Arguments.getImageType(srcImage);
       boolean isNinePatch =
           AndroidConverter.isNinePatch(srcImage) && getClass() == AndroidConverter.class;
-      boolean convertLarge = args.scale > Arguments.DEFAULT_SCALE;
+      boolean convertLarge = args.scale < Arguments.DEFAULT_SCALE;
+      System.out.println("scale " + MultiTainter.getTaint(args.scale));
+      System.out.println("DEFAULT_SCALE " + MultiTainter.getTaint(Arguments.DEFAULT_SCALE));
+      System.out.println("convertLarge " + MultiTainter.getTaint(convertLarge));
 
       StringBuilder log = new StringBuilder();
       log.append(getConverterName())
